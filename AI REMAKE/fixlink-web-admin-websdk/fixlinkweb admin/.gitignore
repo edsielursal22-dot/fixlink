@@ -1,0 +1,7 @@
+**/node_modules/
+backend/.env
+backend/.env.*
+!backend/.env.example
+backend/src/config/serviceAccountKey.json
+**/*firebase-adminsdk*.json
+.DS_Store
