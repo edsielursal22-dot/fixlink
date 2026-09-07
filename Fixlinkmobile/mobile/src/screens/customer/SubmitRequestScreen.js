@@ -27,6 +27,12 @@ const APPLIANCE_OPTIONS = [
   'Others'
 ];
 
+const TIME_SLOTS = [
+  'Morning (8AM-12PM)',
+  'Afternoon (1PM-5PM)',
+  'Evening (5PM-8PM)'
+];
+
 export default function SubmitRequestScreen({ currentUser, customerName, onNavigateToProgress }) {
   const [applianceType, setApplianceType] = useState("");
   const [description, setDescription] = useState("");
@@ -34,6 +40,8 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
   const [coords, setCoords] = useState(null);
   const [customAppliance, setCustomAppliance] = useState("");
   const [date, setDate] = useState(new Date());
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState('Afternoon (1PM-5PM)');
+  const [isCustomTime, setIsCustomTime] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [mode, setMode] = useState('date');
   const [modalVisible, setModalVisible] = useState(false);
@@ -74,6 +82,24 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
     }
   };
 
+  const handleDateChange = (event, selectedDate) => {
+    setShowDatePicker(false);
+    if (event?.type === 'dismissed' || !selectedDate) return;
+
+    if (mode === 'date') {
+      const updated = new Date(date);
+      updated.setFullYear(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+      setDate(updated);
+    } else {
+      const updated = new Date(date);
+      updated.setHours(selectedDate.getHours(), selectedDate.getMinutes(), 0, 0);
+      setDate(updated);
+      const formattedTime = selectedDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+      setSelectedTimeSlot(formattedTime);
+      setIsCustomTime(true);
+    }
+  };
+
   const handleSubmit = async () => {
     if (!applianceType || !description || !location || (applianceType === 'Others' && !customAppliance)) {
       Alert.alert("Error", "Please fill out all required fields.");
@@ -94,6 +120,9 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
         }
       }
 
+      const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const finalPreferredTime = selectedTimeSlot || date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+
       const finalApplianceType = applianceType === 'Others' ? customAppliance : applianceType;
       await submitRepairRequest({ 
         customerName: currentUser?.name || customerName,
@@ -104,7 +133,9 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
         ...(finalCoords?.latitude && { latitude: finalCoords.latitude }),
         ...(finalCoords?.longitude && { longitude: finalCoords.longitude }),
         isOther: applianceType === 'Others',
-        scheduledDate: date
+        preferredDate: formattedDate,
+        preferredTime: finalPreferredTime,
+        scheduledDate: date.toISOString()
       });
       
       Alert.alert(
@@ -121,6 +152,8 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
       setCoords(null);
       setCustomAppliance("");
       setDate(new Date());
+      setSelectedTimeSlot('Afternoon (1PM-5PM)');
+      setIsCustomTime(false);
     } catch (error) {
       Alert.alert("Error", "Failed to submit request.");
     } finally {
@@ -172,14 +205,53 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
         <View style={styles.inputGroup}>
           <Text style={styles.kicker}>TIMELINE</Text>
           <Text style={styles.inputLabel}>Preferred Schedule</Text>
-          <View style={styles.row}>
-            <TouchableOpacity style={[styles.selectInput, { flex: 1 }]} onPress={() => { setMode('date'); setShowDatePicker(true); }} activeOpacity={0.7}>
-              <Ionicons name="calendar-outline" size={16} color={colors.teal} />
-              <Text style={styles.selectInputText}>{date.toLocaleDateString()}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.selectInput, { flex: 1 }]} onPress={() => { setMode('time'); setShowDatePicker(true); }} activeOpacity={0.7}>
-              <Ionicons name="time-outline" size={16} color={colors.teal} />
-              <Text style={styles.selectInputText}>{date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</Text>
+          
+          <TouchableOpacity 
+            style={styles.selectInput} 
+            onPress={() => { setMode('date'); setShowDatePicker(true); }} 
+            activeOpacity={0.7}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+              <Ionicons name="calendar-outline" size={18} color={colors.teal} />
+              <Text style={styles.selectInputText}>
+                {date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
+              </Text>
+            </View>
+            <Ionicons name="chevron-down" size={16} color={colors.muted} />
+          </TouchableOpacity>
+
+          <Text style={[styles.inputLabel, { fontSize: 12, marginTop: 12, marginBottom: 6 }]}>Preferred Time Window</Text>
+          <View style={styles.slotContainer}>
+            {TIME_SLOTS.map((slot) => {
+              const isActive = selectedTimeSlot === slot && !isCustomTime;
+              return (
+                <TouchableOpacity
+                  key={slot}
+                  style={[styles.slotChip, isActive && styles.slotChipActive]}
+                  onPress={() => {
+                    setSelectedTimeSlot(slot);
+                    setIsCustomTime(false);
+                  }}
+                  activeOpacity={0.7}
+                >
+                  <Text style={[styles.slotChipText, isActive && styles.slotChipTextActive]}>{slot}</Text>
+                </TouchableOpacity>
+              );
+            })}
+            <TouchableOpacity
+              style={[styles.slotChip, isCustomTime && styles.slotChipActive]}
+              onPress={() => {
+                setMode('time');
+                setShowDatePicker(true);
+              }}
+              activeOpacity={0.7}
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <Ionicons name="time-outline" size={14} color={isCustomTime ? colors.teal : colors.muted} />
+                <Text style={[styles.slotChipText, isCustomTime && styles.slotChipTextActive]}>
+                  {isCustomTime ? selectedTimeSlot : 'Exact Time...'}
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -188,11 +260,9 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
           <DateTimePicker
             value={date}
             mode={mode}
+            minimumDate={mode === 'date' ? new Date() : undefined}
             display="default"
-            onChange={(event, selectedDate) => {
-              setShowDatePicker(false);
-              if (selectedDate) setDate(selectedDate);
-            }}
+            onChange={handleDateChange}
           />
         )}
 
@@ -295,6 +365,11 @@ const styles = StyleSheet.create({
   textArea: { flex: 1, fontSize: 14, fontWeight: '600', color: colors.ink, textAlignVertical: 'top', paddingTop: 0 },
   
   row: { flexDirection: 'row', gap: 12 },
+  slotContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 4 },
+  slotChip: { paddingHorizontal: 12, paddingVertical: 9, borderRadius: 12, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.canvas },
+  slotChipActive: { backgroundColor: '#E6F6F3', borderColor: colors.teal },
+  slotChipText: { fontSize: 12, fontWeight: '700', color: colors.muted },
+  slotChipTextActive: { color: colors.teal },
   
   locationContainer: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   locateButton: { backgroundColor: colors.teal, height: 52, paddingHorizontal: 16, borderRadius: 14, flexDirection: 'row', alignItems: 'center', gap: 6, shadowColor: '#0F766E', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 3 },

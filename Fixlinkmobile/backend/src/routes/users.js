@@ -36,17 +36,29 @@ router.get('/:id/profile', async (req, res) => {
     const profileDoc = await db.collection('users').doc(req.params.id).get();
     if (!profileDoc.exists || profileDoc.data().role !== 'technician') return res.status(404).json({ error: 'Technician profile not found' });
     const profile = profileDoc.data();
-    const [jobsSnapshot, reviewsSnapshot] = await Promise.all([
+    let [jobsSnapshot, reviewsSnapshot] = await Promise.all([
       db.collection('acceptedJobs').where('technicianUid', '==', req.params.id).get(),
       db.collection('reviews').where('technicianUid', '==', req.params.id).get()
     ]);
-    const reviews = reviewsSnapshot.docs.map(doc => doc.data());
+    let reviews = reviewsSnapshot.docs.map(doc => doc.data());
+    if (reviews.length === 0 && profile.name) {
+      const nameReviewsSnapshot = await db.collection('reviews').where('technicianName', '==', profile.name).get();
+      if (!nameReviewsSnapshot.empty) {
+        reviews = nameReviewsSnapshot.docs.map(doc => doc.data());
+      }
+    }
+    const averageRating = reviews.length
+      ? Number((reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0) / reviews.length).toFixed(1))
+      : (profile.rating != null && Number(profile.rating) > 0 ? Number(Number(profile.rating).toFixed(1)) : null);
+    const totalReviews = reviews.length || (profile.totalReviews ? Number(profile.totalReviews) : 0);
+
     res.json({
       ...profile,
       uid: req.params.id,
       verified: profile.status === 'active' || profile.verificationStatus === 'verified',
       completedJobs: jobsSnapshot.docs.filter(doc => String(doc.data().status).toLowerCase() === 'completed').length,
-      averageRating: reviews.length ? Number((reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0) / reviews.length).toFixed(1)) : 0,
+      averageRating,
+      totalReviews,
       reviews: reviews.map(review => ({ rating: review.rating || 0, comment: review.comment || review.text || '', createdAt: review.createdAt || null })),
       portfolio: profile.portfolio || []
     });

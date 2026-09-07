@@ -45,6 +45,7 @@ export default function RequestProgressScreen({ customerName, onViewDetails, onT
       await submitTechnicianReview(jobId, { customerName, rating: reviewRatings[jobId], comment: reviewComments[jobId] });
       Alert.alert('Success', 'Review submitted successfully!');
       fetchCompletedJobs(customerName).then(setCompletedJobs);
+      fetchCustomerRequests(customerName).then(setTrackedRequests).catch(() => {});
     } catch (error) {
       Alert.alert('Error', 'Failed to submit review.');
     } finally {

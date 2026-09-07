@@ -43,13 +43,82 @@ const triggerMatching = async (requestId, request) => {
   }
 };
 
+const BOGO_LANDMARKS = {
+  'lepiten': { latitude: 11.0278, longitude: 124.0355 },
+  'san vicente': { latitude: 11.0550, longitude: 124.0216 },
+  'p. rodriguez': { latitude: 11.0485, longitude: 124.0038 },
+  'rodriguez': { latitude: 11.0485, longitude: 124.0038 },
+  'poblacion': { latitude: 11.0485, longitude: 124.0038 },
+  'taytayan': { latitude: 11.0430, longitude: 124.0080 },
+  'gairan': { latitude: 11.0554, longitude: 124.0217 },
+  'cogon': { latitude: 11.0380, longitude: 124.0150 },
+  'dakit': { latitude: 11.0620, longitude: 124.0120 },
+  'nailon': { latitude: 11.0850, longitude: 124.0350 },
+  'libertad': { latitude: 11.0310, longitude: 124.0020 },
+  'siocon': { latitude: 11.0680, longitude: 124.0250 },
+  'cantecson': { latitude: 11.0410, longitude: 123.9890 },
+  'sudtongan': { latitude: 11.0720, longitude: 124.0010 },
+  'la paz': { latitude: 11.0720, longitude: 124.0010 }
+};
+
+const resolveCoords = (latitude, longitude, locationText) => {
+  const lat = Number(latitude);
+  const lon = Number(longitude);
+  if (Number.isFinite(lat) && Number.isFinite(lon)) return { latitude: lat, longitude: lon };
+  const lower = String(locationText || '').toLowerCase();
+  for (const [key, coords] of Object.entries(BOGO_LANDMARKS)) {
+    if (lower.includes(key)) return coords;
+  }
+  return null;
+};
+
 // 1. POST Route: Submit a new repair request (Customer side)
 router.post('/', upload.single('photo'), async (req, res) => {
   try {
-    const { customerName, customerUid, applianceType, description, location, latitude, longitude, preferredDate, preferredTime, isOther } = req.body;
+    const { 
+      customerName, 
+      customerUid, 
+      applianceType, 
+      description, 
+      location, 
+      latitude, 
+      longitude, 
+      preferredDate, 
+      preferredTime, 
+      scheduledDate, 
+      isOther 
+    } = req.body;
 
     if (!customerName || !applianceType || !description || !location) {
       return res.status(400).json({ error: 'Please fill out all required fields.' });
+    }
+
+    let finalLat = Number(latitude);
+    let finalLon = Number(longitude);
+    if (!Number.isFinite(finalLat) || !Number.isFinite(finalLon)) {
+      const landmark = resolveCoords(null, null, location);
+      if (landmark) {
+        finalLat = landmark.latitude;
+        finalLon = landmark.longitude;
+      }
+    }
+
+    let resolvedDate = preferredDate ? String(preferredDate).trim() : null;
+    let resolvedTime = preferredTime ? String(preferredTime).trim() : null;
+    let resolvedScheduled = scheduledDate ? String(scheduledDate).trim() : null;
+
+    if ((!resolvedDate || !resolvedTime) && resolvedScheduled) {
+      try {
+        const d = new Date(resolvedScheduled);
+        if (!isNaN(d.getTime())) {
+          if (!resolvedDate) {
+            resolvedDate = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          }
+          if (!resolvedTime) {
+            resolvedTime = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+          }
+        }
+      } catch (_) {}
     }
 
     const newRequest = {
@@ -58,10 +127,11 @@ router.post('/', upload.single('photo'), async (req, res) => {
       applianceType,
       description,
       location,
-      ...(latitude && { latitude: Number(latitude) }),
-      ...(longitude && { longitude: Number(longitude) }),
-      ...(preferredDate && { preferredDate }),
-      ...(preferredTime && { preferredTime }),
+      ...(Number.isFinite(finalLat) && { latitude: finalLat }),
+      ...(Number.isFinite(finalLon) && { longitude: finalLon }),
+      ...(resolvedDate && { preferredDate: resolvedDate }),
+      ...(resolvedTime && { preferredTime: resolvedTime }),
+      ...(resolvedScheduled && { scheduledDate: resolvedScheduled }),
       status: 'Pending',
       createdAt: new Date().toISOString(),
       isOther: Boolean(isOther)
@@ -91,7 +161,8 @@ router.post('/', upload.single('photo'), async (req, res) => {
         ? 'Repair request submitted successfully!'
         : 'Repair request submitted successfully. The photo could not be uploaded.',
       photoUploaded: Boolean(newRequest.photoUrl),
-      requestId: docRef.id 
+      requestId: docRef.id,
+      request: newRequest
     });
   } catch (error) {
     console.error('Error saving repair request:', error);
@@ -102,7 +173,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
 // 2. GET Route: Fetch all pending/available repair requests (Technician side)
 router.get('/', async (req, res) => {
   try {
-    const { technicianUid, category } = req.query;
+    const { technicianUid, category, latitude: queryLat, longitude: queryLon } = req.query;
     const snapshot = await db.collection('repairRequests').get();
     const requests = [];
     let technician = null;
@@ -111,7 +182,11 @@ router.get('/', async (req, res) => {
       technician = technicianDoc.exists ? technicianDoc.data() : null;
     }
 
-    fs.appendFileSync(path.join(__dirname, '../../debug.log'), `[DEBUG] Number of requests found: ${snapshot.size}, Technician: ${technicianUid}\n`);
+    const techLat = Number(technician?.latitude ?? queryLat);
+    const techLon = Number(technician?.longitude ?? queryLon);
+    const hasTechCoords = Number.isFinite(techLat) && Number.isFinite(techLon);
+
+    fs.appendFileSync(path.join(__dirname, '../../debug.log'), `[DEBUG] Number of requests found: ${snapshot.size}, Technician: ${technicianUid}, TechCoords: [${techLat}, ${techLon}]\n`);
 
     snapshot.forEach(doc => {
       const data = doc.data();
@@ -160,9 +235,19 @@ router.get('/', async (req, res) => {
 
         return match;
       }));
-      const distanceKm = technician && distanceInKm(Number(technician.latitude), Number(technician.longitude), Number(data.latitude), Number(data.longitude));
+
+      const jobCoords = resolveCoords(data.latitude, data.longitude, data.location);
+      const distanceKm = hasTechCoords && jobCoords
+        ? distanceInKm(techLat, techLon, jobCoords.latitude, jobCoords.longitude)
+        : null;
+
       if ((!data.status || data.status === 'Pending') && skillMatch && data.declinedBy !== technicianUid) {
-        requests.push({ id: doc.id, ...data, ...(distanceKm !== null && { distanceKm: Number(distanceKm.toFixed(1)) }) });
+        requests.push({ 
+          id: doc.id, 
+          ...data, 
+          ...(jobCoords && { latitude: jobCoords.latitude, longitude: jobCoords.longitude }),
+          ...(distanceKm !== null && { distanceKm: Number(distanceKm.toFixed(1)) }) 
+        });
       }
     });
 
@@ -215,10 +300,42 @@ router.get('/customer/:customerName', async (req, res) => {
       return (uidMatches || nameMatches) && String(job.status || '').toLowerCase() !== 'completed';
     });
     const withTechnician = await Promise.all(jobs.map(async (job) => {
-      if (!job.technicianUid) return job;
-      const technicianDoc = await db.collection('users').doc(job.technicianUid).get();
-      const technician = technicianDoc.exists ? technicianDoc.data() : {};
-      return { ...job, technicianPhone: technician.phone || null, technicianSkills: technician.skills || [] };
+      if (!job.technicianUid && !job.technicianName) return job;
+      let technician = {};
+      if (job.technicianUid) {
+        const technicianDoc = await db.collection('users').doc(job.technicianUid).get();
+        technician = technicianDoc.exists ? technicianDoc.data() : {};
+      }
+
+      // Query actual customer ratings from reviews collection
+      let reviews = [];
+      if (job.technicianUid) {
+        const reviewsSnap = await db.collection('reviews').where('technicianUid', '==', job.technicianUid).get();
+        reviews = reviewsSnap.docs.map(doc => doc.data());
+      }
+      if (reviews.length === 0 && (job.technicianName || technician.name)) {
+        const nameToSearch = job.technicianName || technician.name;
+        const nameReviewsSnap = await db.collection('reviews').where('technicianName', '==', nameToSearch).get();
+        reviews = nameReviewsSnap.docs.map(doc => doc.data());
+      }
+
+      let technicianRating = null;
+      let technicianTotalReviews = reviews.length;
+
+      if (reviews.length > 0) {
+        technicianRating = Number((reviews.reduce((sum, r) => sum + Number(r.rating || 0), 0) / reviews.length).toFixed(1));
+      } else if (technician.rating != null && Number(technician.rating) > 0) {
+        technicianRating = Number(Number(technician.rating).toFixed(1));
+        technicianTotalReviews = Number(technician.totalReviews || 1);
+      }
+
+      return { 
+        ...job, 
+        technicianPhone: technician.phone || null, 
+        technicianSkills: technician.skills || [],
+        technicianRating,
+        technicianTotalReviews
+      };
     }));
     res.json(withTechnician);
   } catch (error) {
@@ -398,6 +515,23 @@ router.post('/:id/review', async (req, res) => {
       createdAt: new Date().toISOString()
     });
     await jobRef.update({ reviewId: reviewRef.id, reviewedAt: new Date().toISOString() });
+
+    // Synchronize average rating and review count to technician's profile in users collection
+    if (jobDoc.data().technicianUid) {
+      try {
+        const allReviewsSnap = await db.collection('reviews').where('technicianUid', '==', jobDoc.data().technicianUid).get();
+        const allReviews = allReviewsSnap.docs.map(d => d.data());
+        const count = allReviews.length;
+        const avg = count ? Number((allReviews.reduce((sum, r) => sum + Number(r.rating || 0), 0) / count).toFixed(1)) : numericRating;
+        await db.collection('users').doc(jobDoc.data().technicianUid).update({
+          rating: avg,
+          totalReviews: count
+        });
+      } catch (userUpdErr) {
+        console.warn('Could not sync user rating:', userUpdErr.message);
+      }
+    }
+
     res.status(201).json({ message: 'Review submitted successfully.' });
   } catch (error) {
     res.status(500).json({ error: 'Unable to submit review.' });

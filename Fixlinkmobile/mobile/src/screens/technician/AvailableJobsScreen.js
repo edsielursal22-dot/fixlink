@@ -12,12 +12,14 @@ import {
   View
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
 import {
   acceptRepairRequest,
   declineRepairRequest,
   fetchRepairRequests,
   fetchTechnicianJobs,
   updateJobStatus,
+  updateTechnicianLocation,
   verifyCompletionCode
 } from '../services/api';
 
@@ -34,6 +36,70 @@ const colors = {
   danger: '#DC2626'
 };
 
+const BOGO_LANDMARKS = {
+  'lepiten': { latitude: 11.0278, longitude: 124.0355 },
+  'san vicente': { latitude: 11.0550, longitude: 124.0216 },
+  'p. rodriguez': { latitude: 11.0485, longitude: 124.0038 },
+  'rodriguez': { latitude: 11.0485, longitude: 124.0038 },
+  'poblacion': { latitude: 11.0485, longitude: 124.0038 },
+  'taytayan': { latitude: 11.0430, longitude: 124.0080 },
+  'gairan': { latitude: 11.0554, longitude: 124.0217 },
+  'cogon': { latitude: 11.0380, longitude: 124.0150 },
+  'dakit': { latitude: 11.0620, longitude: 124.0120 },
+  'nailon': { latitude: 11.0850, longitude: 124.0350 },
+  'libertad': { latitude: 11.0310, longitude: 124.0020 },
+  'siocon': { latitude: 11.0680, longitude: 124.0250 },
+  'cantecson': { latitude: 11.0410, longitude: 123.9890 },
+  'sudtongan': { latitude: 11.0720, longitude: 124.0010 },
+  'la paz': { latitude: 11.0720, longitude: 124.0010 }
+};
+
+const resolveJobCoords = (job) => {
+  const lat = Number(job?.latitude);
+  const lon = Number(job?.longitude);
+  if (Number.isFinite(lat) && Number.isFinite(lon)) return { latitude: lat, longitude: lon };
+  const lower = String(job?.location || '').toLowerCase();
+  for (const [key, coords] of Object.entries(BOGO_LANDMARKS)) {
+    if (lower.includes(key)) return coords;
+  }
+  return null;
+};
+
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  if (![lat1, lon1, lat2, lon2].every(Number.isFinite)) return null;
+  const toRad = (x) => (x * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return 6371 * c;
+};
+
+const formatSchedule = (job) => {
+  if (job?.preferredDate && job?.preferredTime) {
+    return `${job.preferredDate} • ${job.preferredTime}`;
+  }
+  if (job?.preferredTime) {
+    return job.preferredTime;
+  }
+  if (job?.preferredDate) {
+    return job.preferredDate;
+  }
+  if (job?.scheduledDate) {
+    try {
+      const d = new Date(job.scheduledDate);
+      if (!isNaN(d.getTime())) {
+        return `${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} • ${d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })}`;
+      }
+    } catch {
+      return String(job.scheduledDate);
+    }
+  }
+  return 'Schedule to confirm';
+};
+
 export default function AvailableJobsScreen({ technician, onNavigateToMap, onNavigateToChat }) {
   const [jobs, setJobs] = useState([]);
   const [acceptedJobs, setAcceptedJobs] = useState([]);
@@ -41,6 +107,11 @@ export default function AvailableJobsScreen({ technician, onNavigateToMap, onNav
   const [refreshing, setRefreshing] = useState(false);
   const [acceptingJobId, setAcceptingJobId] = useState(null);
   const [actionLoadingId, setActionLoadingId] = useState(null);
+  const [techCoords, setTechCoords] = useState(
+    technician?.latitude && technician?.longitude
+      ? { latitude: Number(technician.latitude), longitude: Number(technician.longitude) }
+      : null
+  );
 
   // OTP Verification Modal State
   const [otpModalVisible, setOtpModalVisible] = useState(false);
@@ -48,10 +119,29 @@ export default function AvailableJobsScreen({ technician, onNavigateToMap, onNav
   const [otpCode, setOtpCode] = useState('');
   const [verifyingOtp, setVerifyingOtp] = useState(false);
 
+  const getUpdatedTechCoords = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === 'granted') {
+        const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+        const coords = { latitude: loc.coords.latitude, longitude: loc.coords.longitude };
+        setTechCoords(coords);
+        if (technician?.uid) {
+          updateTechnicianLocation(technician.uid, coords).catch(() => {});
+        }
+        return coords;
+      }
+    } catch (e) {
+      console.warn('Could not update technician GPS:', e);
+    }
+    return techCoords;
+  };
+
   const loadJobs = async () => {
     try {
+      const coords = await getUpdatedTechCoords();
       const [result, assigned] = await Promise.all([
-        fetchRepairRequests(technician?.uid),
+        fetchRepairRequests(technician?.uid, coords),
         fetchTechnicianJobs(technician?.uid),
       ]);
       setJobs(Array.isArray(result) ? result : []);
@@ -227,6 +317,11 @@ export default function AvailableJobsScreen({ technician, onNavigateToMap, onNav
                   <Text style={styles.acceptedMeta} numberOfLines={1}>
                     {job.customerName || 'Customer'} • {job.location || 'Location pending'}
                   </Text>
+                  {(job.preferredDate || job.preferredTime || job.scheduledDate) && (
+                    <Text style={[styles.acceptedMeta, { color: colors.tealDark, fontWeight: '700', marginTop: 2 }]} numberOfLines={1}>
+                      📅 {formatSchedule(job)}
+                    </Text>
+                  )}
                 </View>
                 <View style={styles.acceptedIconActions}>
                   {onNavigateToMap && (
@@ -296,68 +391,77 @@ export default function AvailableJobsScreen({ technician, onNavigateToMap, onNav
           </Text>
         </View>
       ) : (
-        jobs.map((job) => (
-          <View key={job.id} style={styles.jobCard}>
-            <View style={styles.jobTopRow}>
-              <View style={styles.categoryIcon}>
-                <Ionicons name="construct-outline" size={21} color={colors.teal} />
-              </View>
-              <View style={styles.jobHeading}>
-                <Text style={styles.kicker}>SERVICE REQUEST</Text>
-                <Text style={styles.jobTitle}>{job.applianceType || 'Repair request'}</Text>
-              </View>
-              {job.distanceKm != null && (
-                <View style={styles.distancePill}>
-                  <Ionicons name="navigate-outline" size={12} color={colors.teal} />
-                  <Text style={styles.distanceText}>{job.distanceKm} km</Text>
+        jobs.map((job) => {
+          const jobCoords = resolveJobCoords(job);
+          const calculatedDistance = job.distanceKm != null
+            ? job.distanceKm
+            : (techCoords && jobCoords
+                ? Number(calculateDistance(techCoords.latitude, techCoords.longitude, jobCoords.latitude, jobCoords.longitude)?.toFixed(1))
+                : null);
+
+          return (
+            <View key={job.id} style={styles.jobCard}>
+              <View style={styles.jobTopRow}>
+                <View style={styles.categoryIcon}>
+                  <Ionicons name="construct-outline" size={21} color={colors.teal} />
                 </View>
-              )}
-            </View>
-
-            <Text style={styles.problem} numberOfLines={3}>
-              {job.description || 'No issue description provided.'}
-            </Text>
-
-            <View style={styles.metaBlock}>
-              <View style={styles.metaItem}>
-                <Ionicons name="location-outline" size={16} color={colors.muted} />
-                <Text style={styles.metaText} numberOfLines={1}>
-                  {job.location || 'Location pending'}
-                </Text>
-              </View>
-              <View style={styles.metaItem}>
-                <Ionicons name="calendar-outline" size={16} color={colors.muted} />
-                <Text style={styles.metaText}>
-                  {job.preferredTime || job.preferredDate || 'Schedule to confirm'}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.actionRow}>
-              <TouchableOpacity
-                style={styles.declineAction}
-                onPress={() => handleDeclineJob(job)}
-              >
-                <Text style={styles.declineActionText}>Decline</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.primaryAction}
-                onPress={() => handleAcceptJob(job)}
-                disabled={acceptingJobId !== null}
-              >
-                {acceptingJobId === job.id ? (
-                  <ActivityIndicator color={colors.white} size="small" />
-                ) : (
-                  <>
-                    <Text style={styles.primaryActionText}>Accept Job</Text>
-                    <Ionicons name="checkmark" size={17} color={colors.white} />
-                  </>
+                <View style={styles.jobHeading}>
+                  <Text style={styles.kicker}>SERVICE REQUEST</Text>
+                  <Text style={styles.jobTitle}>{job.applianceType || 'Repair request'}</Text>
+                </View>
+                {calculatedDistance != null && (
+                  <View style={styles.distancePill}>
+                    <Ionicons name="navigate-outline" size={13} color="#8A5B00" style={{ transform: [{ rotate: '45deg' }] }} />
+                    <Text style={styles.distanceText}>{calculatedDistance} km</Text>
+                  </View>
                 )}
-              </TouchableOpacity>
+              </View>
+
+              <Text style={styles.problem} numberOfLines={3}>
+                {job.description || 'No issue description provided.'}
+              </Text>
+
+              <View style={styles.metaBlock}>
+                <View style={styles.metaItem}>
+                  <Ionicons name="location-outline" size={16} color={colors.muted} />
+                  <Text style={styles.metaText} numberOfLines={1}>
+                    {job.location || 'Location pending'}
+                  </Text>
+                </View>
+                <View style={styles.metaItem}>
+                  <Ionicons name="calendar-outline" size={16} color={colors.muted} />
+                  <Text style={styles.metaText}>
+                    {formatSchedule(job)}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.actionRow}>
+                <TouchableOpacity
+                  style={styles.declineAction}
+                  onPress={() => handleDeclineJob(job)}
+                >
+                  <Text style={styles.declineActionText}>Decline</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.primaryAction}
+                  onPress={() => handleAcceptJob(job)}
+                  disabled={acceptingJobId !== null}
+                >
+                  {acceptingJobId === job.id ? (
+                    <ActivityIndicator color={colors.white} size="small" />
+                  ) : (
+                    <>
+                      <Text style={styles.primaryActionText}>Accept Job</Text>
+                      <Ionicons name="checkmark" size={17} color={colors.white} />
+                    </>
+                  )}
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        ))
+          );
+        })
       )}
 
       {/* OTP COMPLETION MODAL */}
@@ -465,8 +569,8 @@ const styles = StyleSheet.create({
   categoryIcon: { width: 44, height: 44, borderRadius: 15, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center', marginRight: 11 },
   jobHeading: { flex: 1 },
   jobTitle: { color: colors.ink, fontSize: 18, fontWeight: '800' },
-  distancePill: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: '#FFF8E7', borderRadius: 10, paddingHorizontal: 8, paddingVertical: 6 },
-  distanceText: { color: '#8A5B00', fontSize: 11, fontWeight: '800' },
+  distancePill: { flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: '#FEF3C7', borderRadius: 14, paddingHorizontal: 10, paddingVertical: 5 },
+  distanceText: { color: '#8A5B00', fontSize: 12, fontWeight: '800' },
   problem: { color: colors.muted, fontSize: 13, lineHeight: 19, marginBottom: 15 },
   metaBlock: { borderTopWidth: 1, borderTopColor: colors.line, borderBottomWidth: 1, borderBottomColor: colors.line, paddingVertical: 11, gap: 9, marginBottom: 14 },
   metaItem: { flexDirection: 'row', alignItems: 'center', gap: 8 },

@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { fetchTechnicianProfile } from '../services/api';
 
 const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
 
 export default function RequestDetailsScreen({ request, onBack, onMessageTechnician, onTrackMap }) {
+  const [techRatingData, setTechRatingData] = useState(
+    request?.technicianRating != null
+      ? { rating: request.technicianRating, totalReviews: request.technicianTotalReviews }
+      : null
+  );
+
+  useEffect(() => {
+    let isMounted = true;
+    if (request?.technicianUid) {
+      fetchTechnicianProfile(request.technicianUid)
+        .then((profile) => {
+          if (isMounted && profile) {
+            setTechRatingData({
+              rating: profile.averageRating,
+              totalReviews: profile.totalReviews
+            });
+          }
+        })
+        .catch(() => {});
+    }
+    return () => { isMounted = false; };
+  }, [request?.technicianUid]);
+
+  const effectiveRating = techRatingData?.rating ?? request?.technicianRating;
+  const hasRating = effectiveRating != null && Number(effectiveRating) > 0;
+
   if (!request) return null;
 
   const getStatusColor = (status) => {
@@ -57,9 +84,11 @@ export default function RequestDetailsScreen({ request, onBack, onMessageTechnic
               <View style={styles.inputContainer}>
                 <Ionicons name="calendar-outline" size={20} color={colors.muted} style={styles.inputIcon} />
                 <Text style={styles.infoValue}>
-                  {request.scheduledDate 
-                    ? `${new Date(request.scheduledDate).toLocaleDateString()} at ${new Date(request.scheduledDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` 
-                    : 'Not set'}
+                  {request.preferredDate && request.preferredTime
+                    ? `${request.preferredDate} • ${request.preferredTime}`
+                    : request.preferredTime || request.preferredDate || (request.scheduledDate 
+                        ? `${new Date(request.scheduledDate).toLocaleDateString()} at ${new Date(request.scheduledDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` 
+                        : 'Not set')}
                 </Text>
               </View>
             </View>
@@ -112,7 +141,11 @@ export default function RequestDetailsScreen({ request, onBack, onMessageTechnic
                       <Ionicons name="checkmark-circle" size={14} color="#059669" />
                       <Text style={styles.verified}>Verified Technician</Text>
                     </View>
-                    <Text style={styles.rating}>⭐ 4.8</Text>
+                    {hasRating ? (
+                      <Text style={styles.rating}>⭐ {Number(effectiveRating).toFixed(1)}</Text>
+                    ) : (
+                      <Text style={styles.noRating}>No ratings yet</Text>
+                    )}
                   </View>
                 </View>
 
@@ -191,6 +224,7 @@ const styles = StyleSheet.create({
   verifiedRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   verified: { fontSize: 12, color: '#059669', fontWeight: '700' },
   rating: { fontSize: 13, color: '#D97706', fontWeight: '700', marginTop: 2 },
+  noRating: { fontSize: 12, color: '#829AB1', fontWeight: '600', marginTop: 2 },
   messageButton: { backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line, height: 48, borderRadius: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
   primaryButtonText: { color: colors.white, fontSize: 14, fontWeight: '800', letterSpacing: 0.5 },
   secondaryButtonText: { color: colors.ink, fontSize: 14, fontWeight: '800' },

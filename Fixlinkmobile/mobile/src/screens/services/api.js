@@ -65,9 +65,15 @@ export const registerUser = async (userData) => {
   return response.data;
 };
 
-export const fetchRepairRequests = async (technicianUid) => {
+export const fetchRepairRequests = async (technicianUid, coords) => {
   try {
-    const response = await api.get('/requests', { params: technicianUid ? { technicianUid } : undefined });
+    const params = {};
+    if (technicianUid) params.technicianUid = technicianUid;
+    if (coords?.latitude && coords?.longitude) {
+      params.latitude = coords.latitude;
+      params.longitude = coords.longitude;
+    }
+    const response = await api.get('/requests', { params: Object.keys(params).length ? params : undefined });
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : { error: 'Network Error' };
