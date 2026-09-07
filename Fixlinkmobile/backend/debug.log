@@ -1088,3 +1088,456 @@
 [DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: laptop
 [DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
 [DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 7, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: generalrepair, ReqCat: laptop
+[DEBUG] Processing RequestId: demo-req-refrigerator, Cat: Refrigerator, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-refrigerator, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: refrigerator
+[DEBUG] Match found! RequestId: demo-req-refrigerator, Skill: refrigerator, ReqCat: refrigerator
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: washingmachine, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: generalrepair, ReqCat: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: washingmachine, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: generalrepair, ReqCat: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: washingmachine, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: generalrepair, ReqCat: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: washingmachine, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: generalrepair, ReqCat: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: washingmachine, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: generalrepair, ReqCat: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: washingmachine, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 7, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: 1hGfWEI61Y3aRwfY36QX, Cat: Desktop Computer (System Unit), Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: 1hGfWEI61Y3aRwfY36QX, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: desktopcomputer(systemunit)
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: generalrepair, ReqCat: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: washingmachine, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 7, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: 1hGfWEI61Y3aRwfY36QX, Cat: Desktop Computer (System Unit), Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: 1hGfWEI61Y3aRwfY36QX, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: desktopcomputer(systemunit)
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: generalrepair, ReqCat: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: washingmachine, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 7, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: 1hGfWEI61Y3aRwfY36QX, Cat: Desktop Computer (System Unit), Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: 1hGfWEI61Y3aRwfY36QX, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: desktopcomputer(systemunit)
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: generalrepair, ReqCat: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: washingmachine, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Number of requests found: 7, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: 1hGfWEI61Y3aRwfY36QX, Cat: Desktop Computer (System Unit), Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: 1hGfWEI61Y3aRwfY36QX, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: desktopcomputer(systemunit)
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 7, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: 1hGfWEI61Y3aRwfY36QX, Cat: Desktop Computer (System Unit), Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: 1hGfWEI61Y3aRwfY36QX, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: desktopcomputer(systemunit)
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 6, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: demo-req-washing-machine, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-washing-machine, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: demo-req-washing-machine, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 5, Technician: aeRTXdH31uhpWVKIvTafbvYOnea2
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Refrigerator","Washing Machine","General Repair"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["refrigerator","washingmachine","generalrepair"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: refrigerator, ReqCat: washingmachine
+[DEBUG] Number of requests found: 5, Technician: bdnVE74sP6fCGn5W167GE8innjm1
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: routerwi-fiequipment, ReqCat: laptop
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: vsStr6cHwphGv7V14w0n, Skill: routerwi-fiequipment, ReqCat: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: routerwi-fiequipment, ReqCat: washingmachine
+[DEBUG] Number of requests found: 5, Technician: bdnVE74sP6fCGn5W167GE8innjm1
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: routerwi-fiequipment, ReqCat: laptop
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: vsStr6cHwphGv7V14w0n, Skill: routerwi-fiequipment, ReqCat: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: routerwi-fiequipment, ReqCat: washingmachine
+[DEBUG] Number of requests found: 5, Technician: bdnVE74sP6fCGn5W167GE8innjm1
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: routerwi-fiequipment, ReqCat: laptop
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: vsStr6cHwphGv7V14w0n, Skill: routerwi-fiequipment, ReqCat: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Router / Wi-Fi Equipment","Tablet","Water Heater","CCTV / Security Camera","Others","Printer","Home Theater / Speaker System","Electric Stove / Induction Cooker","Washing Machine","Laptop","Power Bank / Charger","Refrigerator","Computer Monitor","Mobile Phone","Desktop Computer (System Unit)","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["routerwi-fiequipment","tablet","waterheater","cctvsecuritycamera","others","printer","hometheaterspeakersystem","electricstoveinductioncooker","washingmachine","laptop","powerbankcharger","refrigerator","computermonitor","mobilephone","desktopcomputer(systemunit)","computerkeyboardmouse"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: routerwi-fiequipment, ReqCat: washingmachine
+[DEBUG] Number of requests found: 5, Technician: nHt54oBZMFPS7eZzBKdxlYve40k1
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: desktopcomputer(systemunit), ReqCat: laptop
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: vsStr6cHwphGv7V14w0n, Skill: desktopcomputer(systemunit), ReqCat: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: desktopcomputer(systemunit), ReqCat: washingmachine
+[DEBUG] Number of requests found: 5, Technician: nHt54oBZMFPS7eZzBKdxlYve40k1
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: desktopcomputer(systemunit), ReqCat: laptop
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: vsStr6cHwphGv7V14w0n, Skill: desktopcomputer(systemunit), ReqCat: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: desktopcomputer(systemunit), ReqCat: washingmachine
+[DEBUG] Number of requests found: 5, Technician: nHt54oBZMFPS7eZzBKdxlYve40k1
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: desktopcomputer(systemunit), ReqCat: laptop
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: vsStr6cHwphGv7V14w0n, Skill: desktopcomputer(systemunit), ReqCat: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: desktopcomputer(systemunit), ReqCat: washingmachine
+[DEBUG] Number of requests found: 5, Technician: nHt54oBZMFPS7eZzBKdxlYve40k1
+[DEBUG] Processing RequestId: demo-req-laptop, Cat: Laptop, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: demo-req-laptop, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: demo-req-laptop, Skill: desktopcomputer(systemunit), ReqCat: laptop
+[DEBUG] Processing RequestId: guYmb4RvkMPZk3E4nJoU, Cat: Printer, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: guYmb4RvkMPZk3E4nJoU, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: printer
+[DEBUG] Processing RequestId: h5DcPNt0PURlRNPCE3ns, Cat: Home Theater / Speaker System, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: h5DcPNt0PURlRNPCE3ns, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: hometheaterspeakersystem
+[DEBUG] Processing RequestId: vsStr6cHwphGv7V14w0n, Cat: Laptop, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: vsStr6cHwphGv7V14w0n, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: laptop
+[DEBUG] Match found! RequestId: vsStr6cHwphGv7V14w0n, Skill: desktopcomputer(systemunit), ReqCat: laptop
+[DEBUG] Processing RequestId: xpUj3MxTlJ9OsHyZ2DGB, Cat: Washing Machine, Skills: ["Desktop Computer (System Unit)","Router / Wi-Fi Equipment","Others","Tablet","Printer","Water Heater","CCTV / Security Camera","Home Theater / Speaker System","Electric Stove / Induction Cooker","Laptop","Washing Machine","Computer Monitor","Power Bank / Charger","Refrigerator","Mobile Phone","Computer Keyboard / Mouse"]
+[DEBUG] RequestId: xpUj3MxTlJ9OsHyZ2DGB, NormalizedSkills: ["desktopcomputer(systemunit)","routerwi-fiequipment","others","tablet","printer","waterheater","cctvsecuritycamera","hometheaterspeakersystem","electricstoveinductioncooker","laptop","washingmachine","computermonitor","powerbankcharger","refrigerator","mobilephone","computerkeyboardmouse"], ReqCatNorm: washingmachine
+[DEBUG] Match found! RequestId: xpUj3MxTlJ9OsHyZ2DGB, Skill: desktopcomputer(systemunit), ReqCat: washingmachine

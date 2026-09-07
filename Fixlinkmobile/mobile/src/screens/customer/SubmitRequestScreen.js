@@ -208,7 +208,10 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
                 placeholder="Enter or detect your location" 
                 placeholderTextColor={colors.muted}
                 value={location} 
-                onChangeText={setLocation} 
+                onChangeText={(text) => {
+                  setLocation(text);
+                  setCoords(null);
+                }} 
               />
             </View>
             <TouchableOpacity style={styles.locateButton} onPress={handleLocate} activeOpacity={0.8} disabled={locating}>

@@ -128,27 +128,36 @@ router.get('/', async (req, res) => {
       }
       
       const skillMatch = !technicianUid || (verified && skillsNormalized.some(skillNorm => {
-        if (data.isOther) {
-          return skillNorm === 'others';
+        // 1. General Repair wildcard matches ALL requests
+        if (['generalrepair', 'general repair', 'allaround', 'allaroundrepair'].includes(skillNorm)) {
+          return true;
         }
-        
-        // Expanded matching logic
+
         const requestedCategoryNormalized = normalize(data.applicationType || data.applianceType || category || '');
-        const normalizedSkills = skills.map(normalize);
 
-        const isComputerRequest = ['laptop', 'computermonitor', 'desktopcomputer'].includes(requestedCategoryNormalized);
-        const hasComputerSkill = normalizedSkills.some(skill => skill.includes('computer') || skill.includes('laptop'));
+        // 2. Others skill tag matching
+        if (data.isOther && ['others', 'other'].includes(skillNorm)) {
+          return true;
+        }
 
+        // 3. Computer & Appliance broad category matching
+        const isComputerRequest = ['laptop', 'computermonitor', 'desktopcomputer', 'systemunit', 'computer', 'pc'].some(c => requestedCategoryNormalized.includes(c));
+        const hasComputerSkill = skillsNormalized.some(skill => skill.includes('computer') || skill.includes('laptop') || skill.includes('electronics'));
+
+        const isApplianceRequest = ['refrigerator', 'washingmachine', 'waterheater', 'television', 'tv', 'airconditioner'].some(c => requestedCategoryNormalized.includes(c));
+        const hasApplianceSkill = skillsNormalized.some(skill => skill.includes('appliance') || skill.includes('refrigerator') || skill.includes('washing'));
+
+        // 4. Exact / substring match
         const match = skillNorm === requestedCategoryNormalized || 
                  requestedCategoryNormalized.includes(skillNorm) || 
                  skillNorm.includes(requestedCategoryNormalized) || 
-                 skillNorm === 'generalrepair' ||
-                 (isComputerRequest && hasComputerSkill); // <-- Automatic broad match
+                 (isComputerRequest && hasComputerSkill) ||
+                 (isApplianceRequest && hasApplianceSkill);
 
         if (match) {
             fs.appendFileSync(path.join(__dirname, '../../debug.log'), `[DEBUG] Match found! RequestId: ${doc.id}, Skill: ${skillNorm}, ReqCat: ${requestedCategoryNormalized}\n`);
         }
-                 
+
         return match;
       }));
       const distanceKm = technician && distanceInKm(Number(technician.latitude), Number(technician.longitude), Number(data.latitude), Number(data.longitude));
@@ -166,6 +175,23 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Helper to find accepted job doc either by Firestore ID, originalRequestId, or legacy id field
+const getAcceptedJobDoc = async (id) => {
+  if (!id) return { ref: null, doc: null };
+  const cleanId = String(id).trim();
+  const directRef = db.collection('acceptedJobs').doc(cleanId);
+  const directDoc = await directRef.get();
+  if (directDoc.exists) return { ref: directRef, doc: directDoc };
+
+  const byOriginal = await db.collection('acceptedJobs').where('originalRequestId', '==', cleanId).limit(1).get();
+  if (!byOriginal.empty) return { ref: byOriginal.docs[0].ref, doc: byOriginal.docs[0] };
+
+  const byIdField = await db.collection('acceptedJobs').where('id', '==', cleanId).limit(1).get();
+  if (!byIdField.empty) return { ref: byIdField.docs[0].ref, doc: byIdField.docs[0] };
+
+  return { ref: null, doc: null };
+};
+
 router.get('/customer/:customerName', async (req, res) => {
   try {
     const [pendingSnapshot, acceptedSnapshot] = await Promise.all([
@@ -175,8 +201,8 @@ router.get('/customer/:customerName', async (req, res) => {
     const requestedName = String(req.params.customerName || '').trim().toLowerCase();
     const requestedUid = String(req.query.customerUid || '').trim();
     const jobs = [
-      ...pendingSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })),
-      ...acceptedSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+      ...pendingSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })),
+      ...acceptedSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
     ].filter(job => {
       const jobName = String(job.customerName || '').trim().toLowerCase();
       const nameMatches = jobName && requestedName && (
@@ -203,7 +229,7 @@ router.get('/customer/:customerName', async (req, res) => {
 router.get('/technician/:technicianUid', async (req, res) => {
   try {
     const snapshot = await db.collection('acceptedJobs').where('technicianUid', '==', req.params.technicianUid).get();
-    res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    res.json(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
   } catch (error) {
     res.status(500).json({ error: 'Unable to load technician jobs.' });
   }
@@ -211,9 +237,8 @@ router.get('/technician/:technicianUid', async (req, res) => {
 
 router.get('/accepted/:id/messages', async (req, res) => {
   try {
-    const jobRef = db.collection('acceptedJobs').doc(req.params.id);
-    const jobDoc = await jobRef.get();
-    if (!jobDoc.exists) return res.status(404).json({ error: 'Accepted job not found.' });
+    const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
+    if (!jobDoc) return res.status(404).json({ error: 'Accepted job not found.' });
     const snapshot = await jobRef.collection('messages').orderBy('timestamp', 'asc').get();
     res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
   } catch (error) {
@@ -228,9 +253,8 @@ router.post('/accepted/:id/messages', async (req, res) => {
     if (!senderUid || !senderName || !senderRole || !String(text || '').trim()) {
       return res.status(400).json({ error: 'Sender identity and message text are required.' });
     }
-    const jobRef = db.collection('acceptedJobs').doc(req.params.id);
-    const jobDoc = await jobRef.get();
-    if (!jobDoc.exists) return res.status(404).json({ error: 'Accepted job not found.' });
+    const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
+    if (!jobDoc) return res.status(404).json({ error: 'Accepted job not found.' });
     const message = {
       senderUid: String(senderUid),
       senderName: String(senderName),
@@ -261,8 +285,8 @@ router.put('/:id/decline', async (req, res) => {
 
 router.get('/accepted/:id/location', async (req, res) => {
   try {
-    const doc = await db.collection('acceptedJobs').doc(req.params.id).get();
-    if (!doc.exists) return res.status(404).json({ error: 'Accepted job not found.' });
+    const { doc } = await getAcceptedJobDoc(req.params.id);
+    if (!doc) return res.status(404).json({ error: 'Accepted job not found.' });
     const data = doc.data();
     res.json({ latitude: data.latitude || null, longitude: data.longitude || null, location: data.location || null });
   } catch (error) {
@@ -272,8 +296,8 @@ router.get('/accepted/:id/location', async (req, res) => {
 
 router.get('/accepted/:id/live-tracking', async (req, res) => {
   try {
-    const jobDoc = await db.collection('acceptedJobs').doc(req.params.id).get();
-    if (!jobDoc.exists) return res.status(404).json({ error: 'Accepted job not found.' });
+    const { doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
+    if (!jobDoc) return res.status(404).json({ error: 'Accepted job not found.' });
     const job = jobDoc.data();
     if (!['Accepted', 'In Progress'].includes(job.status)) {
       return res.status(409).json({ error: 'Live tracking is available after job acceptance.' });
@@ -314,9 +338,8 @@ router.put('/accepted/:id/customer-location', async (req, res) => {
     if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || !customerUid) {
       return res.status(400).json({ error: 'Customer identity and valid coordinates are required.' });
     }
-    const jobRef = db.collection('acceptedJobs').doc(req.params.id);
-    const jobDoc = await jobRef.get();
-    if (!jobDoc.exists || jobDoc.data().customerUid !== customerUid) return res.status(404).json({ error: 'Assigned job not found.' });
+    const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
+    if (!jobDoc || jobDoc.data().customerUid !== customerUid) return res.status(404).json({ error: 'Assigned job not found.' });
     const locationUpdatedAt = new Date().toISOString();
     await jobRef.update({ latitude, longitude, locationUpdatedAt });
     res.json({ latitude, longitude, locationUpdatedAt });
@@ -331,12 +354,12 @@ router.put('/accepted/:id/status', async (req, res) => {
     const { status, technicianUid } = req.body || {};
     const allowedStatuses = ['In Progress', 'Completed', 'Cancelled'];
     if (!allowedStatuses.includes(status)) return res.status(400).json({ error: 'Invalid job status.' });
-    const jobRef = db.collection('acceptedJobs').doc(req.params.id);
-    const jobDoc = await jobRef.get();
-    if (!jobDoc.exists || (technicianUid && jobDoc.data().technicianUid !== technicianUid)) return res.status(404).json({ error: 'Assigned job not found.' });
+    const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
+    if (!jobDoc || (technicianUid && jobDoc.data().technicianUid !== technicianUid)) return res.status(404).json({ error: 'Assigned job not found.' });
     await jobRef.update({ status, updatedAt: new Date().toISOString() });
     res.json({ message: `Job marked ${status}.`, status });
   } catch (error) {
+    console.error('Error updating job status:', error);
     res.status(500).json({ error: 'Unable to update job status.' });
   }
 });
@@ -345,7 +368,7 @@ router.get('/completed/:customerName', async (req, res) => {
   try {
     const snapshot = await db.collection('acceptedJobs').get();
     const jobs = snapshot.docs
-      .map(doc => ({ id: doc.id, ...doc.data() }))
+      .map(doc => ({ ...doc.data(), id: doc.id }))
       .filter(job => job.customerName === req.params.customerName && String(job.status).toLowerCase() === 'completed' && !job.reviewId);
     res.json(jobs);
   } catch (error) {
@@ -360,9 +383,8 @@ router.post('/:id/review', async (req, res) => {
     if (!customerName || !Number.isInteger(numericRating) || numericRating < 1 || numericRating > 5) {
       return res.status(400).json({ error: 'Customer name and a rating from 1 to 5 are required.' });
     }
-    const jobRef = db.collection('acceptedJobs').doc(req.params.id);
-    const jobDoc = await jobRef.get();
-    if (!jobDoc.exists || jobDoc.data().customerName !== customerName || String(jobDoc.data().status).toLowerCase() !== 'completed') {
+    const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
+    if (!jobDoc || jobDoc.data().customerName !== customerName || String(jobDoc.data().status).toLowerCase() !== 'completed') {
       return res.status(404).json({ error: 'Completed job not found.' });
     }
     if (jobDoc.data().reviewId) return res.status(409).json({ error: 'This job has already been reviewed.' });
@@ -372,7 +394,7 @@ router.post('/:id/review', async (req, res) => {
       customerName,
       rating: numericRating,
       comment: String(comment || '').trim(),
-      requestId: jobDoc.data().originalRequestId || req.params.id,
+      requestId: jobDoc.data().originalRequestId || jobDoc.id,
       createdAt: new Date().toISOString()
     });
     await jobRef.update({ reviewId: reviewRef.id, reviewedAt: new Date().toISOString() });
@@ -398,6 +420,7 @@ router.put('/:id/accept', async (req, res) => {
     }
 
     const jobData = doc.data();
+    delete jobData.id; // Prevent inner id property from colliding with new doc.id
 
     // Create a brand new document inside the separate 'acceptedJobs' collection
     const acceptedJobRef = await db.collection('acceptedJobs').add({
@@ -406,7 +429,7 @@ router.put('/:id/accept', async (req, res) => {
       technicianUid,
       technicianName,
       status: 'Accepted',
-      verificationCode: Math.floor(1000 + Math.random() * 9000).toString(), // New: Generate 4-digit code
+      verificationCode: Math.floor(1000 + Math.random() * 9000).toString(), // Generate 4-digit code
       acceptedAt: new Date().toISOString()
     });
 
@@ -420,19 +443,19 @@ router.put('/:id/accept', async (req, res) => {
   }
 });
 
-// New: Route to verify completion code
+// Route to verify completion code
 router.post('/:id/verify-completion', async (req, res) => {
   try {
     const { code } = req.body;
-    const jobRef = db.collection('acceptedJobs').doc(req.params.id);
-    const jobDoc = await jobRef.get();
+    const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
 
-    if (!jobDoc.exists) return res.status(404).json({ error: 'Job not found.' });
-    if (jobDoc.data().verificationCode !== code) return res.status(400).json({ error: 'Invalid verification code.' });
+    if (!jobDoc) return res.status(404).json({ error: 'Job not found.' });
+    if (jobDoc.data().verificationCode !== String(code).trim()) return res.status(400).json({ error: 'Invalid verification code.' });
 
     await jobRef.update({ status: 'Completed', completedAt: new Date().toISOString() });
     res.json({ message: 'Job completed successfully!' });
   } catch (error) {
+    console.error('Error verifying completion:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

@@ -4003,3 +4003,120 @@
 {"_e":"metro:client_log","_t":1788624240055,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
 {"_e":"metro:client_log","_t":1788624240153,"level":"warn","data":["Customer location sync failed:","[AxiosError: Request failed with status code 404]"]}
 {"_e":"metro:client_log","_t":1788624245082,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"root:init","_t":1788745558100,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788745558121,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788745558142,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788745565732,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788745575640,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788745580004,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788745589754,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788745603432,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788745603433,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745603444,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745603545,"id":"1","progress":0.05224489795918367,"total":35,"current":8}
+{"_e":"metro:bundling:progress","_t":1788745603654,"id":"1","progress":0.05224489795918367,"total":168,"current":23}
+{"_e":"metro:bundling:progress","_t":1788745603754,"id":"1","progress":0.05224489795918367,"total":201,"current":40}
+{"_e":"metro:bundling:progress","_t":1788745603853,"id":"1","progress":0.12818167962200883,"total":243,"current":87}
+{"_e":"metro:bundling:progress","_t":1788745603953,"id":"1","progress":0.1968572726531468,"total":293,"current":130}
+{"_e":"metro:bundling:progress","_t":1788745604053,"id":"1","progress":0.25835597203992555,"total":362,"current":184}
+{"_e":"metro:bundling:progress","_t":1788745604153,"id":"1","progress":0.2701940986177826,"total":404,"current":210}
+{"_e":"metro:bundling:progress","_t":1788745604253,"id":"1","progress":0.3124272992505863,"total":458,"current":256}
+{"_e":"metro:bundling:progress","_t":1788745604353,"id":"1","progress":0.34773978789114846,"total":524,"current":309}
+{"_e":"metro:bundling:progress","_t":1788745604457,"id":"1","progress":0.48024651167288207,"total":557,"current":386}
+{"_e":"metro:bundling:progress","_t":1788745604564,"id":"1","progress":0.5171337690856359,"total":591,"current":425}
+{"_e":"metro:bundling:progress","_t":1788745604665,"id":"1","progress":0.6535777534154157,"total":616,"current":498}
+{"_e":"metro:bundling:progress","_t":1788745604765,"id":"1","progress":0.7150008204293655,"total":667,"current":564}
+{"_e":"metro:bundling:progress","_t":1788745604864,"id":"1","progress":0.7843486244599671,"total":717,"current":635}
+{"_e":"metro:bundling:progress","_t":1788745604972,"id":"1","progress":0.7843486244599671,"total":756,"current":666}
+{"_e":"metro:bundling:progress","_t":1788745605072,"id":"1","progress":0.8406626525134985,"total":794,"current":728}
+{"_e":"metro:bundling:progress","_t":1788745605173,"id":"1","progress":0.885130625295528,"total":811,"current":763}
+{"_e":"metro:bundling:progress","_t":1788745605273,"id":"1","progress":0.9693233665261757,"total":841,"current":828}
+{"_e":"metro:bundling:progress","_t":1788745605382,"id":"1","progress":0.9976484429065743,"total":850,"current":849}
+{"_e":"metro:bundling:progress","_t":1788745613408,"id":"1","progress":0.999,"total":850,"current":850}
+{"_e":"metro:bundling:done","_t":1788745613659,"id":"1","total":850,"ms":10226.1353}
+{"_e":"metro:bundling:started","_t":1788745661539,"id":"2","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788745661539,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745661542,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745661643,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745662033,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745662133,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745662233,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745662333,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745662433,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745662533,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788745662642,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788745662720,"id":"2","total":1,"ms":1181.0424}
+{"_e":"root:init","_t":1788763855548,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788763855549,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788763855552,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788763856256,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788763857006,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788763858419,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788763862998,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"root:init","_t":1788764072572,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788764072572,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788764072575,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788764073014,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788764073365,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788764073719,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788764077789,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788764082067,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788764082068,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788764082072,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788764082171,"id":"1","progress":0.03260030864197531,"total":144,"current":26}
+{"_e":"metro:bundling:progress","_t":1788764082272,"id":"1","progress":0.09856679286100595,"total":258,"current":81}
+{"_e":"metro:bundling:progress","_t":1788764082372,"id":"1","progress":0.2360059309974226,"total":317,"current":154}
+{"_e":"metro:bundling:progress","_t":1788764082472,"id":"1","progress":0.31382018605605827,"total":407,"current":228}
+{"_e":"metro:bundling:progress","_t":1788764082572,"id":"1","progress":0.3688741399758314,"total":517,"current":314}
+{"_e":"metro:bundling:progress","_t":1788764082682,"id":"1","progress":0.5833378027504266,"total":563,"current":430}
+{"_e":"metro:bundling:progress","_t":1788764082800,"id":"1","progress":0.6704021452086991,"total":607,"current":497}
+{"_e":"metro:bundling:progress","_t":1788764082901,"id":"1","progress":0.8409569272976679,"total":675,"current":619}
+{"_e":"metro:bundling:progress","_t":1788764083002,"id":"1","progress":0.8676713864890527,"total":759,"current":707}
+{"_e":"metro:bundling:progress","_t":1788764083102,"id":"1","progress":0.9356165289256199,"total":825,"current":798}
+{"_e":"metro:bundling:progress","_t":1788764083215,"id":"1","progress":0.9952550482111927,"total":842,"current":840}
+{"_e":"metro:bundling:progress","_t":1788764083331,"id":"1","progress":0.9976261135967411,"total":842,"current":841}
+{"_e":"metro:bundling:progress","_t":1788764083436,"id":"1","progress":0.999,"total":850,"current":850}
+{"_e":"metro:bundling:done","_t":1788764083494,"id":"1","total":850,"ms":1426.3546}
+{"_e":"metro:client_log","_t":1788764155462,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1788764244517,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764249643,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764255569,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764260169,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764274178,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764279130,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764284128,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764289172,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764295516,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764299241,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764305346,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764309167,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764401884,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764406680,"level":"warn","data":["Live tracking refresh failed:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764412061,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764417489,"level":"error","data":["Each child in a list should have a unique \"key\" prop.\n\nCheck the render method of `View`. It was passed a child from TechnicianProfileScreen. See https://react.dev/link/warning-keys for more information."]}
+{"_e":"metro:client_log","_t":1788764445998,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788764701110,"level":"error","data":["Directions Error:","[AxiosError: Request failed with status code 429]"]}
+{"_e":"metro:client_log","_t":1788764701163,"level":"error","data":["Directions Error:","[AxiosError: Request failed with status code 429]"]}
+{"_e":"metro:client_log","_t":1788764701332,"level":"error","data":["Directions Error:","[AxiosError: Request failed with status code 429]"]}
+{"_e":"metro:client_log","_t":1788764716158,"level":"error","data":["Directions Error:","[AxiosError: Request failed with status code 429]"]}
+{"_e":"metro:client_log","_t":1788764947149,"level":"error","data":["Directions Error:","[AxiosError: Request failed with status code 429]"]}
+{"_e":"metro:client_log","_t":1788764947376,"level":"error","data":["Directions Error:","[AxiosError: Request failed with status code 429]"]}
+{"_e":"root:init","_t":1788768348980,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788768348982,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788768348986,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788768352318,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788768358097,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788768360261,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788768367237,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788768373605,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788768373605,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788768373611,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788768373714,"id":"1","progress":0.02579935031812934,"total":193,"current":31}
+{"_e":"metro:bundling:progress","_t":1788768373814,"id":"1","progress":0.1934790566951264,"total":291,"current":128}
+{"_e":"metro:bundling:progress","_t":1788768373914,"id":"1","progress":0.3155872876152596,"total":429,"current":241}
+{"_e":"metro:bundling:progress","_t":1788768374014,"id":"1","progress":0.5072718803374566,"total":556,"current":396}
+{"_e":"metro:bundling:progress","_t":1788768374114,"id":"1","progress":0.7483623078861175,"total":630,"current":545}
+{"_e":"metro:bundling:progress","_t":1788768374218,"id":"1","progress":0.7784094090311022,"total":756,"current":667}
+{"_e":"metro:bundling:progress","_t":1788768374319,"id":"1","progress":0.9000657462195923,"total":819,"current":777}
+{"_e":"metro:bundling:done","_t":1788768374464,"id":"1","total":819,"ms":858.4562}
+{"_e":"metro:client_log","_t":1788768405318,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}

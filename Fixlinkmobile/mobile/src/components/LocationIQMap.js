@@ -37,8 +37,8 @@ export default function LocationIQMap({
     if (technicianCoords?.latitude && technicianCoords?.longitude) {
       return [technicianCoords.latitude, technicianCoords.longitude];
     }
-    // Default to Manila / regional center if coordinates not yet available
-    return [14.5995, 120.9842];
+    // Default to Bogo City, Cebu (CRMC center) if coordinates not yet available
+    return [11.0500, 124.0050];
   }, [technicianCoords, customerCoords, currentUserRole]);
 
   // Generate self-contained Leaflet HTML with LocationIQ Street Tiles
@@ -239,53 +239,109 @@ export default function LocationIQMap({
 
           // Helper to fit markers
           window.fitMarkers = function() {
-            const bounds = [];
-            if (techMarker && (isCurrentUserTech || isAccepted)) bounds.push(techMarker.getLatLng());
-            if (custMarker && (!isCurrentUserTech || isAccepted)) bounds.push(custMarker.getLatLng());
+            try {
+              const bounds = [];
+              if (techMarker && (isCurrentUserTech || isAccepted)) bounds.push(techMarker.getLatLng());
+              if (custMarker && (!isCurrentUserTech || isAccepted)) bounds.push(custMarker.getLatLng());
 
-            if (routePolyline) {
-              map.fitBounds(routePolyline.getBounds(), { padding: [40, 40], maxZoom: 16 });
-            } else if (bounds.length > 1) {
-              map.fitBounds(L.latLngBounds(bounds), { padding: [50, 50], maxZoom: 16 });
-            } else if (bounds.length === 1) {
-              map.setView(bounds[0], 15);
-            }
+              if (routePolyline && routePolyline.getLatLngs().length > 0) {
+                map.fitBounds(routePolyline.getBounds(), { padding: [45, 45], maxZoom: 16 });
+              } else if (bounds.length > 1) {
+                map.fitBounds(L.latLngBounds(bounds), { padding: [55, 55], maxZoom: 16 });
+              } else if (bounds.length === 1) {
+                map.setView(bounds[0], 15);
+              }
+            } catch (err) {}
           };
 
           // Auto-fit on load
           setTimeout(window.fitMarkers, 350);
 
-          // Handle incoming messages from React Native to update coordinates dynamically
-          window.addEventListener('message', function(event) {
+          // Dynamic update helper exposed to React Native
+          window.updateCustomerMarker = function(lat, lng, name, address) {
             try {
-              const data = JSON.parse(event.data);
-              if (data.type === 'UPDATE_TECH_LOCATION' && data.lat && data.lng) {
-                if (techMarker) {
-                  techMarker.setLatLng([data.lat, data.lng]);
-                }
+              const latLng = [lat, lng];
+              if (!custMarker) {
+                custMarker = L.marker(latLng, { icon: custIcon }).addTo(map);
+              } else {
+                custMarker.setLatLng(latLng);
               }
-              if (data.type === 'FIT_BOUNDS') {
-                window.fitMarkers();
+              const custLabel = !isCurrentUserTech ? "Your Location" : ("Customer: " + (name || "Customer"));
+              const addrHtml = address ? '<br><span class="subtext">' + address + '</span>' : '';
+              custMarker.bindPopup('<div class="custom-popup"><strong>' + custLabel + '</strong>' + addrHtml + '</div>');
+            } catch (err) {}
+          };
+
+          window.updateTechMarker = function(lat, lng) {
+            try {
+              const latLng = [lat, lng];
+              if (!techMarker) {
+                techMarker = L.marker(latLng, { icon: techIcon }).addTo(map);
+              } else {
+                techMarker.setLatLng(latLng);
               }
             } catch (err) {}
-          });
+          };
+
+          window.updateRoutePolyline = function(coords) {
+            try {
+              if (routePolyline) {
+                map.removeLayer(routePolyline);
+                routePolyline = null;
+              }
+              if (coords && coords.length > 0) {
+                routePolyline = L.polyline(coords, {
+                  color: '#0F766E',
+                  weight: 5,
+                  opacity: 0.85,
+                  smoothFactor: 1
+                }).addTo(map);
+              }
+              window.fitMarkers();
+            } catch (err) {}
+          };
         </script>
       </body>
       </html>
     `;
   }, [technicianCoords, customerCoords, routeCoordinates, currentUserRole, isAccepted, initialCenter]);
 
-  // Push updated live coordinates to the webview without full reloads
+  // Push updated live coordinates and route to the webview without full reloads
   useEffect(() => {
     if (webViewRef.current && technicianCoords?.latitude && technicianCoords?.longitude) {
       const script = `
-        if (typeof techMarker !== 'undefined' && techMarker) {
-          techMarker.setLatLng([${technicianCoords.latitude}, ${technicianCoords.longitude}]);
+        if (typeof window.updateTechMarker === 'function') {
+          window.updateTechMarker(${technicianCoords.latitude}, ${technicianCoords.longitude});
         }
       `;
       webViewRef.current.injectJavaScript(script);
     }
   }, [technicianCoords?.latitude, technicianCoords?.longitude]);
+
+  useEffect(() => {
+    if (webViewRef.current && customerCoords?.latitude && customerCoords?.longitude) {
+      const nameJson = JSON.stringify(customerCoords.name || 'Customer');
+      const addrJson = JSON.stringify(customerCoords.address || '');
+      const script = `
+        if (typeof window.updateCustomerMarker === 'function') {
+          window.updateCustomerMarker(${customerCoords.latitude}, ${customerCoords.longitude}, ${nameJson}, ${addrJson});
+          if (typeof window.fitMarkers === 'function') { window.fitMarkers(); }
+        }
+      `;
+      webViewRef.current.injectJavaScript(script);
+    }
+  }, [customerCoords?.latitude, customerCoords?.longitude, customerCoords?.name, customerCoords?.address]);
+
+  useEffect(() => {
+    if (webViewRef.current && routeCoordinates) {
+      const script = `
+        if (typeof window.updateRoutePolyline === 'function') {
+          window.updateRoutePolyline(${JSON.stringify(routeCoordinates)});
+        }
+      `;
+      webViewRef.current.injectJavaScript(script);
+    }
+  }, [routeCoordinates]);
 
   if (Platform.OS === 'web' || !WebView) {
     return (
