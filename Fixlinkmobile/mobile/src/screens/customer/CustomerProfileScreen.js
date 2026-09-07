@@ -59,11 +59,6 @@ export default function CustomerProfileScreen({ user, onLogout, onUpdateProfile 
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.brand}>fix<Text style={styles.brandAccent}>link</Text></Text>
-        <Text style={styles.roleHeader}>CUSTOMER PROFILE</Text>
-      </View>
-
       <View style={styles.card}>
         <View style={styles.profileHeader}>
           <TouchableOpacity onPress={isEditing ? pickImage : undefined} activeOpacity={isEditing ? 0.7 : 1} style={styles.avatarContainer}>
@@ -188,10 +183,6 @@ export default function CustomerProfileScreen({ user, onLogout, onUpdateProfile 
 
 const styles = StyleSheet.create({
   scrollContent: { flexGrow: 1, padding: 20, backgroundColor: colors.canvas, justifyContent: 'center' },
-  headerContainer: { alignItems: 'center', marginBottom: 28 },
-  brand: { color: colors.ink, fontSize: 32, fontWeight: '900', letterSpacing: -1.5 },
-  brandAccent: { color: colors.teal },
-  roleHeader: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontWeight: '800', marginTop: 4 },
   card: { backgroundColor: colors.white, borderRadius: 24, padding: 24, borderWidth: 1, borderColor: colors.line, shadowColor: '#102A43', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 6 },
   profileHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 24, paddingBottom: 20, borderBottomWidth: 1, borderBottomColor: colors.line },
   avatarContainer: { position: 'relative', marginRight: 16 },

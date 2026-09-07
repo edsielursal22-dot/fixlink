@@ -284,22 +284,6 @@ export default function MapTrackerScreen({ currentUser, selectedJob: initialJob,
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerIcon}>
-          <Ionicons name="map" size={22} color={colors.teal} />
-        </View>
-        <View style={styles.headerCopy}>
-          <Text style={styles.eyebrow}>LOCATIONIQ REAL-TIME NAVIGATION</Text>
-          <Text style={styles.title}>
-            {isTechnician ? 'Technician Dispatch Route' : 'Live Technician Tracker'}
-          </Text>
-        </View>
-        <View style={styles.statusPill}>
-          <View style={styles.statusDot} />
-          <Text style={styles.statusText}>{isAccepted ? activeJob.status : 'Pending'}</Text>
-        </View>
-      </View>
-
       {/* Multi-Job Quick Switcher (Shown when technician has multiple active jobs) */}
       {isTechnician && acceptedJobsList.length > 1 && (
         <View style={styles.selectorBar}>
@@ -416,14 +400,6 @@ export default function MapTrackerScreen({ currentUser, selectedJob: initialJob,
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.canvas },
-  header: { minHeight: 76, paddingHorizontal: 20, paddingVertical: 12, backgroundColor: colors.white, flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.line },
-  headerIcon: { width: 43, height: 43, borderRadius: 14, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center', marginRight: 12 },
-  headerCopy: { flex: 1 },
-  eyebrow: { color: colors.teal, fontSize: 9, letterSpacing: 1.4, fontWeight: '800', marginBottom: 3 },
-  title: { color: colors.ink, fontSize: 18, fontWeight: '800' },
-  statusPill: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#E6F6F3', borderRadius: 18, paddingHorizontal: 10, paddingVertical: 6 },
-  statusDot: { width: 7, height: 7, borderRadius: 4, backgroundColor: colors.teal, marginRight: 5 },
-  statusText: { color: colors.teal, fontSize: 11, fontWeight: '800' },
   selectorBar: { backgroundColor: '#F0F4F8', paddingHorizontal: 16, paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: colors.line },
   selectorKicker: { fontSize: 10, fontWeight: '800', color: colors.muted, marginBottom: 5, letterSpacing: 0.8 },
   chipRow: { flexDirection: 'row', gap: 8, flexWrap: 'wrap' },

@@ -13,7 +13,15 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { fetchCustomerRequests, fetchJobMessages, fetchTechnicianJobs, sendJobMessage } from '../services/api';
+import Skeleton from '../../components/Skeleton';
+import {
+  fetchCustomerRequests,
+  fetchJobMessages,
+  fetchTechnicianJobs,
+  fetchUnreadMessageNotifications,
+  markJobMessagesRead,
+  sendJobMessage
+} from '../services/api';
 
 const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
 
@@ -60,8 +68,22 @@ export default function ChatScreen({ currentUser, initialTarget = null }) {
             }));
         }
 
+        let unreadNotifications = [];
+        try {
+          unreadNotifications = await fetchUnreadMessageNotifications(currentUser.uid, currentUser.role);
+        } catch (error) {
+          console.warn('Error loading unread chat notifications:', error);
+        }
+
         if (isMounted) {
-          setConversations(convList);
+          const unreadByJob = (unreadNotifications || []).reduce((counts, notification) => ({
+            ...counts,
+            [notification.jobId]: (counts[notification.jobId] || 0) + 1
+          }), {});
+          setConversations(convList.map(conversation => ({
+            ...conversation,
+            unreadCount: unreadByJob[conversation.id] || 0
+          })));
 
           // If initial target was requested
           if (initialTarget) {
@@ -103,6 +125,7 @@ export default function ChatScreen({ currentUser, initialTarget = null }) {
               time: message.timestamp ? new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''
             }))
           }));
+          await markJobMessagesRead(jobId, currentUser.uid);
         }
       } catch (error) {
         console.warn('Error loading job messages:', error);
@@ -228,11 +251,6 @@ export default function ChatScreen({ currentUser, initialTarget = null }) {
       <StatusBar barStyle="dark-content" backgroundColor={colors.canvas} />
       
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.brand}>fix<Text style={styles.brandAccent}>link</Text></Text>
-          <Text style={styles.roleHeader}>COORDINATION MESSAGES</Text>
-        </View>
-
         <View style={styles.sectionHeaderContainer}>
           <Text style={styles.kicker}>CONVERSATIONS</Text>
           <Text style={styles.sectionTitle}>
@@ -241,9 +259,20 @@ export default function ChatScreen({ currentUser, initialTarget = null }) {
         </View>
 
         {loading ? (
-          <View style={styles.loadingBox}>
-            <ActivityIndicator size="large" color={colors.teal} />
-            <Text style={styles.loadingText}>Loading conversations...</Text>
+          <View style={styles.skeletonList}>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+              <View key={item} style={styles.conversationItem}>
+                <Skeleton style={styles.skeletonAvatar} />
+                <View style={styles.skeletonConversationInfo}>
+                  <View style={styles.skeletonConversationHeader}>
+                    <Skeleton style={{ width: '42%', height: 15 }} />
+                    <Skeleton style={{ width: 54, height: 19, borderRadius: 8 }} />
+                  </View>
+                  <Skeleton style={{ width: '68%', height: 12 }} />
+                </View>
+                <Skeleton style={{ width: 8, height: 14, borderRadius: 4 }} />
+              </View>
+            ))}
           </View>
         ) : conversations.length === 0 ? (
           <View style={styles.emptyCard}>
@@ -260,7 +289,12 @@ export default function ChatScreen({ currentUser, initialTarget = null }) {
             <TouchableOpacity 
               key={item.id} 
               style={styles.conversationItem} 
-              onPress={() => setSelectedConversation(item)} 
+              onPress={() => {
+                setSelectedConversation(item);
+                setConversations((current) => current.map((conversation) => (
+                  conversation.id === item.id ? { ...conversation, unreadCount: 0 } : conversation
+                )));
+              }} 
               activeOpacity={0.7}
             >
               <View style={styles.avatar}>
@@ -269,8 +303,15 @@ export default function ChatScreen({ currentUser, initialTarget = null }) {
               <View style={styles.conversationInfo}>
                 <View style={styles.convHeaderRow}>
                   <Text style={styles.convName}>{item.name}</Text>
-                  <View style={styles.badgePill}>
-                    <Text style={styles.badgePillText}>{item.status || 'Active'}</Text>
+                  <View style={styles.convBadges}>
+                    <View style={styles.badgePill}>
+                      <Text style={styles.badgePillText}>{item.status || 'Active'}</Text>
+                    </View>
+                    {item.unreadCount > 0 && (
+                      <View style={styles.unreadPill}>
+                        <Text style={styles.unreadPillText}>{item.unreadCount}</Text>
+                      </View>
+                    )}
                   </View>
                 </View>
                 <Text style={styles.lastMsg} numberOfLines={1}>{item.subtitle}</Text>
@@ -291,10 +332,6 @@ const styles = StyleSheet.create({
   backButton: { color: colors.ink, fontSize: 14, fontWeight: '700' },
   navTitle: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontWeight: '800' },
   scrollContent: { flexGrow: 1, padding: 20 },
-  headerContainer: { alignItems: 'center', marginBottom: 24, marginTop: 6 },
-  brand: { color: colors.ink, fontSize: 32, fontWeight: '900', letterSpacing: -1.5 },
-  brandAccent: { color: colors.teal },
-  roleHeader: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontWeight: '800', marginTop: 4 },
   sectionHeaderContainer: { marginBottom: 14 },
   kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 2 },
   sectionTitle: { fontSize: 20, fontWeight: '800', color: colors.ink },
@@ -305,8 +342,11 @@ const styles = StyleSheet.create({
   conversationInfo: { flex: 1 },
   convHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
   convName: { fontWeight: '800', fontSize: 15, color: colors.ink },
+  convBadges: { flexDirection: 'row', alignItems: 'center', gap: 5 },
   badgePill: { backgroundColor: '#E6F6F3', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8 },
   badgePillText: { color: colors.teal, fontSize: 10, fontWeight: '800' },
+  unreadPill: { minWidth: 20, height: 20, borderRadius: 10, backgroundColor: colors.error, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5 },
+  unreadPillText: { color: colors.white, fontSize: 10, fontWeight: '900' },
   lastMsg: { color: colors.muted, fontSize: 12, fontWeight: '600' },
   
   chatHeaderCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, paddingHorizontal: 20, paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: colors.line, gap: 12 },
@@ -336,8 +376,10 @@ const styles = StyleSheet.create({
   textInput: { flex: 1, color: colors.ink, fontSize: 14, fontWeight: '600', maxHeight: 90, paddingVertical: 6 },
   sendButton: { backgroundColor: colors.teal, width: 36, height: 36, borderRadius: 18, justifyContent: 'center', alignItems: 'center', shadowColor: '#0F766E', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 2 },
 
-  loadingBox: { padding: 40, alignItems: 'center', justifyContent: 'center' },
-  loadingText: { marginTop: 10, color: colors.muted, fontSize: 13, fontWeight: '600' },
+  skeletonList: { gap: 12 },
+  skeletonAvatar: { width: 46, height: 46, borderRadius: 23, marginRight: 14 },
+  skeletonConversationInfo: { flex: 1, gap: 8 },
+  skeletonConversationHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   emptyCard: { backgroundColor: colors.white, borderRadius: 20, padding: 32, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.line, gap: 10 },
   emptyTitle: { color: colors.ink, fontSize: 16, fontWeight: '800' },
   emptyText: { color: colors.muted, fontSize: 13, fontWeight: '500', textAlign: 'center', lineHeight: 18, paddingHorizontal: 12 }

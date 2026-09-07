@@ -92,11 +92,18 @@ export default function TechnicianProfileScreen({ technician, onLogout }) {
           {profile.reviews.map((r, i) => <View key={i} style={styles.review}><Text style={styles.reviewRating}>{'★'.repeat(r.rating)}</Text><Text style={styles.bodyText}>{r.comment}</Text></View>)}
         </View>
       ) : <Text style={styles.muted}>No reviews yet.</Text>}
-      <Text style={styles.sectionTitle}>Portfolio</Text>
-      <Text style={styles.helper}>Add photos of completed repairs to help customers understand your work.</Text>
-      <TouchableOpacity style={styles.secondaryButton} onPress={choosePortfolioPhotos}><Text style={styles.secondaryButtonText}>{selectedPhotos.length > 0 ? selectedPhotos.length + ' photo(s) selected' : 'Choose completed repair photos'}</Text></TouchableOpacity>
+      <View style={styles.portfolioHeading}>
+        <View>
+          <Text style={styles.kicker}>WORK SHOWCASE</Text>
+          <Text style={styles.sectionTitle}>Portfolio</Text>
+        </View>
+        <Ionicons name="images-outline" size={23} color="#0F766E" style={styles.portfolioIcon} />
+      </View>
+      <TouchableOpacity style={styles.secondaryButton} onPress={choosePortfolioPhotos} disabled={uploading}>
+        <Text style={styles.secondaryButtonText}>{selectedPhotos.length > 0 ? `${selectedPhotos.length} photo(s) selected` : 'Upload your portfolio'}</Text>
+      </TouchableOpacity>
       {selectedPhotos.length > 0 && <View style={styles.photoGrid}>{selectedPhotos.map((photo) => <Image key={photo.uri} source={{ uri: photo.uri }} style={styles.photo} />)}</View>}
-      {selectedPhotos.length > 0 && <TouchableOpacity style={styles.button} onPress={savePortfolio} disabled={uploading}>{uploading ? <ActivityIndicator color='#fff' /> : <Text style={styles.buttonText}>Save portfolio photos</Text>}</TouchableOpacity>}
+      {selectedPhotos.length > 0 && <TouchableOpacity style={styles.button} onPress={savePortfolio} disabled={uploading}>{uploading ? <ActivityIndicator color='#fff' /> : <><Ionicons name="cloud-upload-outline" size={18} color="#fff" /><Text style={styles.buttonText}>Upload portfolio photos</Text></>}</TouchableOpacity>}
       <View style={styles.photoGrid}>{(profile.portfolio || []).map((photo) => <Image key={photo.url} source={{ uri: photo.url }} style={styles.photo} />)}</View>
       <TouchableOpacity style={styles.logoutButton} onPress={onLogout}><Ionicons name="log-out-outline" size={18} color="#C2410C" /><Text style={styles.logoutText}>Log out</Text></TouchableOpacity>
     </ScrollView>
@@ -117,6 +124,8 @@ const styles = StyleSheet.create({
   statValue: { color: '#0F766E', fontSize: 23, fontWeight: '800', textAlign: 'center' },
   statLabel: { color: '#627D98', fontSize: 11, marginTop: 6, fontWeight: '700', textAlign: 'center' },
   sectionTitle: { color: '#102A43', fontSize: 18, fontWeight: '800', marginTop: 8, marginBottom: 12 },
+  portfolioHeading: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 8, marginBottom: 2 },
+  portfolioIcon: { marginLeft: 'auto' },
   kicker: { color: '#0F766E', fontSize: 10, letterSpacing: 1.4, fontWeight: '800', marginBottom: 4 },
   sectionCard: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 18, padding: 16, marginBottom: 18 },
   sectionHeadingRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 },
@@ -128,11 +137,11 @@ const styles = StyleSheet.create({
   review: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 16, padding: 16, marginBottom: 12, shadowColor: '#102A43', shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.04, shadowRadius: 7, elevation: 1 },
   reviewRating: { color: '#F59E0B', marginBottom: 8, fontSize: 18 },
   helper: { color: '#627D98', fontSize: 13, lineHeight: 18, marginBottom: 16 },
-  secondaryButton: { backgroundColor: '#FFFFFF', padding: 16, borderRadius: 14, alignItems: 'center', borderWidth: 1, borderColor: '#D9E2EC', borderStyle: 'dashed' },
+  secondaryButton: { backgroundColor: '#FFFFFF', padding: 16, borderRadius: 14, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 8, borderWidth: 1, borderColor: '#D9E2EC', borderStyle: 'dashed' },
   secondaryButtonText: { color: '#0F766E', fontWeight: '800', fontSize: 14 },
   photoGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 12 },
   photo: { width: '31%', aspectRatio: 1, borderRadius: 12 },
-  button: { backgroundColor: '#0F766E', padding: 16, borderRadius: 14, alignItems: 'center', marginTop: 16, shadowColor: '#0F766E', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 4 },
+  button: { backgroundColor: '#0F766E', padding: 16, borderRadius: 14, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 8, marginTop: 16, shadowColor: '#0F766E', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 4 },
   buttonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 15 },
   logoutButton: { minHeight: 50, borderRadius: 14, borderWidth: 1, borderColor: '#FED7AA', backgroundColor: '#FFF7ED', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 22 },
   logoutText: { color: '#C2410C', fontSize: 14, fontWeight: '800' },

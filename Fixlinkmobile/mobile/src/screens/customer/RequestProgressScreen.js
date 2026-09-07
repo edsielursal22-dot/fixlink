@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import Skeleton from '../../components/Skeleton';
 import { fetchCompletedJobs, fetchCustomerRequests, submitTechnicianReview } from '../services/api';
 
 const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
 
-export default function RequestProgressScreen({ customerName, onViewDetails, onTrackMap }) {
+export default function RequestProgressScreen({ customerName, acceptedOnly = false, onViewDetails, onTrackMap }) {
   const [completedJobs, setCompletedJobs] = useState([]);
   const [trackedRequests, setTrackedRequests] = useState([]);
+  const [loadingRequests, setLoadingRequests] = useState(true);
+  const [statusFilter, setStatusFilter] = useState(acceptedOnly ? 'active' : 'all');
   const [reviewRatings, setReviewRatings] = useState({});
   const [reviewComments, setReviewComments] = useState({});
   const [reviewSubmitting, setReviewSubmitting] = useState(null);
@@ -28,8 +31,15 @@ export default function RequestProgressScreen({ customerName, onViewDetails, onT
   }, [customerName]);
 
   useEffect(() => {
+    setStatusFilter(acceptedOnly ? 'active' : 'all');
+  }, [acceptedOnly]);
+
+  useEffect(() => {
     let active = true;
-    const refreshStatuses = () => fetchCustomerRequests(customerName).then((items) => { if (active) setTrackedRequests(items); }).catch(() => {});
+    const refreshStatuses = () => fetchCustomerRequests(customerName)
+      .then((items) => { if (active) setTrackedRequests(items); })
+      .catch(() => {})
+      .finally(() => { if (active) setLoadingRequests(false); });
     refreshStatuses();
     const interval = setInterval(refreshStatuses, 10000);
     return () => { active = false; clearInterval(interval); };
@@ -53,25 +63,78 @@ export default function RequestProgressScreen({ customerName, onViewDetails, onT
     }
   };
 
+  const filterOptions = acceptedOnly
+    ? [{ key: 'active', label: 'Accepted & In Progress' }]
+    : [
+      { key: 'all', label: 'All' },
+      { key: 'pending', label: 'Pending' },
+      { key: 'accepted', label: 'Accepted' },
+      { key: 'in progress', label: 'In Progress' },
+    ];
+  const visibleTrackedRequests = trackedRequests.filter((request) => {
+    const status = String(request.status || '').toLowerCase();
+    if (statusFilter === 'all') return true;
+    if (statusFilter === 'active') return ['accepted', 'in progress'].includes(status);
+    return status === statusFilter;
+  });
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.brand}>fix<Text style={styles.brandAccent}>link</Text></Text>
-        <Text style={styles.roleHeader}>TRACK REQUESTS & REPAIRS</Text>
-      </View>
-
       <View style={styles.sectionHeaderContainer}>
         <Text style={styles.kicker}>LIVE STATUS</Text>
         <Text style={styles.sectionTitle}>My Active Requests</Text>
       </View>
 
-      {trackedRequests.length === 0 ? (
+      <View style={styles.statusLegend}>
+        <View style={styles.legendItem}><View style={[styles.legendDot, { backgroundColor: '#D97706' }]} /><Text style={styles.legendText}>Pending</Text></View>
+        <View style={styles.legendItem}><View style={[styles.legendDot, { backgroundColor: colors.teal }]} /><Text style={styles.legendText}>Accepted</Text></View>
+        <View style={styles.legendItem}><View style={[styles.legendDot, { backgroundColor: '#059669' }]} /><Text style={styles.legendText}>In Progress</Text></View>
+      </View>
+
+      <ScrollView horizontal style={styles.filterScroll} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterRow}>
+        {filterOptions.map((option) => (
+          <TouchableOpacity
+            key={option.key}
+            style={[styles.filterButton, statusFilter === option.key && styles.filterButtonActive]}
+            onPress={() => setStatusFilter(option.key)}
+            activeOpacity={0.8}
+          >
+            <Text style={[styles.filterButtonText, statusFilter === option.key && styles.filterButtonTextActive]}>
+              {option.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
+      {loadingRequests ? (
+        <View>
+          {[1, 2, 3].map((item) => (
+            <View key={item} style={styles.card}>
+              <View style={styles.skeletonHeader}>
+                <View style={styles.skeletonCopy}>
+                  <Skeleton style={{ width: 72, height: 10, marginBottom: 8 }} />
+                  <Skeleton style={{ width: '58%', height: 20, marginBottom: 8 }} />
+                  <Skeleton style={{ width: '38%', height: 12 }} />
+                </View>
+                <Skeleton style={{ width: 82, height: 25, borderRadius: 8 }} />
+              </View>
+              <Skeleton style={{ width: '92%', height: 14, marginBottom: 8 }} />
+              <Skeleton style={{ width: '68%', height: 14, marginBottom: 18 }} />
+              <View style={styles.skeletonMetaRow}>
+                <Skeleton style={{ width: '34%', height: 12 }} />
+                <Skeleton style={{ width: '42%', height: 12 }} />
+              </View>
+              <Skeleton style={{ width: '100%', height: 44, borderRadius: 12 }} />
+            </View>
+          ))}
+        </View>
+      ) : visibleTrackedRequests.length === 0 ? (
         <View style={styles.emptyCard}>
           <Ionicons name="clipboard-outline" size={32} color={colors.muted} />
-          <Text style={styles.emptyText}>No active repair requests found.</Text>
+          <Text style={styles.emptyText}>{acceptedOnly ? 'No accepted repair requests found.' : 'No active repair requests found.'}</Text>
         </View>
       ) : (
-        trackedRequests.map(req => {
+        visibleTrackedRequests.map(req => {
           const isAccepted = ['accepted', 'in progress'].includes(req.status?.toLowerCase());
           return (
             <View key={req.id} style={styles.card}>
@@ -125,7 +188,7 @@ export default function RequestProgressScreen({ customerName, onViewDetails, onT
         })
       )}
 
-      {completedJobs.length > 0 && (
+      {!acceptedOnly && completedJobs.length > 0 && (
         <>
           <View style={[styles.sectionHeaderContainer, { marginTop: 24 }]}>
             <Text style={styles.kicker}>FEEDBACK</Text>
@@ -184,15 +247,24 @@ export default function RequestProgressScreen({ customerName, onViewDetails, onT
 }
 
 const styles = StyleSheet.create({
-  scrollContent: { flexGrow: 1, padding: 20, backgroundColor: colors.canvas },
-  headerContainer: { alignItems: 'center', marginBottom: 24 },
-  brand: { color: colors.ink, fontSize: 32, fontWeight: '900', letterSpacing: -1.5 },
-  brandAccent: { color: colors.teal },
-  roleHeader: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontWeight: '800', marginTop: 4 },
+  scrollContent: { padding: 20, backgroundColor: colors.canvas },
   sectionHeaderContainer: { marginBottom: 12 },
   kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 2 },
   sectionTitle: { fontSize: 20, fontWeight: '800', color: colors.ink },
+  statusLegend: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginBottom: 14 },
+  legendItem: { flexDirection: 'row', alignItems: 'center', gap: 5 },
+  legendDot: { width: 8, height: 8, borderRadius: 4 },
+  legendText: { color: colors.muted, fontSize: 11, fontWeight: '700' },
+  filterScroll: { flexGrow: 0, height: 48 },
+  filterRow: { gap: 8, height: 48, paddingBottom: 8, alignItems: 'center' },
+  filterButton: { height: 36, borderWidth: 1, borderColor: colors.line, borderRadius: 16, backgroundColor: colors.white, paddingHorizontal: 13, alignItems: 'center', justifyContent: 'center' },
+  filterButtonActive: { backgroundColor: colors.teal, borderColor: colors.teal },
+  filterButtonText: { color: colors.muted, fontSize: 12, fontWeight: '800' },
+  filterButtonTextActive: { color: colors.white },
   card: { backgroundColor: colors.white, borderRadius: 24, padding: 20, marginBottom: 16, borderWidth: 1, borderColor: colors.line, shadowColor: '#102A43', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.08, shadowRadius: 16, elevation: 4 },
+  skeletonHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 18 },
+  skeletonCopy: { flex: 1 },
+  skeletonMetaRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 18 },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 },
   applianceTitle: { fontSize: 18, fontWeight: '800', color: colors.ink },
   techName: { color: colors.muted, fontSize: 12, fontWeight: '600', marginTop: 2 },

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
+import Skeleton from '../../components/Skeleton';
 import {
   acceptRepairRequest,
   declineRepairRequest,
@@ -100,7 +101,7 @@ const formatSchedule = (job) => {
   return 'Schedule to confirm';
 };
 
-export default function AvailableJobsScreen({ technician, onNavigateToMap, onNavigateToChat }) {
+export default function AvailableJobsScreen({ technician, onNavigateToMap, onNavigateToChat, onOpenNotifications, notificationCount = 0 }) {
   const [jobs, setJobs] = useState([]);
   const [acceptedJobs, setAcceptedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -247,10 +248,44 @@ export default function AvailableJobsScreen({ technician, onNavigateToMap, onNav
 
   if (loading) {
     return (
-      <View style={styles.loading}>
-        <ActivityIndicator size="large" color={colors.teal} />
-        <Text style={styles.loadingText}>Finding jobs for your skills...</Text>
-      </View>
+      <ScrollView style={styles.screen} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <View style={styles.skeletonHeroRow}>
+          <View style={styles.skeletonHeroCopy}>
+            <Skeleton style={{ width: 105, height: 10, marginBottom: 9 }} />
+            <Skeleton style={{ width: '82%', height: 28, marginBottom: 8 }} />
+            <Skeleton style={{ width: '96%', height: 13, marginBottom: 5 }} />
+            <Skeleton style={{ width: '70%', height: 13 }} />
+          </View>
+          <Skeleton style={{ width: 46, height: 46, borderRadius: 15 }} />
+        </View>
+
+        <View style={styles.skeletonStatusCard}>
+          <Skeleton style={{ width: 42, height: 42, borderRadius: 14, marginRight: 12 }} />
+          <View style={styles.skeletonStatusCopy}>
+            <Skeleton style={{ width: '52%', height: 15, marginBottom: 7 }} />
+            <Skeleton style={{ width: '88%', height: 12 }} />
+          </View>
+          <Skeleton style={{ width: 9, height: 9, borderRadius: 5 }} />
+        </View>
+
+        {[1, 2, 3].map((item) => (
+          <View key={item} style={styles.skeletonJobCard}>
+            <View style={styles.skeletonJobTopRow}>
+              <Skeleton style={{ width: 42, height: 42, borderRadius: 14, marginRight: 11 }} />
+              <View style={styles.skeletonJobCopy}>
+                <Skeleton style={{ width: 78, height: 20, borderRadius: 8, marginBottom: 9 }} />
+                <Skeleton style={{ width: '58%', height: 18, marginBottom: 7 }} />
+                <Skeleton style={{ width: '82%', height: 12 }} />
+              </View>
+              <View style={styles.skeletonJobActions}>
+                <Skeleton style={{ width: 34, height: 34, borderRadius: 10 }} />
+                <Skeleton style={{ width: 34, height: 34, borderRadius: 10 }} />
+              </View>
+            </View>
+            <Skeleton style={{ width: '100%', height: 44, borderRadius: 12 }} />
+          </View>
+        ))}
+      </ScrollView>
     );
   }
 
@@ -267,9 +302,19 @@ export default function AvailableJobsScreen({ technician, onNavigateToMap, onNav
           <Text style={styles.greeting}>Jobs for your skills</Text>
           <Text style={styles.subtitle}>Review nearby repair work and choose your next dispatch.</Text>
         </View>
-        <View style={styles.jobCount}>
-          <Text style={styles.jobCountValue}>{jobs.length}</Text>
-          <Text style={styles.jobCountLabel}>nearby</Text>
+        <View style={styles.heroActions}>
+          <View style={styles.jobCount}>
+            <Text style={styles.jobCountValue}>{jobs.length}</Text>
+            <Text style={styles.jobCountLabel}>nearby</Text>
+          </View>
+          <TouchableOpacity style={styles.techNotification} onPress={onOpenNotifications} activeOpacity={0.8}>
+            <Ionicons name="notifications-outline" size={22} color={colors.ink} />
+            {notificationCount > 0 && (
+              <View style={styles.techNotificationBadge}>
+                <Text style={styles.techNotificationBadgeText}>{notificationCount > 9 ? '9+' : notificationCount}</Text>
+              </View>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -523,16 +568,26 @@ export default function AvailableJobsScreen({ technician, onNavigateToMap, onNav
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.canvas },
   content: { padding: 20, paddingBottom: 36 },
-  loading: { flex: 1, backgroundColor: colors.canvas, alignItems: 'center', justifyContent: 'center' },
-  loadingText: { color: colors.muted, fontSize: 13, fontWeight: '600', marginTop: 10 },
+  skeletonHeroRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 },
+  skeletonHeroCopy: { flex: 1, paddingRight: 16 },
+  skeletonStatusCard: { backgroundColor: colors.white, borderRadius: 18, borderWidth: 1, borderColor: colors.line, padding: 15, flexDirection: 'row', alignItems: 'center', marginBottom: 26 },
+  skeletonStatusCopy: { flex: 1 },
+  skeletonJobCard: { backgroundColor: colors.white, borderRadius: 20, borderWidth: 1, borderColor: colors.line, padding: 16, marginBottom: 14 },
+  skeletonJobTopRow: { flexDirection: 'row', alignItems: 'flex-start', marginBottom: 12 },
+  skeletonJobCopy: { flex: 1 },
+  skeletonJobActions: { gap: 6 },
   heroRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 },
   heroCopy: { flex: 1, paddingRight: 16 },
+  heroActions: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   eyebrow: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 7 },
   greeting: { color: colors.ink, fontSize: 27, fontWeight: '800' },
   subtitle: { color: colors.muted, fontSize: 13, lineHeight: 18, marginTop: 6 },
-  jobCount: { width: 62, height: 62, borderRadius: 20, backgroundColor: '#D7F0ED', alignItems: 'center', justifyContent: 'center' },
+  jobCount: { width: 46, height: 46, borderRadius: 15, backgroundColor: '#D7F0ED', alignItems: 'center', justifyContent: 'center' },
   jobCountValue: { color: colors.tealDark, fontSize: 20, fontWeight: '900' },
   jobCountLabel: { color: colors.teal, fontSize: 10, fontWeight: '800' },
+  techNotification: { width: 46, height: 46, borderRadius: 15, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line, alignItems: 'center', justifyContent: 'center' },
+  techNotificationBadge: { position: 'absolute', top: 3, right: 3, minWidth: 16, height: 16, borderRadius: 8, backgroundColor: colors.danger, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 },
+  techNotificationBadgeText: { color: colors.white, fontSize: 9, fontWeight: '900' },
   statusCard: { backgroundColor: colors.white, borderRadius: 18, borderWidth: 1, borderColor: colors.line, padding: 15, flexDirection: 'row', alignItems: 'center', marginBottom: 26 },
   statusIcon: { width: 42, height: 42, borderRadius: 14, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center', marginRight: 12 },
   statusCopy: { flex: 1 },

@@ -277,6 +277,120 @@ const getAcceptedJobDoc = async (id) => {
   return { ref: null, doc: null };
 };
 
+const findUserUidByName = async (name, role) => {
+  const requestedName = String(name || '').trim().toLowerCase();
+  if (!requestedName) return null;
+  const snapshot = await db.collection('users').where('role', '==', role).get();
+  const match = snapshot.docs.find((userDoc) => {
+    const userName = String(userDoc.data().name || '').trim().toLowerCase();
+    return userName && (userName === requestedName || userName.includes(requestedName) || requestedName.includes(userName));
+  });
+  return match ? match.id : null;
+};
+
+router.get('/messages/unread', async (req, res) => {
+  try {
+    const { uid, role } = req.query || {};
+    if (!uid || !['customer', 'technician'].includes(role)) {
+      return res.status(400).json({ error: 'User identity and role are required.' });
+    }
+
+    const field = role === 'technician' ? 'technicianUid' : 'customerUid';
+    const [snapshot, savedNotificationsSnapshot] = await Promise.all([
+      db.collection('acceptedJobs').where(field, '==', String(uid)).get(),
+      db.collection('notifications').where('recipientUid', '==', String(uid)).get()
+    ]);
+    const allSavedNotifications = savedNotificationsSnapshot.docs
+      .map((notificationDoc) => ({ id: notificationDoc.id, ...notificationDoc.data() }))
+      .filter((notification) => notification.type === 'chat');
+    const savedNotifications = allSavedNotifications.filter((notification) => notification.read !== true);
+    const notifications = [...savedNotifications];
+    const savedMessageIds = new Set(allSavedNotifications.map((notification) => notification.messageId));
+    const legacyNotifications = [];
+
+    await Promise.all(snapshot.docs.map(async (jobDoc) => {
+      const job = jobDoc.data();
+      const messagesSnapshot = await jobDoc.ref.collection('messages').orderBy('timestamp', 'desc').get();
+      messagesSnapshot.docs.forEach((messageDoc) => {
+        const message = messageDoc.data();
+        const readBy = Array.isArray(message.readBy) ? message.readBy : [];
+        if (message.senderUid !== String(uid) && !readBy.includes(String(uid)) && !savedMessageIds.has(messageDoc.id)) {
+          legacyNotifications.push({
+            id: messageDoc.id,
+            jobId: jobDoc.id,
+            messageId: messageDoc.id,
+            senderName: message.senderName || (role === 'customer' ? job.technicianName : job.customerName) || 'Contact',
+            text: message.text || 'New message',
+            timestamp: message.timestamp || null,
+          });
+        }
+      });
+    }));
+
+    if (legacyNotifications.length > 0) {
+      await Promise.all(legacyNotifications.map(async (notification) => {
+        const notificationRef = db.collection('notifications').doc();
+        await notificationRef.set({
+          type: 'chat',
+          recipientUid: String(uid),
+          senderUid: null,
+          senderName: notification.senderName,
+          jobId: notification.jobId,
+          messageId: notification.messageId,
+          text: notification.text,
+          timestamp: notification.timestamp,
+          read: false,
+        });
+        notifications.push({ ...notification, id: notificationRef.id });
+      }));
+    }
+
+    notifications.sort((first, second) => String(second.timestamp || '').localeCompare(String(first.timestamp || '')));
+    res.json(notifications);
+  } catch (error) {
+    console.error('Error loading unread messages:', error);
+    res.status(500).json({ error: 'Unable to load unread messages.' });
+  }
+});
+
+router.put('/accepted/:id/messages/read', async (req, res) => {
+  try {
+    const { viewerUid } = req.body || {};
+    if (!viewerUid) return res.status(400).json({ error: 'Viewer identity is required.' });
+    const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
+    if (!jobDoc) return res.status(404).json({ error: 'Accepted job not found.' });
+
+    const snapshot = await jobRef.collection('messages').get();
+    const batch = db.batch();
+    let markedCount = 0;
+    snapshot.docs.forEach((messageDoc) => {
+      const message = messageDoc.data();
+      const readBy = Array.isArray(message.readBy) ? message.readBy : [];
+      if (message.senderUid !== String(viewerUid) && !readBy.includes(String(viewerUid))) {
+        batch.update(messageDoc.ref, { readBy: [...readBy, String(viewerUid)] });
+        markedCount += 1;
+      }
+    });
+    const notificationSnapshot = await db.collection('notifications')
+      .where('recipientUid', '==', String(viewerUid))
+      .where('jobId', '==', jobRef.id)
+      .get();
+    notificationSnapshot.docs.forEach((notificationDoc) => {
+      if (notificationDoc.data().read !== true) {
+        batch.update(notificationDoc.ref, { read: true, readAt: new Date().toISOString() });
+      }
+    });
+    if (markedCount > 0) await batch.commit();
+    if (markedCount === 0 && notificationSnapshot.docs.some((notificationDoc) => notificationDoc.data().read !== true)) {
+      await batch.commit();
+    }
+    res.json({ markedCount });
+  } catch (error) {
+    console.error('Error marking messages read:', error);
+    res.status(500).json({ error: 'Unable to mark messages as read.' });
+  }
+});
+
 router.get('/customer/:customerName', async (req, res) => {
   try {
     const [pendingSnapshot, acceptedSnapshot] = await Promise.all([
@@ -377,9 +491,31 @@ router.post('/accepted/:id/messages', async (req, res) => {
       senderName: String(senderName),
       senderRole: String(senderRole),
       text: String(text).trim(),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      readBy: [String(senderUid)]
     };
-    const messageRef = await jobRef.collection('messages').add(message);
+    const messageRef = jobRef.collection('messages').doc();
+    let recipientUid = senderRole === 'technician' ? jobDoc.data().customerUid : jobDoc.data().technicianUid;
+    if (!recipientUid && senderRole === 'technician') {
+      recipientUid = await findUserUidByName(jobDoc.data().customerName, 'customer');
+    }
+    const batch = db.batch();
+    batch.set(messageRef, message);
+    if (recipientUid && String(recipientUid) !== String(senderUid)) {
+      const notificationRef = db.collection('notifications').doc();
+      batch.set(notificationRef, {
+        type: 'chat',
+        recipientUid: String(recipientUid),
+        senderUid: String(senderUid),
+        senderName: String(senderName),
+        jobId: jobRef.id,
+        messageId: messageRef.id,
+        text: message.text,
+        timestamp: message.timestamp,
+        read: false,
+      });
+    }
+    await batch.commit();
     res.status(201).json({ id: messageRef.id, ...message });
   } catch (error) {
     console.error('Error saving job message:', error);

@@ -4176,3 +4176,97 @@
 {"_e":"metro:bundling:done","_t":1788793333286,"id":"8","total":1,"ms":688.3147}
 {"_e":"metro:client_log","_t":1788793367125,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
 {"_e":"metro:client_log","_t":1788793573378,"level":"warn","data":["Could not update technician GPS:","[Error: Current location is unavailable. Make sure that location services are enabled]"]}
+{"_e":"root:init","_t":1788794875812,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788794875813,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788794875815,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788794876521,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788794876921,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788794879039,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788794883241,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788794961166,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788794961167,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788794961173,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788794961273,"id":"1","progress":0.031246811549841852,"total":198,"current":35}
+{"_e":"metro:bundling:progress","_t":1788794961372,"id":"1","progress":0.13378901851267963,"total":298,"current":109}
+{"_e":"metro:bundling:progress","_t":1788794961472,"id":"1","progress":0.2438044539524008,"total":401,"current":198}
+{"_e":"metro:bundling:progress","_t":1788794961572,"id":"1","progress":0.4296957343914687,"total":508,"current":333}
+{"_e":"metro:bundling:progress","_t":1788794961673,"id":"1","progress":0.5329743659219246,"total":589,"current":430}
+{"_e":"metro:bundling:progress","_t":1788794961772,"id":"1","progress":0.7239238362651136,"total":657,"current":559}
+{"_e":"metro:bundling:progress","_t":1788794961872,"id":"1","progress":0.7767484444444444,"total":750,"current":661}
+{"_e":"metro:bundling:progress","_t":1788794961983,"id":"1","progress":0.9216,"total":825,"current":792}
+{"_e":"metro:bundling:progress","_t":1788794962083,"id":"1","progress":0.9976261135967411,"total":842,"current":841}
+{"_e":"metro:bundling:progress","_t":1788794962284,"id":"1","progress":0.999,"total":842,"current":842}
+{"_e":"metro:bundling:done","_t":1788794962391,"id":"1","total":842,"ms":1224.5671}
+{"_e":"metro:client_log","_t":1788794986726,"level":"warn","data":["LocationIQ Route Notice (falling back to direct road link):","429"]}
+{"_e":"metro:client_log","_t":1788795060295,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1788795458482,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795463573,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795464683,"level":"warn","data":["Error loading unread chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795468512,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795473565,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795478569,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795483577,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795488538,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795492101,"level":"warn","data":["Error loading unread chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795493546,"level":"warn","data":["Error loading unread chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795493703,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795498537,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"metro:client_log","_t":1788795503567,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 404]"]}
+{"_e":"root:init","_t":1788795514293,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788795514294,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788795514296,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788795514753,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788795515168,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788795515467,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788795519589,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788795521417,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788795521418,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788795521421,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788795521522,"id":"1","progress":0.08800164831391222,"total":209,"current":62}
+{"_e":"metro:bundling:progress","_t":1788795521622,"id":"1","progress":0.19753086419753085,"total":333,"current":148}
+{"_e":"metro:bundling:progress","_t":1788795521722,"id":"1","progress":0.3635011951020267,"total":481,"current":290}
+{"_e":"metro:bundling:progress","_t":1788795521822,"id":"1","progress":0.5329466463881432,"total":626,"current":457}
+{"_e":"metro:bundling:progress","_t":1788795521922,"id":"1","progress":0.7330333653061938,"total":737,"current":631}
+{"_e":"metro:bundling:progress","_t":1788795522038,"id":"1","progress":0.870957292877868,"total":809,"current":755}
+{"_e":"metro:bundling:done","_t":1788795522150,"id":"1","total":809,"ms":732.7354}
+{"_e":"metro:client_log","_t":1788795535933,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:bundling:started","_t":1788795975416,"id":"4","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788795975416,"id":"4","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788795975446,"id":"4","total":1,"ms":29.8408}
+{"_e":"metro:bundling:started","_t":1788796063405,"id":"5","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788796063405,"id":"5","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788796063433,"id":"5","total":1,"ms":27.652}
+{"_e":"metro:bundling:started","_t":1788796175434,"id":"6","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788796175434,"id":"6","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788796175462,"id":"6","total":1,"ms":28.219}
+{"_e":"metro:bundling:started","_t":1788796273511,"id":"7","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788796273512,"id":"7","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788796273541,"id":"7","total":1,"ms":29.7178}
+{"_e":"metro:bundling:started","_t":1788796282068,"id":"8","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788796282068,"id":"8","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788796282095,"id":"8","total":1,"ms":26.5604}
+{"_e":"metro:client_log","_t":1788796312389,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:bundling:started","_t":1788796909379,"id":"a","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788796909380,"id":"a","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788796909409,"id":"a","total":1,"ms":29.18}
+{"_e":"metro:client_log","_t":1788796992642,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"root:init","_t":1788797046207,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788797046209,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788797046212,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788797046748,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788797047137,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788797047585,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788797051805,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788797055017,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788797055018,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788797055022,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788797055122,"id":"1","progress":0.01833767361111111,"total":192,"current":26}
+{"_e":"metro:bundling:progress","_t":1788797055222,"id":"1","progress":0.13534524222324135,"total":299,"current":110}
+{"_e":"metro:bundling:progress","_t":1788797055323,"id":"1","progress":0.24754301244873694,"total":406,"current":202}
+{"_e":"metro:bundling:progress","_t":1788797055423,"id":"1","progress":0.48774049231423783,"total":557,"current":389}
+{"_e":"metro:bundling:progress","_t":1788797055523,"id":"1","progress":0.7236543068323744,"total":663,"current":564}
+{"_e":"metro:bundling:progress","_t":1788797055623,"id":"1","progress":0.7812880723470319,"total":758,"current":670}
+{"_e":"metro:bundling:progress","_t":1788797055723,"id":"1","progress":0.9319851789406531,"total":838,"current":809}
+{"_e":"metro:bundling:done","_t":1788797055809,"id":"1","total":838,"ms":791.6417}
+{"_e":"metro:client_log","_t":1788797072469,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1788797266708,"level":"warn","data":["Could not update technician GPS:","[Error: Current location is unavailable. Make sure that location services are enabled]"]}

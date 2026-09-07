@@ -13,7 +13,7 @@ const colors = {
   white: '#FFFFFF',
 };
 
-export default function DashboardScreen({ user, onNavigateToSubmit, onNavigateToProgress }) {
+export default function DashboardScreen({ user, onNavigateToSubmit, onNavigateToProgress, onTrackAcceptedJob }) {
   const firstName = user?.name?.split(' ')[0] || 'there';
 
   return (
@@ -44,7 +44,7 @@ export default function DashboardScreen({ user, onNavigateToSubmit, onNavigateTo
           <Text style={styles.primaryActionCopy}>Tell us what needs fixing</Text>
           <Ionicons name="arrow-forward" size={18} color={colors.white} style={styles.actionArrow} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.secondaryAction} onPress={onNavigateToProgress} activeOpacity={0.88}>
+        <TouchableOpacity style={styles.secondaryAction} onPress={onTrackAcceptedJob || onNavigateToProgress} activeOpacity={0.88}>
           <View style={styles.secondaryIcon}><Ionicons name="pulse" size={23} color={colors.teal} /></View>
           <Text style={styles.secondaryActionTitle}>Track a job</Text>
           <Text style={styles.secondaryActionCopy}>See live request updates</Text>

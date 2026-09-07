@@ -90,6 +90,8 @@ export const fetchCustomerRequests = async (customerName, customerUid) => (await
 export const fetchTechnicianJobs = async (technicianUid) => (await api.get(`/requests/technician/${encodeURIComponent(technicianUid)}`)).data;
 export const fetchJobMessages = async (jobId) => (await api.get(`/requests/accepted/${encodeURIComponent(jobId)}/messages`)).data;
 export const sendJobMessage = async (jobId, messageData) => (await api.post(`/requests/accepted/${encodeURIComponent(jobId)}/messages`, messageData)).data;
+export const fetchUnreadMessageNotifications = async (uid, role) => (await api.get('/requests/messages/unread', { params: { uid, role } })).data;
+export const markJobMessagesRead = async (jobId, viewerUid) => (await api.put(`/requests/accepted/${encodeURIComponent(jobId)}/messages/read`, { viewerUid })).data;
 export const declineRepairRequest = async (jobId, technicianUid) => (await api.put(`/requests/${jobId}/decline`, { technicianUid })).data;
 export const updateJobStatus = async (jobId, status, technicianUid) => (await api.put(`/requests/accepted/${jobId}/status`, { status, technicianUid })).data;
 export const fetchAcceptedJobLocation = async (jobId) => (await api.get(`/requests/accepted/${jobId}/location`)).data;
@@ -103,7 +105,11 @@ export const verifyCompletionCode = async (jobId, code) => (await api.post(`/req
 
 export const uploadPortfolioPhotos = async (uid, photos) => {
   const formData = new FormData();
-  photos.forEach((photo) => formData.append('photos', { uri: photo.uri, name: photo.fileName || 'portfolio-photo.jpg', type: photo.mimeType || 'image/jpeg' }));
+  photos.forEach((photo) => formData.append('photos', {
+    uri: photo.uri,
+    name: photo.fileName || photo.name || 'portfolio-photo.jpg',
+    type: photo.mimeType || photo.type || 'image/jpeg',
+  }));
   return (await api.post(`/users/${uid}/portfolio`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })).data;
 };
 
