@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const requestRoutes = require('./routes/requests'); // Assuming it exists based on earlier listing
 const adminRoutes = require('./routes/admin'); // Assuming it exists
+const profileRoutes = require('./routes/profile');
 
 // Load environment variables
 dotenv.config();
@@ -25,6 +26,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/profile', profileRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/requests', requestRoutes);
 app.use('/api/admin', adminRoutes);

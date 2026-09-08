@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import { fetchTechnicianProfile, uploadPortfolioPhotos } from '../services/api';
+import { fetchTechnicianProfile, updateTechnicianProfile, uploadPortfolioPhotos } from '../services/api';
 import Skeleton from '../../components/Skeleton';
 
 export default function TechnicianProfileScreen({ technician, onLogout }) {
@@ -10,14 +10,38 @@ export default function TechnicianProfileScreen({ technician, onLogout }) {
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState({ name: '', phone: '', address: '', bio: '', skills: '', yearsExperience: '' });
 
   const loadProfile = async () => {
     try {
-      setProfile(await fetchTechnicianProfile(technician.uid));
+      const result = await fetchTechnicianProfile(technician.uid);
+      setProfile(result);
+      setDraft({ name: result.name || '', phone: result.phone || '', address: result.address || '', bio: result.bio || '', skills: Array.isArray(result.skills) ? result.skills.join(', ') : String(result.skills || ''), yearsExperience: String(result.yearsExperience || '') });
     } catch (error) {
       Alert.alert('Profile unavailable', error.response?.data?.error || 'Unable to load your profile.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const saveProfile = async () => {
+    if (!draft.name.trim()) {
+      Alert.alert('Name required', 'Please enter your name.');
+      return;
+    }
+    setSaving(true);
+    try {
+      const updated = await updateTechnicianProfile(technician.uid, draft);
+      setProfile((current) => ({ ...current, ...updated }));
+      setDraft({ name: updated.name || '', phone: updated.phone || '', address: updated.address || '', bio: updated.bio || '', skills: Array.isArray(updated.skills) ? updated.skills.join(', ') : String(updated.skills || ''), yearsExperience: String(updated.yearsExperience || '') });
+      setEditing(false);
+      Alert.alert('Success', 'Technician profile updated.');
+    } catch (error) {
+      Alert.alert('Update failed', error.response?.data?.error || error.message || 'Unable to update profile.');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -79,8 +103,23 @@ export default function TechnicianProfileScreen({ technician, onLogout }) {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.profileHeader}>
         <View style={styles.avatar}><Text style={styles.avatarText}>{(profile.name || 'T').charAt(0).toUpperCase()}</Text></View>
-        <View style={styles.identity}><Text style={styles.name}>{profile.name}</Text><Text style={styles.role}>Technician</Text>{profile.verified && <Text style={styles.badge}>Verified technician</Text>}</View>
+        <View style={styles.identity}>{editing ? <TextInput style={styles.editName} value={draft.name} onChangeText={(name) => setDraft((current) => ({ ...current, name }))} placeholder="Full name" /> : <Text style={styles.name}>{profile.name}</Text>}<Text style={styles.role}>Technician</Text>{profile.verified && <Text style={styles.badge}>Verified technician</Text>}</View>
+        {!editing && <TouchableOpacity style={styles.editButton} onPress={() => setEditing(true)}><Ionicons name="pencil-outline" size={18} color="#0F766E" /></TouchableOpacity>}
       </View>
+      {editing && (
+        <View style={styles.editCard}>
+          {[['Phone', 'phone'], ['Address', 'address'], ['Bio', 'bio'], ['Skills (comma-separated)', 'skills'], ['Years of experience', 'yearsExperience']].map(([label, key]) => (
+            <View key={key} style={styles.editGroup}>
+              <Text style={styles.editLabel}>{label}</Text>
+              <TextInput style={styles.editInput} value={draft[key]} onChangeText={(value) => setDraft((current) => ({ ...current, [key]: value }))} multiline={key === 'address' || key === 'bio'} keyboardType={key === 'yearsExperience' ? 'number-pad' : 'default'} placeholder={label} />
+            </View>
+          ))}
+          <View style={styles.editActions}>
+            <TouchableOpacity style={styles.cancelEditButton} onPress={() => setEditing(false)} disabled={saving}><Text style={styles.cancelEditText}>Cancel</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.saveEditButton} onPress={saveProfile} disabled={saving}>{saving ? <ActivityIndicator color="#fff" /> : <Text style={styles.saveEditText}>Save changes</Text>}</TouchableOpacity>
+          </View>
+        </View>
+      )}
       <View style={styles.stats}><View><Text style={styles.statValue}>{profile.completedJobs}</Text><Text style={styles.statLabel}>Completed jobs</Text></View><View><Text style={styles.statValue}>{profile.averageRating || '—'}</Text><Text style={styles.statLabel}>Average rating</Text></View><View><Text style={styles.statValue}>{profile.yearsExperience || 0}</Text><Text style={styles.statLabel}>Years experience</Text></View></View>
       <View style={styles.sectionCard}>
         <View style={styles.sectionHeadingRow}><View><Text style={styles.kicker}>EXPERTISE</Text><Text style={styles.sectionTitle}>Skills and specializations</Text></View><Ionicons name="construct-outline" size={22} color="#0F766E" /></View>
@@ -117,6 +156,17 @@ const styles = StyleSheet.create({
   avatar: { width: 72, height: 72, borderRadius: 22, backgroundColor: '#0F766E', justifyContent: 'center', alignItems: 'center', marginRight: 16 },
   avatarText: { color: '#FFFFFF', fontSize: 30, fontWeight: '800' },
   identity: { flex: 1 },
+  editButton: { width: 38, height: 38, borderRadius: 12, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center' },
+  editName: { color: '#102A43', fontSize: 19, fontWeight: '800', borderBottomWidth: 1, borderBottomColor: '#0F766E', paddingVertical: 3 },
+  editCard: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 18, padding: 16, marginBottom: 18 },
+  editGroup: { marginBottom: 12 },
+  editLabel: { color: '#102A43', fontSize: 12, fontWeight: '800', marginBottom: 6 },
+  editInput: { minHeight: 44, borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10, color: '#102A43', backgroundColor: '#F5F8FA' },
+  editActions: { flexDirection: 'row', gap: 10, marginTop: 4 },
+  cancelEditButton: { flex: 1, minHeight: 46, borderRadius: 12, borderWidth: 1, borderColor: '#D9E2EC', alignItems: 'center', justifyContent: 'center' },
+  cancelEditText: { color: '#627D98', fontWeight: '800' },
+  saveEditButton: { flex: 2, minHeight: 46, borderRadius: 12, backgroundColor: '#0F766E', alignItems: 'center', justifyContent: 'center' },
+  saveEditText: { color: '#FFFFFF', fontWeight: '800' },
   name: { color: '#102A43', fontSize: 24, fontWeight: '800' },
   role: { color: '#627D98', fontSize: 13, marginTop: 4, fontWeight: '600' },
   badge: { color: '#0F766E', fontWeight: '800', marginTop: 6, fontSize: 12 },

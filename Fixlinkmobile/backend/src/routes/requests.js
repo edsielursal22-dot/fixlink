@@ -6,7 +6,10 @@ const path = require('path');
 
 const router = express.Router();
 const { db, bucket, messaging } = require('../config/firebase');
+const { requireAuth } = require('../middleware/requireAuth');
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
+
+router.use(requireAuth);
 
 const distanceInKm = (firstLatitude, firstLongitude, secondLatitude, secondLongitude) => {
   if (![firstLatitude, firstLongitude, secondLatitude, secondLongitude].every(Number.isFinite)) return null;
@@ -88,6 +91,10 @@ router.post('/', upload.single('photo'), async (req, res) => {
       scheduledDate, 
       isOther 
     } = req.body;
+
+    if (customerUid && customerUid !== req.authUser.uid) {
+      return res.status(403).json({ error: 'You can only submit requests for your own account.' });
+    }
 
     if (!customerName || !applianceType || !description || !location) {
       return res.status(400).json({ error: 'Please fill out all required fields.' });
@@ -174,6 +181,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const { technicianUid, category, latitude: queryLat, longitude: queryLon } = req.query;
+    if (!technicianUid || technicianUid !== req.authUser.uid) return res.status(403).json({ error: 'Technician identity does not match the authenticated account.' });
     const snapshot = await db.collection('repairRequests').get();
     const requests = [];
     let technician = null;
@@ -357,6 +365,7 @@ router.put('/accepted/:id/messages/read', async (req, res) => {
   try {
     const { viewerUid } = req.body || {};
     if (!viewerUid) return res.status(400).json({ error: 'Viewer identity is required.' });
+    if (String(viewerUid) !== req.authUser.uid) return res.status(403).json({ error: 'Viewer identity does not match the authenticated account.' });
     const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
     if (!jobDoc) return res.status(404).json({ error: 'Accepted job not found.' });
 
@@ -399,6 +408,7 @@ router.get('/customer/:customerName', async (req, res) => {
     ]);
     const requestedName = String(req.params.customerName || '').trim().toLowerCase();
     const requestedUid = String(req.query.customerUid || '').trim();
+    if (!requestedUid || requestedUid !== req.authUser.uid) return res.status(403).json({ error: 'Customer identity does not match the authenticated account.' });
     const jobs = [
       ...pendingSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })),
       ...acceptedSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
@@ -459,6 +469,7 @@ router.get('/customer/:customerName', async (req, res) => {
 
 router.get('/technician/:technicianUid', async (req, res) => {
   try {
+    if (req.params.technicianUid !== req.authUser.uid) return res.status(403).json({ error: 'Technician identity does not match the authenticated account.' });
     const snapshot = await db.collection('acceptedJobs').where('technicianUid', '==', req.params.technicianUid).get();
     res.json(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
   } catch (error) {
@@ -484,6 +495,7 @@ router.post('/accepted/:id/messages', async (req, res) => {
     if (!senderUid || !senderName || !senderRole || !String(text || '').trim()) {
       return res.status(400).json({ error: 'Sender identity and message text are required.' });
     }
+    if (String(senderUid) !== req.authUser.uid) return res.status(403).json({ error: 'Sender identity does not match the authenticated account.' });
     const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
     if (!jobDoc) return res.status(404).json({ error: 'Accepted job not found.' });
     const message = {
@@ -526,6 +538,7 @@ router.post('/accepted/:id/messages', async (req, res) => {
 router.put('/:id/decline', async (req, res) => {
   try {
     const { technicianUid } = req.body || {};
+    if (!technicianUid || technicianUid !== req.authUser.uid) return res.status(403).json({ error: 'Technician identity does not match the authenticated account.' });
     const requestRef = db.collection('repairRequests').doc(req.params.id);
     const requestDoc = await requestRef.get();
     if (!requestDoc.exists) return res.status(404).json({ error: 'Repair request not found.' });
@@ -533,6 +546,21 @@ router.put('/:id/decline', async (req, res) => {
     res.json({ message: 'Request declined and returned to the available queue.' });
   } catch (error) {
     res.status(500).json({ error: 'Unable to decline request.' });
+  }
+});
+
+router.put('/:id/cancel', async (req, res) => {
+  try {
+    const requestRef = db.collection('repairRequests').doc(req.params.id);
+    const requestDoc = await requestRef.get();
+    if (!requestDoc.exists) return res.status(404).json({ error: 'Repair request not found.' });
+    const request = requestDoc.data();
+    if (request.customerUid !== req.authUser.uid) return res.status(403).json({ error: 'You can only cancel your own request.' });
+    if (String(request.status || '').toLowerCase() !== 'pending') return res.status(409).json({ error: 'Only pending requests can be cancelled.' });
+    await requestRef.update({ status: 'Cancelled', cancelledAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+    res.json({ message: 'Repair request cancelled.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Unable to cancel repair request.' });
   }
 });
 
@@ -591,6 +619,7 @@ router.put('/accepted/:id/customer-location', async (req, res) => {
     if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || !customerUid) {
       return res.status(400).json({ error: 'Customer identity and valid coordinates are required.' });
     }
+    if (customerUid !== req.authUser.uid) return res.status(403).json({ error: 'Customer identity does not match the authenticated account.' });
     const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
     if (!jobDoc || jobDoc.data().customerUid !== customerUid) return res.status(404).json({ error: 'Assigned job not found.' });
     const locationUpdatedAt = new Date().toISOString();
@@ -607,6 +636,7 @@ router.put('/accepted/:id/status', async (req, res) => {
     const { status, technicianUid } = req.body || {};
     const allowedStatuses = ['In Progress', 'Completed', 'Cancelled'];
     if (!allowedStatuses.includes(status)) return res.status(400).json({ error: 'Invalid job status.' });
+    if (!technicianUid || technicianUid !== req.authUser.uid) return res.status(403).json({ error: 'Technician identity does not match the authenticated account.' });
     const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
     if (!jobDoc || (technicianUid && jobDoc.data().technicianUid !== technicianUid)) return res.status(404).json({ error: 'Assigned job not found.' });
     await jobRef.update({ status, updatedAt: new Date().toISOString() });
@@ -637,7 +667,7 @@ router.post('/:id/review', async (req, res) => {
       return res.status(400).json({ error: 'Customer name and a rating from 1 to 5 are required.' });
     }
     const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
-    if (!jobDoc || jobDoc.data().customerName !== customerName || String(jobDoc.data().status).toLowerCase() !== 'completed') {
+    if (!jobDoc || jobDoc.data().customerUid !== req.authUser.uid || jobDoc.data().customerName !== customerName || String(jobDoc.data().status).toLowerCase() !== 'completed') {
       return res.status(404).json({ error: 'Completed job not found.' });
     }
     if (jobDoc.data().reviewId) return res.status(409).json({ error: 'This job has already been reviewed.' });
@@ -682,6 +712,7 @@ router.put('/:id/accept', async (req, res) => {
     if (!technicianUid || !technicianName) {
       return res.status(400).json({ error: 'Technician identity is required to accept a job.' });
     }
+    if (technicianUid !== req.authUser.uid) return res.status(403).json({ error: 'Technician identity does not match the authenticated account.' });
     const requestRef = db.collection('repairRequests').doc(id);
     const doc = await requestRef.get();
 
@@ -720,6 +751,7 @@ router.post('/:id/verify-completion', async (req, res) => {
     const { ref: jobRef, doc: jobDoc } = await getAcceptedJobDoc(req.params.id);
 
     if (!jobDoc) return res.status(404).json({ error: 'Job not found.' });
+    if (jobDoc.data().technicianUid !== req.authUser.uid) return res.status(403).json({ error: 'Only the assigned technician can verify completion.' });
     if (jobDoc.data().verificationCode !== String(code).trim()) return res.status(400).json({ error: 'Invalid verification code.' });
 
     await jobRef.update({ status: 'Completed', completedAt: new Date().toISOString() });

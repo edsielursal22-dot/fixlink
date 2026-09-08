@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Skeleton from '../../components/Skeleton';
-import { fetchCompletedJobs, fetchCustomerRequests, submitTechnicianReview } from '../services/api';
+import { cancelRepairRequest, fetchCompletedJobs, fetchCustomerRequests, submitTechnicianReview } from '../services/api';
 
 const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
 
-export default function RequestProgressScreen({ customerName, acceptedOnly = false, onViewDetails, onTrackMap }) {
+export default function RequestProgressScreen({ customerName, customerUid, acceptedOnly = false, onViewDetails, onTrackMap }) {
   const [completedJobs, setCompletedJobs] = useState([]);
   const [trackedRequests, setTrackedRequests] = useState([]);
   const [loadingRequests, setLoadingRequests] = useState(true);
@@ -36,14 +36,28 @@ export default function RequestProgressScreen({ customerName, acceptedOnly = fal
 
   useEffect(() => {
     let active = true;
-    const refreshStatuses = () => fetchCustomerRequests(customerName)
+    const refreshStatuses = () => fetchCustomerRequests(customerName, customerUid)
       .then((items) => { if (active) setTrackedRequests(items); })
       .catch(() => {})
       .finally(() => { if (active) setLoadingRequests(false); });
     refreshStatuses();
     const interval = setInterval(refreshStatuses, 10000);
     return () => { active = false; clearInterval(interval); };
-  }, [customerName]);
+  }, [customerName, customerUid]);
+
+  const handleCancelRequest = (requestId) => {
+    Alert.alert('Cancel request?', 'This can only be done before a technician accepts the request.', [
+      { text: 'Keep request', style: 'cancel' },
+      { text: 'Cancel request', style: 'destructive', onPress: async () => {
+        try {
+          await cancelRepairRequest(requestId);
+          setTrackedRequests((current) => current.map((request) => request.id === requestId ? { ...request, status: 'Cancelled' } : request));
+        } catch (error) {
+          Alert.alert('Unable to cancel', error?.error || 'The request could not be cancelled.');
+        }
+      } }
+    ]);
+  };
 
   const handleReviewSubmit = async (jobId) => {
     if (!reviewRatings[jobId]) {
@@ -55,7 +69,7 @@ export default function RequestProgressScreen({ customerName, acceptedOnly = fal
       await submitTechnicianReview(jobId, { customerName, rating: reviewRatings[jobId], comment: reviewComments[jobId] });
       Alert.alert('Success', 'Review submitted successfully!');
       fetchCompletedJobs(customerName).then(setCompletedJobs);
-      fetchCustomerRequests(customerName).then(setTrackedRequests).catch(() => {});
+      fetchCustomerRequests(customerName, customerUid).then(setTrackedRequests).catch(() => {});
     } catch (error) {
       Alert.alert('Error', 'Failed to submit review.');
     } finally {
@@ -182,6 +196,11 @@ export default function RequestProgressScreen({ customerName, acceptedOnly = fal
                   <Ionicons name="eye-outline" size={16} color={colors.teal} style={{ marginRight: 6 }} />
                   <Text style={styles.viewDetailsText}>Details</Text>
                 </TouchableOpacity>
+                {String(req.status || '').toLowerCase() === 'pending' && (
+                  <TouchableOpacity style={styles.cancelButton} onPress={() => handleCancelRequest(req.id)}>
+                    <Text style={styles.cancelButtonText}>Cancel</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           );
@@ -248,6 +267,8 @@ export default function RequestProgressScreen({ customerName, acceptedOnly = fal
 
 const styles = StyleSheet.create({
   scrollContent: { padding: 20, backgroundColor: colors.canvas },
+  cancelButton: { minHeight: 42, borderRadius: 12, borderWidth: 1, borderColor: '#FECACA', backgroundColor: '#FFF1F2', paddingHorizontal: 14, alignItems: 'center', justifyContent: 'center' },
+  cancelButtonText: { color: '#B91C1C', fontSize: 13, fontWeight: '800' },
   sectionHeaderContainer: { marginBottom: 12 },
   kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 2 },
   sectionTitle: { fontSize: 20, fontWeight: '800', color: colors.ink },

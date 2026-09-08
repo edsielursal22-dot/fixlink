@@ -28,7 +28,7 @@ export default function CustomerProfileScreen({ user, onLogout, onUpdateProfile 
     });
 
     if (!result.canceled && result.assets && result.assets.length > 0) {
-      setProfileImage(result.assets[0].uri);
+      setProfileImage(result.assets[0]);
     }
   };
 
@@ -51,7 +51,8 @@ export default function CustomerProfileScreen({ user, onLogout, onUpdateProfile 
       setIsEditing(false);
       Alert.alert('Success', 'Profile updated successfully!');
     } catch (error) {
-      Alert.alert('Error', 'Failed to update profile.');
+      const message = error.response?.data?.error || error.message || 'Failed to update profile.';
+      Alert.alert('Error', message);
     } finally {
       setLoading(false);
     }

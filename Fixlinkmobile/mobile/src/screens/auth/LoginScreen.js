@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import api from '../services/api';
+import api, { setAuthToken } from '../services/api';
 
 const colors = { ink: '#102A43', muted: '#627D98', teal: '#0F766E', tealDark: '#075E59', canvas: '#F5F8FA', white: '#FFFFFF', line: '#D9E2EC', danger: '#C53030' };
 
@@ -12,7 +12,7 @@ export default function LoginScreen({ onLoginSuccess, switchToRegister, switchTo
     if (!normalizedEmail) errors.email = 'Email is required.'; else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) errors.email = 'Enter a valid email.';
     if (!password) errors.password = 'Password is required.'; else if (password.length < 6) errors.password = 'Password must be at least 6 characters.';
     setFieldErrors(errors); setLoginError(''); if (Object.keys(errors).length) return; setLoading(true);
-    try { const response = await api.post('/auth/login', { email: normalizedEmail, password }); onLoginSuccess(response.data); } catch (error) { const status = error.response?.status; const errorMessage = error.response?.data?.error; const messageByStatus = { 401: 'Incorrect email or password.', 403: errorMessage || 'Technician account pending approval.', 404: 'Profile not found.' }; setLoginError(messageByStatus[status] || errorMessage || 'Unable to log in.'); } finally { setLoading(false); }
+    try { const response = await api.post('/auth/login', { email: normalizedEmail, password }); setAuthToken(response.data.idToken); onLoginSuccess(response.data); } catch (error) { const status = error.response?.status; const errorMessage = error.response?.data?.error; const messageByStatus = { 401: 'Incorrect email or password.', 403: errorMessage || 'Technician account pending approval.', 404: 'Profile not found.' }; setLoginError(messageByStatus[status] || errorMessage || 'Unable to log in.'); } finally { setLoading(false); }
   };
   return <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}><ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
     <View style={styles.brandBlock}><View style={styles.logo}><Ionicons name="construct" size={24} color={colors.white} /></View><Text style={styles.brand}>fix<Text style={styles.brandAccent}>link</Text></Text><Text style={styles.tagline}>Reliable help, right when you need it.</Text></View>

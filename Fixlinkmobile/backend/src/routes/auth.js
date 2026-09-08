@@ -83,7 +83,14 @@ router.post('/login', async (req, res) => {
       uid: userRecord.uid,
       role: userData.role,
       name: userData.name,
-      status: userData.status
+      email: userData.email,
+      phone: userData.phone || '',
+      address: userData.address || '',
+      profileImage: userData.profileImage || null,
+      status: userData.status,
+      idToken: passwordData.idToken,
+      refreshToken: passwordData.refreshToken,
+      expiresIn: passwordData.expiresIn
     });
 
   } catch (error) {

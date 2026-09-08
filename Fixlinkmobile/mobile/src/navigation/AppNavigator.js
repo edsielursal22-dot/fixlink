@@ -14,7 +14,7 @@ import ChatScreen from '../screens/customer/ChatScreen';
 import MapTrackerScreen from '../screens/shared/MapTrackerScreen';
 import AvailableJobsScreen from '../screens/technician/AvailableJobsScreen';
 import TechnicianProfileScreen from '../screens/technician/TechnicianProfileScreen';
-import { fetchUnreadMessageNotifications } from '../screens/services/api';
+import { fetchUnreadMessageNotifications, setAuthToken, updateCustomerProfile } from '../screens/services/api';
 
 const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC' };
 
@@ -55,6 +55,7 @@ export default function AppNavigator() {
   }, [user?.uid, user?.role]);
 
   const handleLogout = () => { 
+    setAuthToken(null);
     setUser(null); 
     setCustomerTab('dashboard'); 
     setTechnicianTab('jobs'); 
@@ -62,6 +63,11 @@ export default function AppNavigator() {
     setSelectedChatTarget(null);
     setChatNotifications([]);
     setAuthMode('login'); 
+  };
+  const handleCustomerProfileUpdate = async (profile) => {
+    setAuthToken(user.idToken);
+    const updatedUser = await updateCustomerProfile(user.uid, profile);
+    setUser((currentUser) => ({ ...currentUser, ...updatedUser }));
   };
   const isCustomer = user?.role === 'customer';
   const customerTabs = [
@@ -91,9 +97,9 @@ export default function AppNavigator() {
     customerTab === 'dashboard' ? <DashboardScreen user={user} onNavigateToSubmit={() => setCustomerTab('submit')} onNavigateToProgress={() => { setAcceptedOnlyProgress(false); setCustomerTab('progress'); }} onTrackAcceptedJob={() => { setAcceptedOnlyProgress(true); setCustomerTab('progress'); }} /> :
     customerTab === 'submit' ? <SubmitRequestScreen currentUser={user} customerName={user.name} onNavigateToProgress={() => setCustomerTab('progress')} /> :
     customerTab === 'details' ? <RequestDetailsScreen request={selectedRequest} onBack={() => setCustomerTab('progress')} onMessageTechnician={() => { setSelectedChatTarget(selectedRequest); setCustomerTab('chat'); }} onTrackMap={(req) => { setSelectedRequest(req); setCustomerTab('map'); }} /> :
-    customerTab === 'progress' ? <RequestProgressScreen customerName={user.name} acceptedOnly={acceptedOnlyProgress} onViewDetails={(req) => { setSelectedRequest(req); setCustomerTab('details'); }} onTrackMap={(req) => { setSelectedRequest(req); setCustomerTab('map'); }} /> :
+    customerTab === 'progress' ? <RequestProgressScreen customerName={user.name} customerUid={user.uid} acceptedOnly={acceptedOnlyProgress} onViewDetails={(req) => { setSelectedRequest(req); setCustomerTab('details'); }} onTrackMap={(req) => { setSelectedRequest(req); setCustomerTab('map'); }} /> :
     customerTab === 'map' ? <MapTrackerScreen currentUser={user} selectedJob={selectedRequest} onBack={() => setCustomerTab('progress')} /> :
-    customerTab === 'profile' ? <CustomerProfileScreen user={user} onLogout={handleLogout} /> : 
+    customerTab === 'profile' ? <CustomerProfileScreen user={user} onLogout={handleLogout} onUpdateProfile={handleCustomerProfileUpdate} /> : 
     <ChatScreen currentUser={user} initialTarget={selectedChatTarget} />
   ) : (
     technicianTab === 'jobs' ? <AvailableJobsScreen technician={user} notificationCount={chatNotifications.length} onOpenNotifications={() => setNotificationsOpen(true)} onNavigateToMap={(job) => { setSelectedJobForMap(job); setTechnicianTab('map'); }} onNavigateToChat={(job) => { setSelectedChatTarget(job); setTechnicianTab('chat'); }} /> : 

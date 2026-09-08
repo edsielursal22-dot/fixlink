@@ -13,6 +13,14 @@ const api = axios.create({
   },
 });
 
+export const setAuthToken = (token) => {
+  if (token) {
+    api.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else {
+    delete api.defaults.headers.common.Authorization;
+  }
+};
+
 // Repair Requests API calls
 export const submitRepairRequest = async (requestData) => {
   try {
@@ -93,6 +101,7 @@ export const sendJobMessage = async (jobId, messageData) => (await api.post(`/re
 export const fetchUnreadMessageNotifications = async (uid, role) => (await api.get('/requests/messages/unread', { params: { uid, role } })).data;
 export const markJobMessagesRead = async (jobId, viewerUid) => (await api.put(`/requests/accepted/${encodeURIComponent(jobId)}/messages/read`, { viewerUid })).data;
 export const declineRepairRequest = async (jobId, technicianUid) => (await api.put(`/requests/${jobId}/decline`, { technicianUid })).data;
+export const cancelRepairRequest = async (requestId) => (await api.put(`/requests/${encodeURIComponent(requestId)}/cancel`)).data;
 export const updateJobStatus = async (jobId, status, technicianUid) => (await api.put(`/requests/accepted/${jobId}/status`, { status, technicianUid })).data;
 export const fetchAcceptedJobLocation = async (jobId) => (await api.get(`/requests/accepted/${jobId}/location`)).data;
 export const fetchJobLiveTracking = async (jobId) => (await api.get(`/requests/accepted/${jobId}/live-tracking`)).data;
@@ -100,6 +109,23 @@ export const updateCustomerLocation = async (jobId, customerUid, location) => (a
 export const updateTechnicianLocation = async (uid, location) => (await api.put(`/users/${uid}/location`, location)).data;
 export const submitTechnicianReview = async (jobId, review) => (await api.post(`/requests/${jobId}/review`, review)).data;
 export const fetchTechnicianProfile = async (uid) => (await api.get(`/users/${uid}/profile`)).data;
+export const updateTechnicianProfile = async (uid, profile) => (await api.put(`/profile/${encodeURIComponent(uid)}/technician`, profile)).data;
+export const updateCustomerProfile = async (uid, profile) => {
+  const formData = new FormData();
+  formData.append('name', profile.name || '');
+  formData.append('phone', profile.phone || '');
+  formData.append('address', profile.address || '');
+  if (profile.profileImage?.uri) {
+    formData.append('profileImage', {
+      uri: profile.profileImage.uri,
+      name: profile.profileImage.fileName || 'profile-image.jpg',
+      type: profile.profileImage.mimeType || 'image/jpeg',
+    });
+  }
+  return (await api.put(`/profile/${encodeURIComponent(uid)}/profile`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })).data;
+};
 export const verifyCompletionCode = async (jobId, code) => (await api.post(`/requests/${jobId}/verify-completion`, { code })).data;
 
 

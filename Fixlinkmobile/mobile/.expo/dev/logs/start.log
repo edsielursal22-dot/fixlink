@@ -4270,3 +4270,89 @@
 {"_e":"metro:bundling:done","_t":1788797055809,"id":"1","total":838,"ms":791.6417}
 {"_e":"metro:client_log","_t":1788797072469,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
 {"_e":"metro:client_log","_t":1788797266708,"level":"warn","data":["Could not update technician GPS:","[Error: Current location is unavailable. Make sure that location services are enabled]"]}
+{"_e":"root:init","_t":1788797909726,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788797909728,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788797909730,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788797910256,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788797910718,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788797911037,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788797915323,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788797930034,"id":"2","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788797930035,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788797930078,"id":"2","total":1,"ms":43.6735}
+{"_e":"metro:client_log","_t":1788797988031,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:bundling:started","_t":1788799061122,"id":"4","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788799061123,"id":"4","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788799061154,"id":"4","total":1,"ms":31.4198}
+{"_e":"metro:client_log","_t":1788799130702,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1788799174911,"level":"warn","data":["DateTimePicker: `onChange` is deprecated. Use `onValueChange`, `onDismiss`, and `onNeutralButtonPress` instead."]}
+{"_e":"root:init","_t":1788874311309,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788874311330,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788874311349,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788874320586,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788874329205,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788874332712,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788874341517,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"root:init","_t":1788878525079,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788878525080,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788878525082,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788878525528,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788878525890,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788878526275,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788878530607,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788878534482,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788878534482,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788878534487,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788878534587,"id":"1","progress":0.06629854064326436,"total":167,"current":43}
+{"_e":"metro:bundling:progress","_t":1788878534687,"id":"1","progress":0.13831022471142682,"total":242,"current":90}
+{"_e":"metro:bundling:progress","_t":1788878534787,"id":"1","progress":0.2737160650848647,"total":302,"current":158}
+{"_e":"metro:bundling:progress","_t":1788878534887,"id":"1","progress":0.41065908165241133,"total":387,"current":248}
+{"_e":"metro:bundling:progress","_t":1788878534987,"id":"1","progress":0.47091822517989146,"total":494,"current":339}
+{"_e":"metro:bundling:progress","_t":1788878535087,"id":"1","progress":0.6661027857488693,"total":582,"current":475}
+{"_e":"metro:bundling:progress","_t":1788878535187,"id":"1","progress":0.7711035156250001,"total":640,"current":562}
+{"_e":"metro:bundling:progress","_t":1788878535287,"id":"1","progress":0.8794150971452267,"total":691,"current":648}
+{"_e":"metro:bundling:progress","_t":1788878535387,"id":"1","progress":0.9972086545363752,"total":716,"current":715}
+{"_e":"metro:bundling:progress","_t":1788878537146,"id":"1","progress":0.999,"total":716,"current":716}
+{"_e":"metro:bundling:progress","_t":1788878537246,"id":"1","progress":0.999,"total":820,"current":785}
+{"_e":"metro:bundling:done","_t":1788878537339,"id":"1","total":820,"ms":2856.8817}
+{"_e":"metro:client_log","_t":1788878595565,"level":"warn","data":["[expo-image-picker] `ImagePicker.MediaTypeOptions` have been deprecated. Use `ImagePicker.MediaType` or an array of `ImagePicker.MediaType` instead."]}
+{"_e":"root:init","_t":1788878859582,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788878859583,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788878859585,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788878860078,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788878860478,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788878860768,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788878864999,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788878871441,"id":"2","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788878871442,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788878871486,"id":"2","total":1,"ms":44.6051}
+{"_e":"metro:client_log","_t":1788878911837,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1788878946482,"level":"warn","data":["[expo-image-picker] `ImagePicker.MediaTypeOptions` have been deprecated. Use `ImagePicker.MediaType` or an array of `ImagePicker.MediaType` instead."]}
+{"_e":"metro:bundling:started","_t":1788879148120,"id":"5","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788879148122,"id":"5","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788879148159,"id":"5","total":1,"ms":37.5322}
+{"_e":"metro:client_log","_t":1788879245733,"level":"warn","data":["[expo-image-picker] `ImagePicker.MediaTypeOptions` have been deprecated. Use `ImagePicker.MediaType` or an array of `ImagePicker.MediaType` instead."]}
+{"_e":"root:init","_t":1788879652647,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1788879652648,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1788879652651,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1788879653182,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1788879653584,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1788879653880,"plugins":[]}
+{"_e":"metro:instantiate","_t":1788879658101,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1788879661819,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788879661820,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788879661824,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1788879661925,"id":"1","progress":0.07006920415224914,"total":204,"current":54}
+{"_e":"metro:bundling:progress","_t":1788879662025,"id":"1","progress":0.20847592560043837,"total":311,"current":142}
+{"_e":"metro:bundling:progress","_t":1788879662125,"id":"1","progress":0.2935046802786257,"total":443,"current":240}
+{"_e":"metro:bundling:progress","_t":1788879662225,"id":"1","progress":0.511676000324649,"total":555,"current":397}
+{"_e":"metro:bundling:progress","_t":1788879662325,"id":"1","progress":0.7043041325048336,"total":622,"current":522}
+{"_e":"metro:bundling:progress","_t":1788879662425,"id":"1","progress":0.7514188804629779,"total":751,"current":651}
+{"_e":"metro:bundling:progress","_t":1788879662542,"id":"1","progress":0.8881214556901191,"total":816,"current":769}
+{"_e":"metro:bundling:progress","_t":1788879662643,"id":"1","progress":0.9976484429065743,"total":850,"current":849}
+{"_e":"metro:bundling:progress","_t":1788879662814,"id":"1","progress":0.999,"total":850,"current":850}
+{"_e":"metro:bundling:done","_t":1788879662899,"id":"1","total":850,"ms":1079.6051}
+{"_e":"metro:client_log","_t":1788879749090,"level":"warn","data":["[expo-image-picker] `ImagePicker.MediaTypeOptions` have been deprecated. Use `ImagePicker.MediaType` or an array of `ImagePicker.MediaType` instead."]}
+{"_e":"metro:bundling:started","_t":1788879785948,"id":"3","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1788879785948,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1788879785982,"id":"3","total":1,"ms":33.7539}
