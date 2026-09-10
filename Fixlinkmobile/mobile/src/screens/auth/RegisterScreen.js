@@ -3,8 +3,9 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ActivityInd
 import { Ionicons } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
 import { fetchPlatformCategories, registerUser } from '../services/api';
+import { fonts } from '../../theme';
 
-const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
+const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#5A7A91', line: '#D9E2EC', error: '#E53935' };
 
 export default function RegisterScreen({ switchToLogin }) {
   const [name, setName] = useState('');
@@ -77,7 +78,6 @@ export default function RegisterScreen({ switchToLogin }) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag" showsVerticalScrollIndicator={false}>
       <View style={styles.headerContainer}>
-        <Text style={styles.brand}>fix<Text style={styles.brandAccent}>link</Text></Text>
         <Text style={styles.roleHeader}>ACCOUNT REGISTRATION</Text>
       </View>
 
@@ -340,43 +340,43 @@ export default function RegisterScreen({ switchToLogin }) {
 const styles = StyleSheet.create({
   scrollContent: { flexGrow: 1, padding: 20, justifyContent: 'center', backgroundColor: colors.canvas },
   headerContainer: { alignItems: 'center', marginBottom: 28 },
-  brand: { color: colors.ink, fontSize: 32, fontWeight: '900', letterSpacing: -1.5 },
+  brand: { color: colors.ink, fontSize: 32, fontFamily: fonts.extraBold, letterSpacing: -1.5 },
   brandAccent: { color: colors.teal },
-  roleHeader: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontWeight: '800', marginTop: 4 },
+  roleHeader: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontFamily: fonts.bold, marginTop: 4 },
   card: { backgroundColor: colors.white, borderRadius: 24, padding: 24, borderWidth: 1, borderColor: colors.line, shadowColor: '#102A43', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 6 },
   cardHeader: { marginBottom: 20 },
-  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 6 },
-  title: { color: colors.ink, fontSize: 24, fontWeight: '800', marginBottom: 6 },
+  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontFamily: fonts.bold, marginBottom: 6 },
+  title: { color: colors.ink, fontSize: 24, fontFamily: fonts.bold, marginBottom: 6 },
   subtitle: { color: colors.muted, fontSize: 13, lineHeight: 18 },
   roleContainer: { flexDirection: 'row', marginBottom: 20, backgroundColor: colors.canvas, borderRadius: 14, padding: 4, borderWidth: 1, borderColor: colors.line },
   roleButton: { flex: 1, paddingVertical: 10, alignItems: 'center', borderRadius: 10 },
   activeRole: { backgroundColor: colors.teal, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 3, elevation: 2 },
-  roleText: { fontWeight: '700', color: colors.muted, fontSize: 13 },
+  roleText: { fontFamily: fonts.semiBold, color: colors.muted, fontSize: 13 },
   activeRoleText: { color: colors.white },
   form: { gap: 16 },
   inputGroup: { gap: 6 },
-  inputLabel: { color: colors.ink, fontSize: 12, fontWeight: '700' },
+  inputLabel: { color: colors.ink, fontSize: 12, fontFamily: fonts.semiBold },
   inputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 14, paddingHorizontal: 14, height: 50 },
   textAreaContainer: { height: 90, alignItems: 'flex-start' },
   inputIcon: { marginRight: 10, alignSelf: 'center' },
-  textInput: { flex: 1, color: colors.ink, fontSize: 14, fontWeight: '600' },
+  textInput: { flex: 1, color: colors.ink, fontSize: 14, fontFamily: fonts.medium },
   textArea: { height: 74, textAlignVertical: 'top', paddingTop: 12 },
   helperText: { color: colors.muted, fontSize: 11, lineHeight: 15, marginTop: 2 },
   categoryList: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 4, marginBottom: 4 },
   categoryChip: { backgroundColor: colors.canvas, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 8, borderWidth: 1, borderColor: colors.line },
   selectedCategoryChip: { backgroundColor: colors.teal, borderColor: colors.teal },
   selectAllButton: { backgroundColor: colors.line, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 8, alignSelf: 'flex-start' },
-  categoryText: { color: colors.muted, fontSize: 12, fontWeight: '700' },
+  categoryText: { color: colors.muted, fontSize: 12, fontFamily: fonts.semiBold },
   selectedCategoryText: { color: colors.white },
-  selectAllText: { color: colors.ink, fontSize: 12, fontWeight: '800' },
-  credentialsTitle: { color: colors.ink, fontSize: 16, fontWeight: '800', marginTop: 8, marginBottom: 4 },
+  selectAllText: { color: colors.ink, fontSize: 12, fontFamily: fonts.bold },
+  credentialsTitle: { color: colors.ink, fontSize: 16, fontFamily: fonts.bold, marginTop: 8, marginBottom: 4 },
   credentialCard: { backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 16, padding: 14, gap: 6 },
   documentButton: { backgroundColor: colors.white, padding: 14, borderRadius: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, borderWidth: 1, borderColor: colors.line, borderStyle: 'dashed' },
-  documentButtonText: { color: colors.teal, fontWeight: '700', fontSize: 13 },
-  fileHint: { color: colors.muted, fontSize: 10, textAlign: 'center', fontWeight: '600' },
+  documentButtonText: { color: colors.teal, fontFamily: fonts.semiBold, fontSize: 13 },
+  fileHint: { color: colors.muted, fontSize: 10, textAlign: 'center', fontFamily: fonts.medium },
   primaryButton: { backgroundColor: colors.teal, height: 50, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginTop: 8 },
-  primaryButtonText: { color: colors.white, fontSize: 14, fontWeight: '800', letterSpacing: 0.5 },
+  primaryButtonText: { color: colors.white, fontSize: 14, fontFamily: fonts.bold, letterSpacing: 0.5 },
   linkButton: { alignItems: 'center', marginTop: 8, paddingVertical: 4 },
-  linkText: { color: colors.muted, fontSize: 13, fontWeight: '600' },
-  linkBold: { color: colors.teal, fontWeight: '800' }
+  linkText: { color: colors.muted, fontSize: 13, fontFamily: fonts.medium },
+  linkBold: { color: colors.teal, fontFamily: fonts.bold }
 });

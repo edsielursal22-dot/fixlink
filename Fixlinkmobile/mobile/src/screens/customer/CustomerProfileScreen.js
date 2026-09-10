@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput, Alert, ActivityIndicator, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import { fonts } from '../../theme';
 
-const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
+const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#5A7A91', line: '#D9E2EC', error: '#E53935' };
 
 export default function CustomerProfileScreen({ user, onLogout, onUpdateProfile }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -172,8 +173,8 @@ export default function CustomerProfileScreen({ user, onLogout, onUpdateProfile 
             </View>
           ) : (
             <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
-              <Ionicons name="log-out-outline" size={18} color={colors.white} style={{ marginRight: 8 }} />
-              <Text style={styles.primaryButtonText}>Log Out</Text>
+              <Ionicons name="log-out-outline" size={18} color="#DC2626" />
+              <Text style={styles.logoutText}>Log Out</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -190,29 +191,30 @@ const styles = StyleSheet.create({
   avatar: { width: 64, height: 64, borderRadius: 32, backgroundColor: colors.teal, justifyContent: 'center', alignItems: 'center' },
   avatarImage: { width: 64, height: 64, borderRadius: 32 },
   cameraOverlay: { position: 'absolute', bottom: 0, right: 0, backgroundColor: colors.teal, width: 24, height: 24, borderRadius: 12, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: colors.white },
-  avatarText: { color: colors.white, fontSize: 26, fontWeight: '900' },
+  avatarText: { color: colors.white, fontSize: 26, fontFamily: fonts.extraBold },
   identity: { flex: 1, justifyContent: 'center' },
-  name: { color: colors.ink, fontSize: 20, fontWeight: '800', marginBottom: 4 },
+  name: { color: colors.ink, fontSize: 20, fontFamily: fonts.bold, marginBottom: 4 },
   roleBadge: { backgroundColor: '#F0FDF4', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6, alignSelf: 'flex-start', borderWidth: 1, borderColor: '#BBF7D0' },
-  role: { color: colors.teal, fontSize: 11, fontWeight: '700' },
+  role: { color: colors.teal, fontSize: 11, fontFamily: fonts.semiBold },
   editIconButton: { padding: 8, borderRadius: 10, backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line },
   cardHeader: { marginBottom: 16 },
-  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 4 },
-  title: { color: colors.ink, fontSize: 20, fontWeight: '800' },
+  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontFamily: fonts.bold, marginBottom: 4 },
+  title: { color: colors.ink, fontSize: 20, fontFamily: fonts.bold },
   form: { gap: 16 },
   inputGroup: { gap: 6 },
-  inputLabel: { color: colors.ink, fontSize: 12, fontWeight: '700' },
+  inputLabel: { color: colors.ink, fontSize: 12, fontFamily: fonts.semiBold },
   inputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 14, paddingHorizontal: 14, minHeight: 50 },
-  disabledInput: { backgroundColor: '#F0F4F8', opacity: 0.8 },
+  disabledInput: { backgroundColor: '#F0F4F8' },
   textAreaContainer: { minHeight: 50, alignItems: 'center' },
   inputIcon: { marginRight: 10, alignSelf: 'center' },
-  textInput: { flex: 1, color: colors.ink, fontSize: 14, fontWeight: '600', paddingVertical: 12 },
+  textInput: { flex: 1, color: colors.ink, fontSize: 14, fontFamily: fonts.medium, paddingVertical: 12 },
   textArea: { height: 60, textAlignVertical: 'top', paddingTop: 12 },
-  infoValue: { flex: 1, color: colors.ink, fontSize: 14, fontWeight: '600', paddingVertical: 14 },
+  infoValue: { flex: 1, color: colors.ink, fontSize: 14, fontFamily: fonts.medium, paddingVertical: 14 },
   buttonRow: { flexDirection: 'row', gap: 10, marginTop: 12 },
   cancelButton: { flex: 1, height: 50, borderRadius: 14, borderWidth: 1, borderColor: colors.line, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.canvas },
-  cancelButtonText: { color: colors.muted, fontSize: 14, fontWeight: '800' },
+  cancelButtonText: { color: colors.muted, fontSize: 14, fontFamily: fonts.bold },
   saveButton: { flex: 2, height: 50, borderRadius: 14, backgroundColor: colors.teal, alignItems: 'center', justifyContent: 'center', shadowColor: '#0F766E', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 4 },
-  logoutButton: { backgroundColor: colors.error || '#E53935', height: 50, borderRadius: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 12, shadowColor: '#E53935', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 4 },
-  primaryButtonText: { color: colors.white, fontSize: 14, fontWeight: '800', letterSpacing: 0.5 }
+  logoutButton: { backgroundColor: '#FFF5F5', borderWidth: 1, borderColor: '#FECACA', height: 50, borderRadius: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 16 },
+  logoutText: { color: '#DC2626', fontSize: 14, fontFamily: fonts.bold },
+  primaryButtonText: { color: colors.white, fontSize: 14, fontFamily: fonts.bold, letterSpacing: 0.5 }
 });

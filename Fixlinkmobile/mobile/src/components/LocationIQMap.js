@@ -145,7 +145,7 @@ export default function LocationIQMap({
             margin-bottom: 3px;
           }
           .custom-popup .subtext {
-            color: #627D98;
+            color: #5A7A91;
             font-size: 11px;
           }
           .map-watermark {
@@ -304,7 +304,7 @@ export default function LocationIQMap({
       </body>
       </html>
     `;
-  }, [technicianCoords, customerCoords, routeCoordinates, currentUserRole, isAccepted, initialCenter]);
+  }, [initialCenter, currentUserRole, isAccepted]);
 
   // Push updated live coordinates and route to the webview without full reloads
   useEffect(() => {

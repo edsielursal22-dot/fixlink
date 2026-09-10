@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { fetchTechnicianProfile, updateTechnicianProfile, uploadPortfolioPhotos } from '../services/api';
 import Skeleton from '../../components/Skeleton';
+import { fonts } from '../../theme';
 
 export default function TechnicianProfileScreen({ technician, onLogout }) {
   const [profile, setProfile] = useState(null);
@@ -144,7 +145,7 @@ export default function TechnicianProfileScreen({ technician, onLogout }) {
       {selectedPhotos.length > 0 && <View style={styles.photoGrid}>{selectedPhotos.map((photo) => <Image key={photo.uri} source={{ uri: photo.uri }} style={styles.photo} />)}</View>}
       {selectedPhotos.length > 0 && <TouchableOpacity style={styles.button} onPress={savePortfolio} disabled={uploading}>{uploading ? <ActivityIndicator color='#fff' /> : <><Ionicons name="cloud-upload-outline" size={18} color="#fff" /><Text style={styles.buttonText}>Upload portfolio photos</Text></>}</TouchableOpacity>}
       <View style={styles.photoGrid}>{(profile.portfolio || []).map((photo) => <Image key={photo.url} source={{ uri: photo.url }} style={styles.photo} />)}</View>
-      <TouchableOpacity style={styles.logoutButton} onPress={onLogout}><Ionicons name="log-out-outline" size={18} color="#C2410C" /><Text style={styles.logoutText}>Log out</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.logoutButton} onPress={onLogout}><Ionicons name="log-out-outline" size={18} color="#DC2626" /><Text style={styles.logoutText}>Log Out</Text></TouchableOpacity>
     </ScrollView>
   );
 }
@@ -154,45 +155,45 @@ const styles = StyleSheet.create({
   center: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F8FA' },
   profileHeader: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 22, padding: 18, flexDirection: 'row', alignItems: 'center', marginBottom: 16, shadowColor: '#102A43', shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.06, shadowRadius: 12, elevation: 3 },
   avatar: { width: 72, height: 72, borderRadius: 22, backgroundColor: '#0F766E', justifyContent: 'center', alignItems: 'center', marginRight: 16 },
-  avatarText: { color: '#FFFFFF', fontSize: 30, fontWeight: '800' },
+  avatarText: { color: '#FFFFFF', fontSize: 30, fontFamily: fonts.bold },
   identity: { flex: 1 },
   editButton: { width: 38, height: 38, borderRadius: 12, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center' },
-  editName: { color: '#102A43', fontSize: 19, fontWeight: '800', borderBottomWidth: 1, borderBottomColor: '#0F766E', paddingVertical: 3 },
+  editName: { color: '#102A43', fontSize: 19, fontFamily: fonts.bold, borderBottomWidth: 1, borderBottomColor: '#0F766E', paddingVertical: 3 },
   editCard: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 18, padding: 16, marginBottom: 18 },
   editGroup: { marginBottom: 12 },
-  editLabel: { color: '#102A43', fontSize: 12, fontWeight: '800', marginBottom: 6 },
+  editLabel: { color: '#102A43', fontSize: 12, fontFamily: fonts.bold, marginBottom: 6 },
   editInput: { minHeight: 44, borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10, color: '#102A43', backgroundColor: '#F5F8FA' },
   editActions: { flexDirection: 'row', gap: 10, marginTop: 4 },
   cancelEditButton: { flex: 1, minHeight: 46, borderRadius: 12, borderWidth: 1, borderColor: '#D9E2EC', alignItems: 'center', justifyContent: 'center' },
-  cancelEditText: { color: '#627D98', fontWeight: '800' },
+  cancelEditText: { color: '#5A7A91', fontFamily: fonts.bold },
   saveEditButton: { flex: 2, minHeight: 46, borderRadius: 12, backgroundColor: '#0F766E', alignItems: 'center', justifyContent: 'center' },
-  saveEditText: { color: '#FFFFFF', fontWeight: '800' },
-  name: { color: '#102A43', fontSize: 24, fontWeight: '800' },
-  role: { color: '#627D98', fontSize: 13, marginTop: 4, fontWeight: '600' },
-  badge: { color: '#0F766E', fontWeight: '800', marginTop: 6, fontSize: 12 },
+  saveEditText: { color: '#FFFFFF', fontFamily: fonts.bold },
+  name: { color: '#102A43', fontSize: 24, fontFamily: fonts.bold },
+  role: { color: '#5A7A91', fontSize: 13, marginTop: 4, fontFamily: fonts.medium },
+  badge: { color: '#0F766E', fontFamily: fonts.bold, marginTop: 6, fontSize: 12 },
   stats: { flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 18, padding: 18, marginBottom: 24, shadowColor: '#102A43', shadowOffset: { width: 0, height: 5 }, shadowOpacity: 0.05, shadowRadius: 10, elevation: 2 },
-  statValue: { color: '#0F766E', fontSize: 23, fontWeight: '800', textAlign: 'center' },
-  statLabel: { color: '#627D98', fontSize: 11, marginTop: 6, fontWeight: '700', textAlign: 'center' },
-  sectionTitle: { color: '#102A43', fontSize: 18, fontWeight: '800', marginTop: 8, marginBottom: 12 },
+  statValue: { color: '#0F766E', fontSize: 23, fontFamily: fonts.bold, textAlign: 'center' },
+  statLabel: { color: '#5A7A91', fontSize: 11, marginTop: 6, fontFamily: fonts.semiBold, textAlign: 'center' },
+  sectionTitle: { color: '#102A43', fontSize: 18, fontFamily: fonts.bold, marginTop: 8, marginBottom: 12 },
   portfolioHeading: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 8, marginBottom: 2 },
   portfolioIcon: { marginLeft: 'auto' },
-  kicker: { color: '#0F766E', fontSize: 10, letterSpacing: 1.4, fontWeight: '800', marginBottom: 4 },
+  kicker: { color: '#0F766E', fontSize: 10, letterSpacing: 1.4, fontFamily: fonts.bold, marginBottom: 4 },
   sectionCard: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 18, padding: 16, marginBottom: 18 },
   sectionHeadingRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 },
   skillGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   skillChip: { maxWidth: '100%', flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: '#E6F6F3', borderWidth: 1, borderColor: '#B9E8E1', borderRadius: 12, paddingHorizontal: 10, paddingVertical: 8 },
-  skillText: { color: '#075E59', fontSize: 12, fontWeight: '800', flexShrink: 1 },
+  skillText: { color: '#075E59', fontSize: 12, fontFamily: fonts.bold, flexShrink: 1 },
   bodyText: { color: '#486581', lineHeight: 22, fontSize: 14 },
-  muted: { color: '#829AB1', fontStyle: 'italic' },
+  muted: { color: '#5A7A91', fontStyle: 'italic' },
   review: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#D9E2EC', borderRadius: 16, padding: 16, marginBottom: 12, shadowColor: '#102A43', shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.04, shadowRadius: 7, elevation: 1 },
   reviewRating: { color: '#F59E0B', marginBottom: 8, fontSize: 18 },
-  helper: { color: '#627D98', fontSize: 13, lineHeight: 18, marginBottom: 16 },
+  helper: { color: '#5A7A91', fontSize: 13, lineHeight: 18, marginBottom: 16 },
   secondaryButton: { backgroundColor: '#FFFFFF', padding: 16, borderRadius: 14, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 8, borderWidth: 1, borderColor: '#D9E2EC', borderStyle: 'dashed' },
-  secondaryButtonText: { color: '#0F766E', fontWeight: '800', fontSize: 14 },
+  secondaryButtonText: { color: '#0F766E', fontFamily: fonts.bold, fontSize: 14 },
   photoGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 12 },
   photo: { width: '31%', aspectRatio: 1, borderRadius: 12 },
   button: { backgroundColor: '#0F766E', padding: 16, borderRadius: 14, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 8, marginTop: 16, shadowColor: '#0F766E', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 4 },
-  buttonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 15 },
-  logoutButton: { minHeight: 50, borderRadius: 14, borderWidth: 1, borderColor: '#FED7AA', backgroundColor: '#FFF7ED', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 22 },
-  logoutText: { color: '#C2410C', fontSize: 14, fontWeight: '800' },
+  buttonText: { color: '#FFFFFF', fontFamily: fonts.bold, fontSize: 15 },
+  logoutButton: { height: 50, borderRadius: 14, borderWidth: 1, borderColor: '#FECACA', backgroundColor: '#FFF5F5', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 22 },
+  logoutText: { color: '#DC2626', fontSize: 14, fontFamily: fonts.bold },
 });

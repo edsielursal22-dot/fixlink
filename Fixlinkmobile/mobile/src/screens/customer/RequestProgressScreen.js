@@ -3,8 +3,9 @@ import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, TextInput,
 import { Ionicons } from '@expo/vector-icons';
 import Skeleton from '../../components/Skeleton';
 import { cancelRepairRequest, fetchCompletedJobs, fetchCustomerRequests, submitTechnicianReview } from '../services/api';
+import { fonts } from '../../theme';
 
-const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
+const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#5A7A91', line: '#D9E2EC', error: '#E53935' };
 
 export default function RequestProgressScreen({ customerName, customerUid, acceptedOnly = false, onViewDetails, onTrackMap }) {
   const [completedJobs, setCompletedJobs] = useState([]);
@@ -18,7 +19,7 @@ export default function RequestProgressScreen({ customerName, customerUid, accep
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case 'completed': return '#059669';
-      case 'in progress': return '#D97706';
+      case 'in progress': return '#2563EB';
       case 'accepted': return colors.teal;
       case 'pending': return '#D97706';
       case 'cancelled': return colors.error;
@@ -102,14 +103,19 @@ export default function RequestProgressScreen({ customerName, customerUid, accep
       <View style={styles.statusLegend}>
         <View style={styles.legendItem}><View style={[styles.legendDot, { backgroundColor: '#D97706' }]} /><Text style={styles.legendText}>Pending</Text></View>
         <View style={styles.legendItem}><View style={[styles.legendDot, { backgroundColor: colors.teal }]} /><Text style={styles.legendText}>Accepted</Text></View>
-        <View style={styles.legendItem}><View style={[styles.legendDot, { backgroundColor: '#059669' }]} /><Text style={styles.legendText}>In Progress</Text></View>
+        <View style={styles.legendItem}><View style={[styles.legendDot, { backgroundColor: '#2563EB' }]} /><Text style={styles.legendText}>In Progress</Text></View>
       </View>
 
       <ScrollView horizontal style={styles.filterScroll} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterRow}>
         {filterOptions.map((option) => (
           <TouchableOpacity
             key={option.key}
-            style={[styles.filterButton, statusFilter === option.key && styles.filterButtonActive]}
+            style={[
+              styles.filterButton,
+              statusFilter === option.key && styles.filterButtonActive,
+              statusFilter === option.key && option.key === 'pending' && { backgroundColor: '#D97706', borderColor: '#D97706' },
+              statusFilter === option.key && option.key === 'in progress' && { backgroundColor: '#2563EB', borderColor: '#2563EB' },
+            ]}
             onPress={() => setStatusFilter(option.key)}
             activeOpacity={0.8}
           >
@@ -268,51 +274,51 @@ export default function RequestProgressScreen({ customerName, customerUid, accep
 const styles = StyleSheet.create({
   scrollContent: { padding: 20, backgroundColor: colors.canvas },
   cancelButton: { minHeight: 42, borderRadius: 12, borderWidth: 1, borderColor: '#FECACA', backgroundColor: '#FFF1F2', paddingHorizontal: 14, alignItems: 'center', justifyContent: 'center' },
-  cancelButtonText: { color: '#B91C1C', fontSize: 13, fontWeight: '800' },
+  cancelButtonText: { color: '#B91C1C', fontSize: 13, fontFamily: fonts.bold },
   sectionHeaderContainer: { marginBottom: 12 },
-  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 2 },
-  sectionTitle: { fontSize: 20, fontWeight: '800', color: colors.ink },
+  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontFamily: fonts.bold, marginBottom: 2 },
+  sectionTitle: { fontSize: 20, fontFamily: fonts.bold, color: colors.ink },
   statusLegend: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginBottom: 14 },
   legendItem: { flexDirection: 'row', alignItems: 'center', gap: 5 },
   legendDot: { width: 8, height: 8, borderRadius: 4 },
-  legendText: { color: colors.muted, fontSize: 11, fontWeight: '700' },
+  legendText: { color: colors.muted, fontSize: 11, fontFamily: fonts.semiBold },
   filterScroll: { flexGrow: 0, height: 48 },
   filterRow: { gap: 8, height: 48, paddingBottom: 8, alignItems: 'center' },
   filterButton: { height: 36, borderWidth: 1, borderColor: colors.line, borderRadius: 16, backgroundColor: colors.white, paddingHorizontal: 13, alignItems: 'center', justifyContent: 'center' },
   filterButtonActive: { backgroundColor: colors.teal, borderColor: colors.teal },
-  filterButtonText: { color: colors.muted, fontSize: 12, fontWeight: '800' },
+  filterButtonText: { color: colors.muted, fontSize: 12, fontFamily: fonts.bold },
   filterButtonTextActive: { color: colors.white },
   card: { backgroundColor: colors.white, borderRadius: 24, padding: 20, marginBottom: 16, borderWidth: 1, borderColor: colors.line, shadowColor: '#102A43', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.08, shadowRadius: 16, elevation: 4 },
   skeletonHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 18 },
   skeletonCopy: { flex: 1 },
   skeletonMetaRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 18 },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 },
-  applianceTitle: { fontSize: 18, fontWeight: '800', color: colors.ink },
-  techName: { color: colors.muted, fontSize: 12, fontWeight: '600', marginTop: 2 },
+  applianceTitle: { fontSize: 18, fontFamily: fonts.bold, color: colors.ink },
+  techName: { color: colors.muted, fontSize: 12, fontFamily: fonts.medium, marginTop: 2 },
   description: { fontSize: 14, color: colors.muted, marginBottom: 16, lineHeight: 20 },
   statusBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8, borderWidth: 1, alignSelf: 'flex-start' },
-  statusText: { fontSize: 12, fontWeight: '800' },
+  statusText: { fontSize: 12, fontFamily: fonts.bold },
   metaRow: { flexDirection: 'row', gap: 16, marginBottom: 16, paddingBottom: 16, borderBottomWidth: 1, borderBottomColor: colors.line },
   metaItem: { flexDirection: 'row', alignItems: 'center', gap: 6, flex: 1 },
   miniCodeBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#F0FDF4', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 10, borderWidth: 1, borderColor: '#BBF7D0', marginBottom: 12, gap: 6 },
-  miniCodeText: { fontSize: 12, color: '#065F46', fontWeight: '700' },
-  miniCodeHighlight: { fontSize: 15, fontWeight: '900', color: '#059669', letterSpacing: 2 },
+  miniCodeText: { fontSize: 12, color: '#065F46', fontFamily: fonts.semiBold },
+  miniCodeHighlight: { fontSize: 15, fontFamily: fonts.extraBold, color: '#059669', letterSpacing: 2 },
   cardActionsRow: { flexDirection: 'row', gap: 10, alignItems: 'center' },
   trackMapCardButton: { flex: 1, height: 44, borderRadius: 12, backgroundColor: colors.teal, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', shadowColor: colors.teal, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 3 },
-  trackMapCardText: { color: colors.white, fontWeight: '800', fontSize: 13 },
+  trackMapCardText: { color: colors.white, fontFamily: fonts.bold, fontSize: 13 },
   viewDetailsButton: { height: 44, borderRadius: 12, backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16 },
-  viewDetailsText: { color: colors.teal, fontWeight: '800', fontSize: 13 },
+  viewDetailsText: { color: colors.teal, fontFamily: fonts.bold, fontSize: 13 },
   emptyCard: { backgroundColor: colors.white, borderRadius: 20, padding: 32, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.line, gap: 12, marginBottom: 16 },
-  emptyText: { color: colors.muted, fontSize: 14, fontWeight: '600' },
+  emptyText: { color: colors.muted, fontSize: 14, fontFamily: fonts.medium },
   reviewContainer: { marginTop: 12, gap: 12, paddingTop: 16, borderTopWidth: 1, borderTopColor: colors.line },
-  inputLabel: { color: colors.ink, fontSize: 12, fontWeight: '700' },
+  inputLabel: { color: colors.ink, fontSize: 12, fontFamily: fonts.semiBold },
   stars: { flexDirection: 'row', gap: 6, marginBottom: 4 },
   starTouchable: { padding: 2 },
   star: { fontSize: 32, color: colors.line },
   selectedStar: { color: '#F59E0B' },
   inputContainer: { flexDirection: 'row', backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 14, paddingHorizontal: 14, minHeight: 70, alignItems: 'flex-start' },
   inputIcon: { marginRight: 10, marginTop: 14 },
-  reviewInput: { flex: 1, color: colors.ink, fontSize: 14, fontWeight: '600', paddingVertical: 12, height: 70, textAlignVertical: 'top' },
+  reviewInput: { flex: 1, color: colors.ink, fontSize: 14, fontFamily: fonts.medium, paddingVertical: 12, height: 70, textAlignVertical: 'top' },
   reviewButton: { backgroundColor: colors.teal, height: 48, borderRadius: 14, alignItems: 'center', justifyContent: 'center', shadowColor: '#0F766E', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 4 },
-  primaryButtonText: { color: colors.white, fontSize: 14, fontWeight: '800', letterSpacing: 0.5 }
+  primaryButtonText: { color: colors.white, fontSize: 14, fontFamily: fonts.bold, letterSpacing: 0.5 }
 });

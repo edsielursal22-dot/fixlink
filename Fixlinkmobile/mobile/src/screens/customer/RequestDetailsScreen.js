@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { fetchTechnicianProfile } from '../services/api';
+import { fonts } from '../../theme';
 
-const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
+const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#5A7A91', line: '#D9E2EC', error: '#E53935' };
 
 export default function RequestDetailsScreen({ request, onBack, onMessageTechnician, onTrackMap }) {
   const [techRatingData, setTechRatingData] = useState(
@@ -60,7 +61,7 @@ export default function RequestDetailsScreen({ request, onBack, onMessageTechnic
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={styles.headerContainer}>
-          <Text style={styles.brand}>fix<Text style={styles.brandAccent}>link</Text></Text>
+          <Text style={styles.brand}>FIX<Text style={styles.brandAccent}>LINK</Text></Text>
           <Text style={styles.roleHeader}>REPAIR REQUEST</Text>
         </View>
 
@@ -73,9 +74,10 @@ export default function RequestDetailsScreen({ request, onBack, onMessageTechnic
           <View style={styles.form}>
             <View style={styles.infoGroup}>
               <Text style={styles.inputLabel}>Problem Description</Text>
-              <View style={[styles.inputContainer, styles.textAreaContainer]}>
-                <Ionicons name="document-text-outline" size={20} color={colors.muted} style={[styles.inputIcon, { marginTop: 14 }]} />
-                <Text style={[styles.infoValue, { paddingTop: 14, paddingBottom: 14 }]}>{request.description || 'No description provided'}</Text>
+              <View style={styles.textAreaContainer}>
+                <Text style={styles.descriptionText} numberOfLines={0}>
+                  {request.description || 'No description provided'}
+                </Text>
               </View>
             </View>
 
@@ -194,49 +196,50 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.canvas },
   navBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: colors.line, backgroundColor: colors.white },
   backButtonContainer: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  backButton: { color: colors.ink, fontSize: 14, fontWeight: '700' },
-  navTitle: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontWeight: '800' },
+  backButton: { color: colors.ink, fontSize: 14, fontFamily: fonts.semiBold },
+  navTitle: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontFamily: fonts.bold },
   scrollContent: { flexGrow: 1, padding: 20 },
   headerContainer: { alignItems: 'center', marginBottom: 28, marginTop: 10 },
-  brand: { color: colors.ink, fontSize: 32, fontWeight: '900', letterSpacing: -1.5 },
+  brand: { color: colors.ink, fontSize: 18, fontFamily: fonts.extraBold },
   brandAccent: { color: colors.teal },
-  roleHeader: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontWeight: '800', marginTop: 4 },
+  roleHeader: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontFamily: fonts.bold, marginTop: 4 },
   card: { backgroundColor: colors.white, borderRadius: 24, padding: 24, borderWidth: 1, borderColor: colors.line, shadowColor: '#102A43', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 6, marginBottom: 20 },
   cardHeader: { marginBottom: 20 },
-  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 4 },
-  title: { color: colors.ink, fontSize: 24, fontWeight: '800' },
+  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontFamily: fonts.bold, marginBottom: 4 },
+  title: { color: colors.ink, fontSize: 24, fontFamily: fonts.bold },
   form: { gap: 16 },
   infoGroup: { gap: 6 },
-  inputLabel: { color: colors.ink, fontSize: 12, fontWeight: '700' },
+  inputLabel: { color: colors.ink, fontSize: 12, fontFamily: fonts.semiBold },
   inputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 14, paddingHorizontal: 14, minHeight: 50 },
-  textAreaContainer: { minHeight: 80, alignItems: 'flex-start' },
+  textAreaContainer: { backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 14, padding: 14, minHeight: 80 },
+  descriptionText: { color: colors.ink, fontSize: 14, fontFamily: fonts.medium, lineHeight: 20 },
   inputIcon: { marginRight: 10, alignSelf: 'center' },
-  infoValue: { flex: 1, color: colors.ink, fontSize: 14, fontWeight: '600' },
+  infoValue: { flex: 1, color: colors.ink, fontSize: 14, fontFamily: fonts.medium },
   statusBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8, borderWidth: 1, alignSelf: 'center' },
-  statusText: { fontSize: 13, fontWeight: '800' },
+  statusText: { fontSize: 13, fontFamily: fonts.bold },
   technicianCard: { backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 16, padding: 16, marginTop: 8, gap: 12 },
-  technicianSectionTitle: { color: colors.ink, fontSize: 18, fontWeight: '800' },
+  technicianSectionTitle: { color: colors.ink, fontSize: 18, fontFamily: fonts.bold },
   technicianInfo: { flexDirection: 'row', alignItems: 'center', gap: 14 },
   avatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: colors.teal, justifyContent: 'center', alignItems: 'center' },
-  avatarText: { color: colors.white, fontSize: 20, fontWeight: '900' },
+  avatarText: { color: colors.white, fontSize: 20, fontFamily: fonts.extraBold },
   technicianDetails: { flex: 1, gap: 2 },
-  technicianName: { fontSize: 16, fontWeight: '800', color: colors.ink },
+  technicianName: { fontSize: 16, fontFamily: fonts.bold, color: colors.ink },
   verifiedRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  verified: { fontSize: 12, color: '#059669', fontWeight: '700' },
-  rating: { fontSize: 13, color: '#D97706', fontWeight: '700', marginTop: 2 },
-  noRating: { fontSize: 12, color: '#829AB1', fontWeight: '600', marginTop: 2 },
+  verified: { fontSize: 12, color: '#059669', fontFamily: fonts.semiBold },
+  rating: { fontSize: 13, color: '#D97706', fontFamily: fonts.semiBold, marginTop: 2 },
+  noRating: { fontSize: 12, color: '#5A7A91', fontFamily: fonts.medium, marginTop: 2 },
   messageButton: { backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line, height: 48, borderRadius: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
-  primaryButtonText: { color: colors.white, fontSize: 14, fontWeight: '800', letterSpacing: 0.5 },
-  secondaryButtonText: { color: colors.ink, fontSize: 14, fontWeight: '800' },
+  primaryButtonText: { color: colors.white, fontSize: 14, fontFamily: fonts.bold, letterSpacing: 0.5 },
+  secondaryButtonText: { color: colors.ink, fontSize: 14, fontFamily: fonts.bold },
   trackMapButton: { backgroundColor: colors.teal, height: 48, borderRadius: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', shadowColor: colors.teal, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.25, shadowRadius: 8, elevation: 4 },
   trackingNoticeCard: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: colors.tealLight, padding: 14, borderRadius: 14, borderWidth: 1, borderColor: '#B2E2D8', marginTop: 4 },
-  trackingNoticeTitle: { fontSize: 13, fontWeight: '800', color: colors.teal, marginBottom: 2 },
+  trackingNoticeTitle: { fontSize: 13, fontFamily: fonts.bold, color: colors.teal, marginBottom: 2 },
   trackingNoticeText: { fontSize: 12, color: colors.ink, lineHeight: 16 },
   codeCard: { backgroundColor: '#F0FDF4', borderRadius: 16, padding: 16, borderWidth: 1, borderColor: '#BBF7D0', alignItems: 'center', gap: 10, marginVertical: 4 },
   codeCardHeader: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  codeCardTitle: { fontSize: 13, fontWeight: '800', color: '#059669', letterSpacing: 0.5 },
+  codeCardTitle: { fontSize: 13, fontFamily: fonts.bold, color: '#059669', letterSpacing: 0.5 },
   codeDigitsRow: { flexDirection: 'row', gap: 10, marginVertical: 4 },
   codeDigitBox: { width: 44, height: 48, borderRadius: 12, backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#059669', justifyContent: 'center', alignItems: 'center', shadowColor: '#059669', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 2 },
-  codeDigitText: { fontSize: 24, fontWeight: '900', color: colors.ink },
-  codeCardSub: { fontSize: 11, color: '#065F46', textAlign: 'center', lineHeight: 15, fontWeight: '600' }
+  codeDigitText: { fontSize: 24, fontFamily: fonts.extraBold, color: colors.ink },
+  codeCardSub: { fontSize: 11, color: '#065F46', textAlign: 'center', lineHeight: 15, fontFamily: fonts.medium }
 });

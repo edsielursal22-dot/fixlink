@@ -5,8 +5,9 @@ import * as Location from 'expo-location';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { submitRepairRequest } from "../services/api";
 import { geocodeAddress } from "../services/locationIq";
+import { fonts } from '../../theme';
 
-const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
+const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#5A7A91', line: '#D9E2EC', error: '#E53935' };
 
 const APPLIANCE_OPTIONS = [
   'Router / Wi-Fi Equipment', 
@@ -351,37 +352,37 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
 const styles = StyleSheet.create({
   scrollContent: { flexGrow: 1, padding: 20, backgroundColor: colors.canvas },
   sectionHeaderContainer: { marginBottom: 16, marginTop: 10 },
-  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 2 },
-  sectionTitle: { fontSize: 20, fontWeight: '800', color: colors.ink },
+  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontFamily: fonts.bold, marginBottom: 2 },
+  sectionTitle: { fontSize: 20, fontFamily: fonts.bold, color: colors.ink },
   
   card: { backgroundColor: colors.white, borderRadius: 24, padding: 20, borderWidth: 1, borderColor: colors.line, shadowColor: '#102A43', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.08, shadowRadius: 16, elevation: 4 },
   inputGroup: { marginBottom: 16 },
-  inputLabel: { fontSize: 14, fontWeight: '800', color: colors.ink, marginBottom: 8 },
+  inputLabel: { fontSize: 14, fontFamily: fonts.bold, color: colors.ink, marginBottom: 8 },
   
   selectInput: { height: 52, backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 14, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  selectInputText: { fontSize: 14, fontWeight: '600', color: colors.ink },
+  selectInputText: { fontSize: 14, fontFamily: fonts.medium, color: colors.ink },
   
   textAreaContainer: { backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 14, paddingHorizontal: 16, paddingVertical: 12, flexDirection: 'row', gap: 10, minHeight: 100 },
-  textArea: { flex: 1, fontSize: 14, fontWeight: '600', color: colors.ink, textAlignVertical: 'top', paddingTop: 0 },
+  textArea: { flex: 1, fontSize: 14, fontFamily: fonts.medium, color: colors.ink, textAlignVertical: 'top', paddingTop: 0 },
   
   row: { flexDirection: 'row', gap: 12 },
   slotContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 4 },
   slotChip: { paddingHorizontal: 12, paddingVertical: 9, borderRadius: 12, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.canvas },
   slotChipActive: { backgroundColor: '#E6F6F3', borderColor: colors.teal },
-  slotChipText: { fontSize: 12, fontWeight: '700', color: colors.muted },
+  slotChipText: { fontSize: 12, fontFamily: fonts.semiBold, color: colors.muted },
   slotChipTextActive: { color: colors.teal },
   
   locationContainer: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   locateButton: { backgroundColor: colors.teal, height: 52, paddingHorizontal: 16, borderRadius: 14, flexDirection: 'row', alignItems: 'center', gap: 6, shadowColor: '#0F766E', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 3 },
-  locateButtonText: { color: colors.white, fontSize: 13, fontWeight: '800' },
+  locateButtonText: { color: colors.white, fontSize: 13, fontFamily: fonts.bold },
 
   primaryButton: { backgroundColor: colors.teal, height: 52, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginTop: 8, shadowColor: '#0F766E', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 8, elevation: 4 },
-  primaryButtonText: { color: colors.white, fontSize: 14, fontWeight: '800', letterSpacing: 0.5 },
+  primaryButtonText: { color: colors.white, fontSize: 14, fontFamily: fonts.bold, letterSpacing: 0.5 },
 
   modalOverlay: { flex: 1, backgroundColor: 'rgba(16, 42, 67, 0.4)', justifyContent: 'flex-end' },
   modalView: { backgroundColor: colors.white, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24, maxHeight: '75%', shadowColor: '#000', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 10 },
   modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: colors.line },
   modalCloseIcon: { width: 32, height: 32, borderRadius: 16, backgroundColor: colors.canvas, justifyContent: 'center', alignItems: 'center' },
   modalItem: { paddingVertical: 14, paddingHorizontal: 4, borderBottomWidth: 1, borderBottomColor: colors.line, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  modalItemText: { fontSize: 15, fontWeight: '600', color: colors.ink }
+  modalItemText: { fontSize: 15, fontFamily: fonts.medium, color: colors.ink }
 });

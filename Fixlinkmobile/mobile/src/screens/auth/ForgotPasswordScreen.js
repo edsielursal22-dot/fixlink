@@ -3,10 +3,11 @@ import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-nativ
 import { Ionicons } from '@expo/vector-icons';
 import { forgotPassword } from '../services/api';
 import AppButton from '../../components/AppButton';
+import { colors, fonts } from '../../theme';
 
 export default function ForgotPasswordScreen({ switchToLogin }) {
   const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState('');
+  const [loading, setLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
   const handleReset = async () => {
@@ -28,6 +29,10 @@ export default function ForgotPasswordScreen({ switchToLogin }) {
   if (isSent) {
     return (
       <View style={styles.container}>
+        <View style={styles.brandBlock}>
+          <View style={styles.logo}><Ionicons name="construct" size={24} color={colors.white} /></View>
+          <Text style={styles.brand}>FIX<Text style={styles.brandAccent}>LINK</Text></Text>
+        </View>
         <View style={styles.card}>
           <Ionicons name="mail-open-outline" size={70} color="#0F766E" />
           <Text style={styles.title}>Check Your Email</Text>
@@ -40,6 +45,10 @@ export default function ForgotPasswordScreen({ switchToLogin }) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.brandBlock}>
+        <View style={styles.logo}><Ionicons name="construct" size={24} color={colors.white} /></View>
+        <Text style={styles.brand}>FIX<Text style={styles.brandAccent}>LINK</Text></Text>
+      </View>
       <View style={styles.card}>
         <Text style={styles.title}>Reset Password</Text>
         <Text style={styles.subTitle}>Enter your registered email to receive recovery steps.</Text>
@@ -48,7 +57,7 @@ export default function ForgotPasswordScreen({ switchToLogin }) {
         <TextInput 
           style={styles.input} 
           placeholder="name@example.com" 
-          placeholderTextColor="#829AB1" 
+          placeholderTextColor="#5A7A91" 
           value={email} 
           onChangeText={setEmail} 
           keyboardType="email-address"
@@ -67,13 +76,17 @@ export default function ForgotPasswordScreen({ switchToLogin }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, justifyContent: 'center', backgroundColor: '#F5F8FA' },
+  brandBlock: { alignItems: 'center', marginBottom: 24 },
+  logo: { width: 54, height: 54, borderRadius: 19, backgroundColor: colors.teal, alignItems: 'center', justifyContent: 'center', marginBottom: 13 },
+  brand: { color: colors.ink, fontSize: 18, fontFamily: fonts.extraBold },
+  brandAccent: { color: colors.teal },
   card: { backgroundColor: '#fff', padding: 24, borderRadius: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 10, elevation: 5, alignItems: 'center' },
-  title: { fontSize: 22, fontWeight: 'bold', color: '#102A43', marginBottom: 8, textAlign: 'center' },
-  subTitle: { fontSize: 14, color: '#829AB1', textAlign: 'center', marginBottom: 20 },
-  label: { alignSelf: 'flex-start', fontSize: 14, fontWeight: '600', color: '#102A43', marginBottom: 8 },
+  title: { fontSize: 22, fontFamily: fonts.bold, color: '#102A43', marginBottom: 8, textAlign: 'center' },
+  subTitle: { fontSize: 14, color: '#5A7A91', textAlign: 'center', marginBottom: 20 },
+  label: { alignSelf: 'flex-start', fontSize: 14, fontFamily: fonts.medium, color: '#102A43', marginBottom: 8 },
   input: { width: '100%', backgroundColor: '#fff', padding: 15, marginBottom: 15, borderRadius: 12, borderWidth: 1, borderColor: '#D9E2EC', color: '#102A43' },
   btn: { width: '100%', marginTop: 10 },
   backLink: { marginTop: 20, alignItems: 'center' },
-  backLinkTxt: { fontSize: 14, color: '#829AB1' },
-  linkAccent: { color: '#0F766E', fontWeight: 'bold' }
+  backLinkTxt: { fontSize: 14, color: '#5A7A91' },
+  linkAccent: { color: '#0F766E', fontFamily: fonts.bold }
 });

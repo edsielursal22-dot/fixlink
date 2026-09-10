@@ -36,7 +36,8 @@
         {
           "photosPermission": "FixLink needs access to your photos to upload repair and certification images."
         }
-      ]
+      ],
+      "expo-splash-screen"
     ]
   }
 }

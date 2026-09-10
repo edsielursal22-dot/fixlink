@@ -19,6 +19,7 @@ import {
   updateTechnicianLocation
 } from '../services/api';
 import { geocodeAddress, getDrivingRoute } from '../services/locationIq';
+import { fonts } from '../../theme';
 
 const colors = {
   ink: '#102A43',
@@ -26,7 +27,7 @@ const colors = {
   tealDark: '#075E59',
   canvas: '#F5F8FA',
   white: '#FFFFFF',
-  muted: '#627D98',
+  muted: '#5A7A91',
   line: '#D9E2EC',
   navy: '#102A43',
   gold: '#D97706',
@@ -51,6 +52,7 @@ export default function MapTrackerScreen({ currentUser, selectedJob: initialJob,
   const [activeJob, setActiveJob] = useState(initialJob);
   const [acceptedJobsList, setAcceptedJobsList] = useState([]);
   const [loadingActiveJob, setLoadingActiveJob] = useState(false);
+  const [jobsExpanded, setJobsExpanded] = useState(true);
 
   // Load technician's active jobs list so they can easily switch between customers
   useEffect(() => {
@@ -284,34 +286,9 @@ export default function MapTrackerScreen({ currentUser, selectedJob: initialJob,
 
   return (
     <View style={styles.container}>
-      {/* Multi-Job Quick Switcher (Shown when technician has multiple active jobs) */}
-      {isTechnician && acceptedJobsList.length > 1 && (
-        <View style={styles.selectorBar}>
-          <Text style={styles.selectorKicker}>ACTIVE JOBS ({acceptedJobsList.length}):</Text>
-          <View style={styles.chipRow}>
-            {acceptedJobsList.map((job) => {
-              const isSelected = activeJob?.id === job.id;
-              return (
-                <TouchableOpacity
-                  key={job.id}
-                  style={[styles.jobChip, isSelected && styles.jobChipActive]}
-                  onPress={() => setActiveJob(job)}
-                  activeOpacity={0.8}
-                >
-                  <View style={[styles.jobChipDot, isSelected && styles.jobChipDotActive]} />
-                  <Text style={[styles.jobChipText, isSelected && styles.jobChipTextActive]} numberOfLines={1}>
-                    {job.applianceType} ({job.customerName?.split(' ')[0] || 'Cust'})
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
-      )}
-
       <View style={styles.mapArea}>
         <LocationIQMap
-          key={`${activeJob?.id || 'job'}-${customerCoords?.latitude}-${customerCoords?.longitude}`}
+          key={activeJob?.id || 'job'}
           technicianCoords={technicianCoords}
           customerCoords={customerCoords}
           routeCoordinates={routeCoordinates}
@@ -319,6 +296,43 @@ export default function MapTrackerScreen({ currentUser, selectedJob: initialJob,
           isAccepted={isAccepted}
           style={styles.map}
         />
+        {isTechnician && acceptedJobsList.length > 1 && (
+          <View style={styles.selectorBar}>
+            {jobsExpanded ? (
+              <>
+                <View style={styles.selectorHeader}>
+                  <Text style={styles.selectorKicker}>ACTIVE ({acceptedJobsList.length})</Text>
+                  <TouchableOpacity onPress={() => setJobsExpanded(false)} style={styles.collapseBtn}>
+                    <Ionicons name="chevron-down" size={16} color={colors.muted} />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.chipRow}>
+                  {acceptedJobsList.map((job) => {
+                    const isSelected = activeJob?.id === job.id;
+                    return (
+                      <TouchableOpacity
+                        key={job.id}
+                        style={[styles.jobChip, isSelected && styles.jobChipActive]}
+                        onPress={() => setActiveJob(job)}
+                        activeOpacity={0.8}
+                      >
+                        <View style={[styles.jobChipDot, isSelected && styles.jobChipDotActive]} />
+                        <Text style={[styles.jobChipText, isSelected && styles.jobChipTextActive]} numberOfLines={1}>
+                          {job.applianceType} ({job.customerName?.split(' ')[0] || 'Cust'})
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              </>
+            ) : (
+              <TouchableOpacity style={styles.expandBtn} onPress={() => setJobsExpanded(true)} activeOpacity={0.8}>
+                <Ionicons name="chevron-up" size={16} color={colors.white} />
+                <Text style={styles.expandBtnText}>{acceptedJobsList.length}</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
       </View>
 
       <View style={styles.detailsPanel}>
@@ -400,14 +414,18 @@ export default function MapTrackerScreen({ currentUser, selectedJob: initialJob,
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.canvas },
-  selectorBar: { backgroundColor: '#F0F4F8', paddingHorizontal: 16, paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: colors.line },
-  selectorKicker: { fontSize: 10, fontWeight: '800', color: colors.muted, marginBottom: 5, letterSpacing: 0.8 },
-  chipRow: { flexDirection: 'row', gap: 8, flexWrap: 'wrap' },
+  selectorBar: { position: 'absolute', right: 12, top: 12, zIndex: 10, backgroundColor: 'rgba(255,255,255,0.92)', borderRadius: 14, paddingHorizontal: 10, paddingVertical: 8, shadowColor: '#102A43', shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.15, shadowRadius: 8, elevation: 6 },
+  selectorHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 },
+  selectorKicker: { fontSize: 9, fontFamily: fonts.bold, color: colors.muted, letterSpacing: 0.6 },
+  collapseBtn: { width: 24, height: 24, borderRadius: 12, backgroundColor: '#F0F4F8', alignItems: 'center', justifyContent: 'center' },
+  expandBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: colors.teal, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 12 },
+  expandBtnText: { color: colors.white, fontSize: 11, fontFamily: fonts.bold },
+  chipRow: { flexDirection: 'column', gap: 5 },
   jobChip: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line, borderRadius: 16, paddingHorizontal: 10, paddingVertical: 5 },
   jobChipActive: { backgroundColor: colors.teal, borderColor: colors.teal },
   jobChipDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.muted, marginRight: 6 },
   jobChipDotActive: { backgroundColor: colors.white },
-  jobChipText: { fontSize: 12, fontWeight: '700', color: colors.ink },
+  jobChipText: { fontSize: 12, fontFamily: fonts.semiBold, color: colors.ink },
   jobChipTextActive: { color: colors.white },
   mapArea: { flex: 1, minHeight: 250, position: 'relative' },
   map: { flex: 1 },
@@ -415,26 +433,26 @@ const styles = StyleSheet.create({
   metricsCard: { backgroundColor: '#F4F8FA', borderRadius: 16, minHeight: 84, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 14 },
   metric: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   metricDivider: { height: 40, width: 1, backgroundColor: colors.line },
-  metricValue: { color: colors.ink, fontSize: 15, fontWeight: '800', marginTop: 3 },
+  metricValue: { color: colors.ink, fontSize: 15, fontFamily: fonts.bold, marginTop: 3 },
   metricLabel: { color: colors.muted, fontSize: 10, marginTop: 2, textAlign: 'center' },
   customerCard: { minHeight: 74, borderWidth: 1, borderColor: colors.line, borderRadius: 16, padding: 12, flexDirection: 'row', alignItems: 'center', marginBottom: 14 },
   customerIcon: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center', marginRight: 10 },
   customerCopy: { flex: 1 },
-  customerKicker: { color: colors.teal, fontSize: 9, letterSpacing: 1.2, fontWeight: '800', marginBottom: 2 },
-  customerName: { color: colors.ink, fontSize: 15, fontWeight: '800' },
+  customerKicker: { color: colors.teal, fontSize: 9, letterSpacing: 1.2, fontFamily: fonts.bold, marginBottom: 2 },
+  customerName: { color: colors.ink, fontSize: 15, fontFamily: fonts.bold },
   customerMeta: { color: colors.muted, fontSize: 11, marginTop: 2 },
   actionRow: { flexDirection: 'row', gap: 10, marginBottom: 8 },
   googleMapsButton: { flex: 1.8, minHeight: 48, borderRadius: 14, backgroundColor: colors.navy, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7 },
-  googleMapsText: { color: colors.white, fontSize: 13, fontWeight: '800' },
+  googleMapsText: { color: colors.white, fontSize: 13, fontFamily: fonts.bold },
   inAppButton: { flex: 1.2, minHeight: 48, borderRadius: 14, borderWidth: 1.5, borderColor: colors.teal, backgroundColor: '#E6F6F3', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 },
-  inAppText: { color: colors.teal, fontSize: 12, fontWeight: '800' },
+  inAppText: { color: colors.teal, fontSize: 12, fontFamily: fonts.bold },
   backButton: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5, paddingTop: 8 },
-  backText: { color: colors.teal, fontSize: 12, fontWeight: '800' },
+  backText: { color: colors.teal, fontSize: 12, fontFamily: fonts.bold },
   // Empty State Styles
   emptyContainer: { flex: 1, backgroundColor: colors.canvas, alignItems: 'center', justifyContent: 'center', padding: 32 },
   emptyIconWrap: { width: 80, height: 80, borderRadius: 26, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center', marginBottom: 18 },
-  emptyTitle: { color: colors.ink, fontSize: 21, fontWeight: '800', marginBottom: 8 },
+  emptyTitle: { color: colors.ink, fontSize: 21, fontFamily: fonts.bold, marginBottom: 8 },
   emptySubtitle: { color: colors.muted, fontSize: 13, textAlign: 'center', lineHeight: 19, marginBottom: 24 },
   emptyButton: { height: 48, borderRadius: 14, backgroundColor: colors.teal, paddingHorizontal: 22, flexDirection: 'row', alignItems: 'center', gap: 8 },
-  emptyButtonText: { color: colors.white, fontSize: 14, fontWeight: '800' },
+  emptyButtonText: { color: colors.white, fontSize: 14, fontFamily: fonts.bold },
 });

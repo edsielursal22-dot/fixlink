@@ -4,7 +4,7 @@ import axios from 'axios';
 // - If using Android Emulator, use 'http://10.0.2.2:5000'
 // - If using iOS Simulator, use 'http://localhost:5000'
 // - If using a physical device, use your computer's local network IP address (e.g., 'http://192.168.x.x:5000')
-const API_BASE_URL = 'http://192.168.1.36:5000/api';
+const API_BASE_URL = 'http://192.168.1.38:5000/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -126,6 +126,7 @@ export const updateCustomerProfile = async (uid, profile) => {
     headers: { 'Content-Type': 'multipart/form-data' },
   })).data;
 };
+export const forgotPassword = async (data) => (await api.post('/auth/forgot-password', data)).data;
 export const verifyCompletionCode = async (jobId, code) => (await api.post(`/requests/${jobId}/verify-completion`, { code })).data;
 
 

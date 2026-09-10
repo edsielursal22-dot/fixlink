@@ -15,8 +15,9 @@ import MapTrackerScreen from '../screens/shared/MapTrackerScreen';
 import AvailableJobsScreen from '../screens/technician/AvailableJobsScreen';
 import TechnicianProfileScreen from '../screens/technician/TechnicianProfileScreen';
 import { fetchUnreadMessageNotifications, setAuthToken, updateCustomerProfile } from '../screens/services/api';
+import { fonts } from '../theme';
 
-const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC' };
+const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#5A7A91', line: '#D9E2EC' };
 
 export default function AppNavigator() {
   const [user, setUser] = useState(null);
@@ -94,7 +95,7 @@ export default function AppNavigator() {
   const setTab = isCustomer ? setCustomerTab : setTechnicianTab;
   const navItems = isCustomer ? customerTabs : techTabs;
   const screen = isCustomer ? (
-    customerTab === 'dashboard' ? <DashboardScreen user={user} onNavigateToSubmit={() => setCustomerTab('submit')} onNavigateToProgress={() => { setAcceptedOnlyProgress(false); setCustomerTab('progress'); }} onTrackAcceptedJob={() => { setAcceptedOnlyProgress(true); setCustomerTab('progress'); }} /> :
+    customerTab === 'dashboard' ? <DashboardScreen user={user} notificationCount={chatNotifications.length} onOpenNotifications={() => setNotificationsOpen(true)} onNavigateToSubmit={() => setCustomerTab('submit')} onNavigateToProgress={() => { setAcceptedOnlyProgress(false); setCustomerTab('progress'); }} onTrackAcceptedJob={() => { setAcceptedOnlyProgress(true); setCustomerTab('progress'); }} /> :
     customerTab === 'submit' ? <SubmitRequestScreen currentUser={user} customerName={user.name} onNavigateToProgress={() => setCustomerTab('progress')} /> :
     customerTab === 'details' ? <RequestDetailsScreen request={selectedRequest} onBack={() => setCustomerTab('progress')} onMessageTechnician={() => { setSelectedChatTarget(selectedRequest); setCustomerTab('chat'); }} onTrackMap={(req) => { setSelectedRequest(req); setCustomerTab('map'); }} /> :
     customerTab === 'progress' ? <RequestProgressScreen customerName={user.name} customerUid={user.uid} acceptedOnly={acceptedOnlyProgress} onViewDetails={(req) => { setSelectedRequest(req); setCustomerTab('details'); }} onTrackMap={(req) => { setSelectedRequest(req); setCustomerTab('map'); }} /> :
@@ -108,31 +109,10 @@ export default function AppNavigator() {
     <TechnicianProfileScreen technician={user} onLogout={handleLogout} />
   );
 
-  // Determine if the header should be shown (Only when on Home/Dashboard for customer, or Jobs for technician)
-  const showHeader = isCustomer && customerTab === 'dashboard';
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.canvas} />
       
-      {/* Top Bar is now conditional: only rendered on the Home/Dashboard screen */}
-      {showHeader && (
-        <View style={styles.topBar}>
-          <View>
-            <Text style={styles.brand}>fix<Text style={styles.brandAccent}>link</Text></Text>
-            <Text style={styles.role}>{isCustomer ? 'HOME SERVICES' : 'TECHNICIAN HUB'}</Text>
-          </View>
-          <TouchableOpacity style={styles.notification} onPress={() => setNotificationsOpen(true)}>
-            <Ionicons name="notifications-outline" size={21} color={colors.ink} />
-            {chatNotifications.length > 0 && (
-              <View style={styles.dot}>
-                <Text style={styles.dotText}>{chatNotifications.length > 9 ? '9+' : chatNotifications.length}</Text>
-              </View>
-            )}
-          </TouchableOpacity>
-        </View>
-      )}
-
       <View style={styles.screenContainer}>{screen}</View>
 
       <Modal visible={notificationsOpen} transparent animationType="fade" onRequestClose={() => setNotificationsOpen(false)}>
@@ -176,9 +156,6 @@ export default function AppNavigator() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.canvas }, authContainer: { flex: 1, backgroundColor: colors.canvas }, screenContainer: { flex: 1 },
-  topBar: { minHeight: 76, paddingHorizontal: 20, paddingTop: 12, paddingBottom: 10, backgroundColor: colors.canvas, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  brand: { color: colors.ink, fontSize: 25, fontWeight: '900', letterSpacing: -1.2 }, brandAccent: { color: colors.teal }, role: { color: colors.muted, fontSize: 9, letterSpacing: 1.5, fontWeight: '800', marginTop: 3 },
-  notification: { width: 42, height: 42, borderRadius: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line }, dot: { position: 'absolute', top: 5, right: 5, minWidth: 16, height: 16, borderRadius: 8, backgroundColor: '#E53935', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 }, dotText: { color: colors.white, fontSize: 9, fontWeight: '900' },
-  modalBackdrop: { flex: 1, backgroundColor: 'rgba(16,42,67,0.26)', alignItems: 'flex-end', paddingTop: 86, paddingHorizontal: 16 }, notificationPanel: { width: '100%', maxWidth: 390, maxHeight: 430, backgroundColor: colors.white, borderRadius: 22, padding: 20, shadowColor: '#102A43', shadowOffset: { width: 0, height: 12 }, shadowOpacity: 0.2, shadowRadius: 24, elevation: 12 }, panelHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }, panelKicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 5 }, panelTitle: { color: colors.ink, fontSize: 23, fontWeight: '800' }, closeButton: { width: 34, height: 34, borderRadius: 12, backgroundColor: colors.canvas, alignItems: 'center', justifyContent: 'center' }, notice: { flexDirection: 'row', gap: 12, paddingVertical: 14, borderTopWidth: 1, borderTopColor: colors.line }, noticeIcon: { width: 38, height: 38, borderRadius: 13, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center' }, noticeIconGold: { backgroundColor: '#FFF8E7' }, noticeCopy: { flex: 1 }, noticeTitle: { color: colors.ink, fontSize: 14, fontWeight: '800', marginBottom: 4 }, noticeText: { color: colors.muted, fontSize: 12, lineHeight: 17 }, noticeTime: { color: colors.muted, fontSize: 10, marginTop: 6, fontWeight: '700' },
-  bottomNav: { flexDirection: 'row', justifyContent: 'space-around', paddingTop: 9, paddingBottom: 8, backgroundColor: colors.white, borderTopWidth: 1, borderTopColor: colors.line }, navItem: { alignItems: 'center', minWidth: 65 }, navIcon: { width: 42, height: 30, borderRadius: 12, alignItems: 'center', justifyContent: 'center' }, navIconActive: { backgroundColor: '#E6F6F3' }, navLabel: { color: colors.muted, fontSize: 10, fontWeight: '700', marginTop: 3 }, navLabelActive: { color: colors.teal },
+  modalBackdrop: { flex: 1, backgroundColor: 'rgba(16,42,67,0.26)', alignItems: 'flex-end', paddingTop: 86, paddingHorizontal: 16 }, notificationPanel: { width: '100%', maxWidth: 390, maxHeight: 430, backgroundColor: colors.white, borderRadius: 22, padding: 20, shadowColor: '#102A43', shadowOffset: { width: 0, height: 12 }, shadowOpacity: 0.2, shadowRadius: 24, elevation: 12 }, panelHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }, panelKicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontFamily: fonts.bold, marginBottom: 5 }, panelTitle: { color: colors.ink, fontSize: 23, fontFamily: fonts.bold }, closeButton: { width: 34, height: 34, borderRadius: 12, backgroundColor: colors.canvas, alignItems: 'center', justifyContent: 'center' }, notice: { flexDirection: 'row', gap: 12, paddingVertical: 14, borderTopWidth: 1, borderTopColor: colors.line }, noticeIcon: { width: 38, height: 38, borderRadius: 13, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center' }, noticeIconGold: { backgroundColor: '#FFF8E7' }, noticeCopy: { flex: 1 }, noticeTitle: { color: colors.ink, fontSize: 14, fontFamily: fonts.bold, marginBottom: 4 }, noticeText: { color: colors.muted, fontSize: 12, lineHeight: 17 }, noticeTime: { color: colors.muted, fontSize: 10, marginTop: 6, fontFamily: fonts.semiBold },
+  bottomNav: { flexDirection: 'row', justifyContent: 'space-around', paddingTop: 9, paddingBottom: 8, backgroundColor: colors.white, borderTopWidth: 1, borderTopColor: colors.line }, navItem: { alignItems: 'center', minWidth: 65 }, navIcon: { width: 42, height: 30, borderRadius: 12, alignItems: 'center', justifyContent: 'center' }, navIconActive: { backgroundColor: '#E6F6F3' }, navLabel: { color: colors.muted, fontSize: 10, fontFamily: fonts.semiBold, marginTop: 3 }, navLabelActive: { color: colors.teal },
 });

@@ -22,8 +22,20 @@ import {
   markJobMessagesRead,
   sendJobMessage
 } from '../services/api';
+import { fonts } from '../../theme';
 
-const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#829AB1', line: '#D9E2EC', error: '#E53935' };
+const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#5A7A91', line: '#D9E2EC', error: '#E53935' };
+
+const getStatusColor = (status) => {
+  switch (status?.toLowerCase()) {
+    case 'completed': return '#059669';
+    case 'in progress': return '#2563EB';
+    case 'accepted': return colors.teal;
+    case 'pending': return '#D97706';
+    case 'cancelled': return colors.error;
+    default: return colors.muted;
+  }
+};
 
 export default function ChatScreen({ currentUser, initialTarget = null }) {
   const isTechnician = currentUser?.role === 'technician';
@@ -304,8 +316,8 @@ export default function ChatScreen({ currentUser, initialTarget = null }) {
                 <View style={styles.convHeaderRow}>
                   <Text style={styles.convName}>{item.name}</Text>
                   <View style={styles.convBadges}>
-                    <View style={styles.badgePill}>
-                      <Text style={styles.badgePillText}>{item.status || 'Active'}</Text>
+                    <View style={[styles.badgePill, { backgroundColor: getStatusColor(item.status) + '15', borderColor: getStatusColor(item.status) + '40' }]}>
+                      <Text style={[styles.badgePillText, { color: getStatusColor(item.status) }]}>{item.status || 'Active'}</Text>
                     </View>
                     {item.unreadCount > 0 && (
                       <View style={styles.unreadPill}>
@@ -329,33 +341,33 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.canvas },
   navBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: colors.line, backgroundColor: colors.white },
   backButtonContainer: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  backButton: { color: colors.ink, fontSize: 14, fontWeight: '700' },
-  navTitle: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontWeight: '800' },
+  backButton: { color: colors.ink, fontSize: 14, fontFamily: fonts.semiBold },
+  navTitle: { color: colors.muted, fontSize: 10, letterSpacing: 2, fontFamily: fonts.bold },
   scrollContent: { flexGrow: 1, padding: 20 },
   sectionHeaderContainer: { marginBottom: 14 },
-  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontWeight: '800', marginBottom: 2 },
-  sectionTitle: { fontSize: 20, fontWeight: '800', color: colors.ink },
+  kicker: { color: colors.teal, fontSize: 10, letterSpacing: 1.5, fontFamily: fonts.bold, marginBottom: 2 },
+  sectionTitle: { fontSize: 20, fontFamily: fonts.bold, color: colors.ink },
   
   conversationItem: { flexDirection: 'row', padding: 16, backgroundColor: colors.white, borderRadius: 20, marginBottom: 12, alignItems: 'center', borderWidth: 1, borderColor: colors.line, shadowColor: '#102A43', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.05, shadowRadius: 8, elevation: 2 },
   avatar: { width: 46, height: 46, borderRadius: 23, backgroundColor: colors.teal, justifyContent: 'center', alignItems: 'center', marginRight: 14 },
-  avatarText: { color: colors.white, fontWeight: '900', fontSize: 17 },
+  avatarText: { color: colors.white, fontFamily: fonts.extraBold, fontSize: 17 },
   conversationInfo: { flex: 1 },
   convHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
-  convName: { fontWeight: '800', fontSize: 15, color: colors.ink },
+  convName: { fontFamily: fonts.bold, fontSize: 15, color: colors.ink },
   convBadges: { flexDirection: 'row', alignItems: 'center', gap: 5 },
-  badgePill: { backgroundColor: '#E6F6F3', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8 },
-  badgePillText: { color: colors.teal, fontSize: 10, fontWeight: '800' },
+  badgePill: { paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8, borderWidth: 1 },
+  badgePillText: { color: colors.teal, fontSize: 10, fontFamily: fonts.bold },
   unreadPill: { minWidth: 20, height: 20, borderRadius: 10, backgroundColor: colors.error, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5 },
-  unreadPillText: { color: colors.white, fontSize: 10, fontWeight: '900' },
-  lastMsg: { color: colors.muted, fontSize: 12, fontWeight: '600' },
+  unreadPillText: { color: colors.white, fontSize: 10, fontFamily: fonts.extraBold },
+  lastMsg: { color: colors.muted, fontSize: 12, fontFamily: fonts.medium },
   
   chatHeaderCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, paddingHorizontal: 20, paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: colors.line, gap: 12 },
   chatHeaderInfo: { flex: 1 },
-  chatHeaderName: { fontSize: 16, fontWeight: '800', color: colors.ink },
+  chatHeaderName: { fontSize: 16, fontFamily: fonts.bold, color: colors.ink },
   verifiedRow: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 2 },
-  verifiedText: { color: '#059669', fontSize: 12, fontWeight: '700' },
+  verifiedText: { color: '#059669', fontSize: 12, fontFamily: fonts.semiBold },
   dotSeparator: { color: colors.muted, fontSize: 10 },
-  statusSubtext: { color: colors.muted, fontSize: 11, fontWeight: '600' },
+  statusSubtext: { color: colors.muted, fontSize: 11, fontFamily: fonts.medium },
 
   chatArea: { padding: 16, flexGrow: 1, justifyContent: 'flex-end', gap: 10 },
   msgWrapper: { width: '100%', marginVertical: 2 },
@@ -364,7 +376,7 @@ const styles = StyleSheet.create({
   msgBubble: { maxWidth: '78%', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 18, shadowColor: '#102A43', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 4, elevation: 1 },
   myMsg: { backgroundColor: colors.teal, borderBottomRightRadius: 4 },
   otherMsg: { backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line, borderBottomLeftRadius: 4 },
-  msgText: { fontSize: 14, fontWeight: '600', lineHeight: 20 },
+  msgText: { fontSize: 14, fontFamily: fonts.medium, lineHeight: 20 },
   myMsgText: { color: colors.white },
   otherMsgText: { color: colors.ink },
   msgTime: { fontSize: 10, marginTop: 4, alignSelf: 'flex-end' },
@@ -373,7 +385,7 @@ const styles = StyleSheet.create({
 
   inputArea: { padding: 14, backgroundColor: colors.white, borderTopWidth: 1, borderTopColor: colors.line },
   inputContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, borderRadius: 24, paddingLeft: 16, paddingRight: 6, paddingVertical: 6 },
-  textInput: { flex: 1, color: colors.ink, fontSize: 14, fontWeight: '600', maxHeight: 90, paddingVertical: 6 },
+  textInput: { flex: 1, color: colors.ink, fontSize: 14, fontFamily: fonts.medium, maxHeight: 90, paddingVertical: 6 },
   sendButton: { backgroundColor: colors.teal, width: 36, height: 36, borderRadius: 18, justifyContent: 'center', alignItems: 'center', shadowColor: '#0F766E', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 2 },
 
   skeletonList: { gap: 12 },
@@ -381,6 +393,6 @@ const styles = StyleSheet.create({
   skeletonConversationInfo: { flex: 1, gap: 8 },
   skeletonConversationHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   emptyCard: { backgroundColor: colors.white, borderRadius: 20, padding: 32, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.line, gap: 10 },
-  emptyTitle: { color: colors.ink, fontSize: 16, fontWeight: '800' },
-  emptyText: { color: colors.muted, fontSize: 13, fontWeight: '500', textAlign: 'center', lineHeight: 18, paddingHorizontal: 12 }
+  emptyTitle: { color: colors.ink, fontSize: 16, fontFamily: fonts.bold },
+  emptyText: { color: colors.muted, fontSize: 13, fontFamily: fonts.regular, textAlign: 'center', lineHeight: 18, paddingHorizontal: 12 }
 });
