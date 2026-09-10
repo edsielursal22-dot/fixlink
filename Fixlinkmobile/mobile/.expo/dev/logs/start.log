@@ -4726,3 +4726,24 @@
 {"_e":"metro:bundling:done","_t":1789059984620,"id":"1","total":874,"ms":914.4963}
 {"_e":"metro:client_log","_t":1789060009449,"level":"error","data":["React has detected a change in the order of Hooks called by MapTrackerScreen. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks\n\n   Previous render            Next render\n   ------------------------------------------------------\n1. useState                   useState\n2. useState                   useState\n3. useState                   useState\n4. useEffect                  useEffect\n5. useEffect                  useEffect\n6. useMemo                    useMemo\n7. useMemo                    useMemo\n8. useState                   useState\n9. useState                   useState\n10. useState                  useState\n11. useState                  useState\n12. useState                  useState\n13. useState                  useState\n14. useEffect                 useEffect\n15. useEffect                 useEffect\n16. useEffect                 useEffect\n17. useEffect                 useEffect\n18. useEffect                 useEffect\n19. undefined                 useState\n   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"]}
 {"_e":"metro:client_log","_t":1789060009556,"level":"error","data":["[Error: Rendered more hooks than during the previous render.]"]}
+{"_e":"root:init","_t":1789061437228,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1789061437229,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1789061437231,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1789061437774,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1789061438118,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1789061438397,"plugins":[]}
+{"_e":"metro:instantiate","_t":1789061442754,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1789061450279,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1789061450280,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789061450284,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789061450384,"id":"1","progress":0.02858876519872109,"total":207,"current":35}
+{"_e":"metro:bundling:progress","_t":1789061450484,"id":"1","progress":0.14181421246595097,"total":316,"current":119}
+{"_e":"metro:bundling:progress","_t":1789061450585,"id":"1","progress":0.2536275221367397,"total":415,"current":209}
+{"_e":"metro:bundling:progress","_t":1789061450685,"id":"1","progress":0.46867868415708336,"total":539,"current":369}
+{"_e":"metro:bundling:progress","_t":1789061450787,"id":"1","progress":0.6491318703533164,"total":633,"current":510}
+{"_e":"metro:bundling:progress","_t":1789061450887,"id":"1","progress":0.8227823507572508,"total":721,"current":654}
+{"_e":"metro:bundling:progress","_t":1789061450987,"id":"1","progress":0.8427105165778014,"total":817,"current":750}
+{"_e":"metro:bundling:progress","_t":1789061451090,"id":"1","progress":0.9378393351800555,"total":855,"current":828}
+{"_e":"metro:bundling:progress","_t":1789061451191,"id":"1","progress":0.9976945252624422,"total":867,"current":866}
+{"_e":"metro:bundling:progress","_t":1789061451452,"id":"1","progress":0.999,"total":867,"current":867}
+{"_e":"metro:bundling:done","_t":1789061451560,"id":"1","total":867,"ms":1280.3846}

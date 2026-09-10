@@ -374,14 +374,14 @@ export default function MapTrackerScreen({ currentUser, selectedJob: initialJob,
         </View>
 
         {/* Dynamic Action Buttons */}
-        <View style={styles.actionRow}>
+        <View style={styles.actionButtons}>
           <TouchableOpacity
             style={styles.googleMapsButton}
             onPress={handleOpenGoogleMapsNavigation}
             activeOpacity={0.85}
           >
             <Ionicons name="navigate" size={18} color={colors.white} />
-            <Text style={styles.googleMapsText}>Navigate in Google Maps GPS</Text>
+            <Text style={styles.googleMapsText} numberOfLines={1}>Navigate in Google Maps GPS</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -399,14 +399,13 @@ export default function MapTrackerScreen({ currentUser, selectedJob: initialJob,
               </>
             )}
           </TouchableOpacity>
-        </View>
 
-        {(onBack || onNavigateToJobs) && (
-          <TouchableOpacity style={styles.backButton} onPress={onBack || onNavigateToJobs}>
-            <Ionicons name="arrow-back" size={17} color={colors.teal} />
-            <Text style={styles.backText}>{isTechnician ? 'Back to jobs' : 'Back to requests'}</Text>
-          </TouchableOpacity>
-        )}
+          {(onBack || onNavigateToJobs) && (
+            <TouchableOpacity style={styles.backButton} onPress={onBack || onNavigateToJobs}>
+              <Text style={styles.backText}>{isTechnician ? 'Back to jobs' : 'Back to requests'}</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -441,13 +440,13 @@ const styles = StyleSheet.create({
   customerKicker: { color: colors.teal, fontSize: 9, letterSpacing: 1.2, fontFamily: fonts.bold, marginBottom: 2 },
   customerName: { color: colors.ink, fontSize: 15, fontFamily: fonts.bold },
   customerMeta: { color: colors.muted, fontSize: 11, marginTop: 2 },
-  actionRow: { flexDirection: 'row', gap: 10, marginBottom: 8 },
-  googleMapsButton: { flex: 1.8, minHeight: 48, borderRadius: 14, backgroundColor: colors.navy, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7 },
-  googleMapsText: { color: colors.white, fontSize: 13, fontFamily: fonts.bold },
-  inAppButton: { flex: 1.2, minHeight: 48, borderRadius: 14, borderWidth: 1.5, borderColor: colors.teal, backgroundColor: '#E6F6F3', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 },
-  inAppText: { color: colors.teal, fontSize: 12, fontFamily: fonts.bold },
-  backButton: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5, paddingTop: 8 },
-  backText: { color: colors.teal, fontSize: 12, fontFamily: fonts.bold },
+  actionButtons: { gap: 10 },
+  googleMapsButton: { width: '100%', height: 48, borderRadius: 14, backgroundColor: colors.navy, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7 },
+  googleMapsText: { color: colors.white, fontSize: 14, fontFamily: fonts.bold },
+  inAppButton: { width: '100%', height: 48, borderRadius: 14, borderWidth: 1.5, borderColor: colors.teal, backgroundColor: '#E6F6F3', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 },
+  inAppText: { color: colors.teal, fontSize: 13, fontFamily: fonts.bold },
+  backButton: { height: 44, borderRadius: 14, backgroundColor: colors.canvas, borderWidth: 1, borderColor: colors.line, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
+  backText: { color: colors.teal, fontSize: 13, fontFamily: fonts.bold },
   // Empty State Styles
   emptyContainer: { flex: 1, backgroundColor: colors.canvas, alignItems: 'center', justifyContent: 'center', padding: 32 },
   emptyIconWrap: { width: 80, height: 80, borderRadius: 26, backgroundColor: '#E6F6F3', alignItems: 'center', justifyContent: 'center', marginBottom: 18 },
