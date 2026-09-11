@@ -41,7 +41,7 @@ This matrix maps every specific challenge identified in **Chapter 1: Statement o
 ### Explicit Delimitations (Out of Scope as Stated in Capstone Paper)
 - **No In-App Payment Gateway:** Cash-on-Service / direct arrangement between customer and technician (no credit card/Stripe/GCash API required).
 - **No Automated Hardware Diagnostics:** The system connects people; it does not diagnose circuit board failures or run diagnostic tests.
-- **Categorization Limits:** Limited to platform-supported categories (Electronics, Appliances, Mobile Devices, Computers).
+- **Categorization Limits:** Limited to the admin-managed skill categories (dynamically loaded from Firestore `categories`), e.g., Home Appliances, Mobile Devices, Networking & Internet Devices, Computer & Laptop, Other Electronic Devices.
 - **Network Dependency:** Requires active internet connection.
 
 ---
@@ -101,7 +101,7 @@ graph TD
 1. **Account Registration / Login:** Authenticates using email/password.
 2. **Home Dashboard:** Views active service announcements and past repair history.
 3. **Submit Repair Request:**
-   - Selects appliance type (e.g., *Refrigerator*, *Washing Machine*, *Desktop Computer*, *Water Heater*).
+   - Selects appliance category from the admin-managed skill category list (e.g., *Home Appliances*, *Computer & Laptop*, *Mobile Devices*), then picks the specific device (e.g., *Washing Machine*, *Laptop*) from that category's drop-down.
    - Enters problem description and attaches an image of the damaged device.
    - Taps **"Locate Me"** (reverse geocoded via LocationIQ) or types exact street address.
    - Selects preferred date and appointment time.
@@ -264,7 +264,7 @@ sequenceDiagram
 |---|---|---|
 | **Role-Based Auth (Customer/Technician)** | ✅ Complete | [AppNavigator.js](file:///c:/CAPSTONE/Fixlinkmobile/mobile/src/navigation/AppNavigator.js), [LoginScreen.js](file:///c:/CAPSTONE/Fixlinkmobile/mobile/src/screens/auth/LoginScreen.js) |
 | **Document Upload for Verification** | ✅ Complete | [RegisterScreen.js](file:///c:/CAPSTONE/Fixlinkmobile/mobile/src/screens/auth/RegisterScreen.js), [auth.js](file:///c:/CAPSTONE/Fixlinkmobile/backend/src/routes/auth.js) |
-| **Appliance Service Submission** | ✅ Complete | [SubmitRequestScreen.js](file:///c:/CAPSTONE/Fixlinkmobile/mobile/src/screens/customer/SubmitRequestScreen.js) |
+| **Appliance Service Submission** | ✅ Complete | [SubmitRequestScreen.js](file:///c:/CAPSTONE/Fixlinkmobile/mobile/src/screens/customer/SubmitRequestScreen.js) (**static list replaced by admin-managed dynamic categories via `GET /api/users/platform/categories`**) |
 | **LocationIQ Geocoding & Route Engine** | ✅ Complete | [locationIq.js](file:///c:/CAPSTONE/Fixlinkmobile/mobile/src/screens/services/locationIq.js) |
 | **Interactive Leaflet WebView Map** | ✅ Complete | [LocationIQMap.js](file:///c:/CAPSTONE/Fixlinkmobile/mobile/src/components/LocationIQMap.js) |
 | **Mutual Tracking & Privacy Enforcement** | ✅ Complete | [MapTrackerScreen.js](file:///c:/CAPSTONE/Fixlinkmobile/mobile/src/screens/shared/MapTrackerScreen.js), [requests.js](file:///c:/CAPSTONE/Fixlinkmobile/backend/src/routes/requests.js) |

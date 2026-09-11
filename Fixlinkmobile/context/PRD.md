@@ -72,7 +72,7 @@ FixLink was conceptualized to achieve five specific objectives:
 ### 5.2 Delimitations and Constraints (Out of Scope)
 - **No In-App Payment Gateway:** All financial transactions (service fees, parts reimbursement) are settled directly between customer and technician via Cash-on-Service. No payment gateway (Stripe, GCash API, PayPal) is integrated.
 - **No Automated Hardware Diagnostics:** The system is an operational dispatch and matching platform; it does not diagnose board schematics, run automated software tests, or replace manual troubleshooting.
-- **Categorization Boundaries:** Support is strictly scoped to platform-defined appliance and computing categories (Electronics, Appliances, Mobile Devices, Computers, Others).
+- **Categorization Boundaries:** Support is strictly scoped to the platform-defined skill categories managed by the system admin (e.g., Home Appliances, Mobile Devices, Networking & Internet Devices, Computer & Laptop, Other Electronic Devices). The category list is dynamically loaded from the admin-maintained `categories` collection.
 - **Mandatory Internet Connectivity:** Both customer and technician devices require active internet connectivity to poll and update real-time states and GPS telemetry.
 
 ---
@@ -106,7 +106,7 @@ FixLink was conceptualized to achieve five specific objectives:
 - `FR-AUTH-05`: Account state gate: Technicians remain in `pending_verification` state until approved by an administrator.
 
 ### Module 2: Repair Request Management (FR-REQ)
-- `FR-REQ-01`: Customers can select appliance category from categorized grid or enter custom equipment under `Others`.
+- `FR-REQ-01`: Customers select the appliance category from a modal dynamically listing the admin-managed skill categories (fetched via `GET /api/users/platform/categories`), then drill into the device list of the chosen category to pick the exact item needing repair.
 - `FR-REQ-02`: Customers can write a detailed issue description (symptoms, brand, error codes).
 - `FR-REQ-03`: Customers can attach a photograph of the damaged unit.
 - `FR-REQ-04`: Location tagging: Integrated LocationIQ forward geocoding converts street addresses to precise latitude/longitude, with a "Locate Me" GPS fallback.

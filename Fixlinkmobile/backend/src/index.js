@@ -6,9 +6,10 @@ const path = require('path');
 // routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
-const requestRoutes = require('./routes/requests'); // Assuming it exists based on earlier listing
-const adminRoutes = require('./routes/admin'); // Assuming it exists
+const requestRoutes = require('./routes/requests');
+const adminRoutes = require('./routes/admin');
 const profileRoutes = require('./routes/profile');
+const { createRateLimiter } = require('./middleware/rateLimit');
 
 // Load environment variables
 dotenv.config();
@@ -20,6 +21,15 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Rate limiters — blocks excess requests instantly, before touching Firestore
+const globalLimiter = createRateLimiter({
+  windowMs: 60000,
+  max: 60,
+  message: 'Too many requests from this IP, please try again later.',
+});
+
+app.use('/api', globalLimiter);
 
 // Serve static files (uploads)
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));

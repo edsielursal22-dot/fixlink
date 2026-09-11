@@ -7,9 +7,26 @@ const path = require('path');
 const router = express.Router();
 const { db, bucket, messaging } = require('../config/firebase');
 const { requireAuth } = require('../middleware/requireAuth');
+const { createRateLimiter } = require('../middleware/rateLimit');
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
 
 router.use(requireAuth);
+
+const perUserLimiter = createRateLimiter({
+  windowMs: 60000,
+  max: 60,
+  keyGenerator: (req) => (req.authUser ? `user:${req.authUser.uid}` : req.ip),
+  message: 'Too many requests, please try again later.',
+});
+
+router.use(perUserLimiter);
+
+const unreadLimiter = createRateLimiter({
+  windowMs: 60000,
+  max: 20,
+  keyGenerator: (req) => (req.authUser ? `user:${req.authUser.uid}` : req.ip),
+  message: 'Too many chat refresh requests, please try again later.',
+});
 
 const distanceInKm = (firstLatitude, firstLongitude, secondLatitude, secondLongitude) => {
   if (![firstLatitude, firstLongitude, secondLatitude, secondLongitude].every(Number.isFinite)) return null;
@@ -82,6 +99,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
       customerName, 
       customerUid, 
       applianceType, 
+      category,
       description, 
       location, 
       latitude, 
@@ -132,6 +150,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
       customerName,
       ...(customerUid && { customerUid }),
       applianceType,
+      ...(category && String(category).trim() && { category: String(category).trim() }),
       description,
       location,
       ...(Number.isFinite(finalLat) && { latitude: finalLat }),
@@ -210,7 +229,18 @@ router.get('/', async (req, res) => {
         fs.appendFileSync(path.join(__dirname, '../../debug.log'), `[DEBUG] RequestId: ${doc.id}, NormalizedSkills: ${JSON.stringify(skillsNormalized)}, ReqCatNorm: ${requestedCategoryNormalized}\n`);
       }
       
-      const skillMatch = !technicianUid || (verified && skillsNormalized.some(skillNorm => {
+      const skillMatch = !technicianUid || (verified && (() => {
+        const requestCategory = normalize(data.category || '');
+        const requestDevice = normalize(data.applicationType || data.applianceType || category || '');
+
+        // 0. Category-level match (preferred): the request belongs to a platform
+        //    category, so matching it against technician skills takes priority.
+        if (requestCategory && skillsNormalized.includes(requestCategory)) {
+          fs.appendFileSync(path.join(__dirname, '../../debug.log'), `[DEBUG] Category match! RequestId: ${doc.id}, Skill: ${requestCategory}\n`);
+          return true;
+        }
+
+        return skillsNormalized.some(skillNorm => {
         // 1. General Repair wildcard matches ALL requests
         if (['generalrepair', 'general repair', 'allaround', 'allaroundrepair'].includes(skillNorm)) {
           return true;
@@ -235,14 +265,16 @@ router.get('/', async (req, res) => {
                  requestedCategoryNormalized.includes(skillNorm) || 
                  skillNorm.includes(requestedCategoryNormalized) || 
                  (isComputerRequest && hasComputerSkill) ||
-                 (isApplianceRequest && hasApplianceSkill);
+                 (isApplianceRequest && hasApplianceSkill) ||
+                 (requestDevice && (requestDevice.includes(skillNorm) || skillNorm.includes(requestDevice)));
 
         if (match) {
             fs.appendFileSync(path.join(__dirname, '../../debug.log'), `[DEBUG] Match found! RequestId: ${doc.id}, Skill: ${skillNorm}, ReqCat: ${requestedCategoryNormalized}\n`);
         }
 
         return match;
-      }));
+        });
+      })());
 
       const jobCoords = resolveCoords(data.latitude, data.longitude, data.location);
       const distanceKm = hasTechCoords && jobCoords
@@ -296,17 +328,21 @@ const findUserUidByName = async (name, role) => {
   return match ? match.id : null;
 };
 
-router.get('/messages/unread', async (req, res) => {
+router.get('/messages/unread', unreadLimiter, async (req, res) => {
   try {
     const { uid, role } = req.query || {};
     if (!uid || !['customer', 'technician'].includes(role)) {
       return res.status(400).json({ error: 'User identity and role are required.' });
     }
+    if (String(uid) !== req.authUser.uid) {
+      return res.status(403).json({ error: 'User identity does not match the authenticated account.' });
+    }
 
+    const profileUid = String(req.authUser.uid);
     const field = role === 'technician' ? 'technicianUid' : 'customerUid';
     const [snapshot, savedNotificationsSnapshot] = await Promise.all([
-      db.collection('acceptedJobs').where(field, '==', String(uid)).get(),
-      db.collection('notifications').where('recipientUid', '==', String(uid)).get()
+      db.collection('acceptedJobs').where(field, '==', profileUid).get(),
+      db.collection('notifications').where('recipientUid', '==', profileUid).get()
     ]);
     const allSavedNotifications = savedNotificationsSnapshot.docs
       .map((notificationDoc) => ({ id: notificationDoc.id, ...notificationDoc.data() }))
@@ -318,11 +354,11 @@ router.get('/messages/unread', async (req, res) => {
 
     await Promise.all(snapshot.docs.map(async (jobDoc) => {
       const job = jobDoc.data();
-      const messagesSnapshot = await jobDoc.ref.collection('messages').orderBy('timestamp', 'desc').get();
+      const messagesSnapshot = await jobDoc.ref.collection('messages').orderBy('timestamp', 'desc').limit(10).get();
       messagesSnapshot.docs.forEach((messageDoc) => {
         const message = messageDoc.data();
         const readBy = Array.isArray(message.readBy) ? message.readBy : [];
-        if (message.senderUid !== String(uid) && !readBy.includes(String(uid)) && !savedMessageIds.has(messageDoc.id)) {
+        if (message.senderUid !== profileUid && !readBy.includes(profileUid) && !savedMessageIds.has(messageDoc.id)) {
           legacyNotifications.push({
             id: messageDoc.id,
             jobId: jobDoc.id,
@@ -340,7 +376,7 @@ router.get('/messages/unread', async (req, res) => {
         const notificationRef = db.collection('notifications').doc();
         await notificationRef.set({
           type: 'chat',
-          recipientUid: String(uid),
+          recipientUid: profileUid,
           senderUid: null,
           senderName: notification.senderName,
           jobId: notification.jobId,

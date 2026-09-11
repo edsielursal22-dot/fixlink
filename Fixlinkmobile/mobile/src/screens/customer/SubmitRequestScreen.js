@@ -1,31 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView, Modal, FlatList, ActivityIndicator } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { submitRepairRequest } from "../services/api";
+import DateTimePicker from "../../components/DateTimePicker";
+import { submitRepairRequest, fetchPlatformCategories } from "../services/api";
 import { geocodeAddress } from "../services/locationIq";
 import { fonts } from '../../theme';
 
 const colors = { ink: '#102A43', teal: '#0F766E', canvas: '#F5F8FA', white: '#FFFFFF', muted: '#5A7A91', line: '#D9E2EC', error: '#E53935' };
 
 const APPLIANCE_OPTIONS = [
-  'Router / Wi-Fi Equipment', 
-  'Tablet', 
-  'Home Theater / Speaker System', 
-  'Printer', 
-  'Water Heater', 
-  'CCTV / Security Camera', 
-  'Laptop', 
-  'Electric Stove / Induction Cooker', 
-  'Computer Monitor', 
-  'Washing Machine', 
-  'Refrigerator', 
-  'Power Bank / Charger', 
-  'Computer Keyboard / Mouse', 
-  'Desktop Computer (System Unit)', 
-  'Mobile Phone', 
-  'Others'
+  'Home Appliances',
+  'Mobile Devices',
+  'Networking & Internet Devices',
+  'Television & Entertainment',
+  'Computer & Laptop',
+  'Personal & Beauty Electronics',
+  'Air Conditioning & Cooling',
+  'Office & Business Equipment',
+  'Other Electronic Devices',
+  'CCTV & Security Devices'
 ];
 
 const TIME_SLOTS = [
@@ -35,11 +29,13 @@ const TIME_SLOTS = [
 ];
 
 export default function SubmitRequestScreen({ currentUser, customerName, onNavigateToProgress }) {
-  const [applianceType, setApplianceType] = useState("");
+  const [selectedCategoryName, setSelectedCategoryName] = useState("");
+  const [selectedDevice, setSelectedDevice] = useState("");
+  const [drillCategory, setDrillCategory] = useState(null);
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [coords, setCoords] = useState(null);
-  const [customAppliance, setCustomAppliance] = useState("");
+  const [categoryOptions, setCategoryOptions] = useState([]);
   const [date, setDate] = useState(new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('Afternoon (1PM-5PM)');
   const [isCustomTime, setIsCustomTime] = useState(false);
@@ -48,6 +44,29 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [locating, setLocating] = useState(false);
+
+  useEffect(() => {
+    fetchPlatformCategories().then(setCategoryOptions).catch(() => setCategoryOptions([]));
+  }, []);
+
+  const applianceOptions = categoryOptions.length
+    ? categoryOptions.map((category) => String(category.name || '').trim()).filter(Boolean)
+    : APPLIANCE_OPTIONS;
+
+  const displayAppliance = selectedDevice
+    ? `${selectedCategoryName} — ${selectedDevice}`
+    : selectedCategoryName || "Select Appliance Type";
+
+  const pickCategory = (category) => {
+    const devices = Array.isArray(category.devices) ? category.devices.map((device) => String(device).trim()).filter(Boolean) : [];
+    if (devices.length === 0) {
+      setSelectedCategoryName(category.name);
+      setSelectedDevice("");
+      setModalVisible(false);
+      return;
+    }
+    setDrillCategory({ ...category, devices });
+  };
 
   const handleLocate = async () => {
     setLocating(true);
@@ -102,7 +121,7 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
   };
 
   const handleSubmit = async () => {
-    if (!applianceType || !description || !location || (applianceType === 'Others' && !customAppliance)) {
+    if (!selectedCategoryName || !description || !location) {
       Alert.alert("Error", "Please fill out all required fields.");
       return;
     }
@@ -124,16 +143,17 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
       const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       const finalPreferredTime = selectedTimeSlot || date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
 
-      const finalApplianceType = applianceType === 'Others' ? customAppliance : applianceType;
+      const finalApplianceType = selectedDevice || selectedCategoryName;
+
       await submitRepairRequest({ 
         customerName: currentUser?.name || customerName,
         customerUid: currentUser?.uid,
         applianceType: finalApplianceType, 
+        category: selectedCategoryName,
         description, 
         location, 
         ...(finalCoords?.latitude && { latitude: finalCoords.latitude }),
         ...(finalCoords?.longitude && { longitude: finalCoords.longitude }),
-        isOther: applianceType === 'Others',
         preferredDate: formattedDate,
         preferredTime: finalPreferredTime,
         scheduledDate: date.toISOString()
@@ -147,11 +167,12 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
         ]
       );
 
-      setApplianceType("");
+      setSelectedCategoryName("");
+      setSelectedDevice("");
+      setDrillCategory(null);
       setDescription("");
       setLocation("");
       setCoords(null);
-      setCustomAppliance("");
       setDate(new Date());
       setSelectedTimeSlot('Afternoon (1PM-5PM)');
       setIsCustomTime(false);
@@ -177,8 +198,8 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
           <TouchableOpacity style={styles.selectInput} onPress={() => setModalVisible(true)} activeOpacity={0.7}>
             <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, gap: 10 }}>
               <Ionicons name="hardware-chip-outline" size={18} color={colors.muted} />
-              <Text style={[styles.selectInputText, !applianceType && { color: colors.muted }]}>
-                {applianceType || "Select Appliance Type"}
+              <Text numberOfLines={1} style={[styles.selectInputText, !selectedCategoryName && { color: colors.muted }]}>
+                {displayAppliance}
               </Text>
             </View>
             <Ionicons name="chevron-down" size={16} color={colors.muted} />
@@ -309,39 +330,73 @@ export default function SubmitRequestScreen({ currentUser, customerName, onNavig
       </View>
 
       {/* Selection Modal */}
-      <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
+      <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => { setModalVisible(false); setDrillCategory(null); }}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <View style={styles.modalHeader}>
-              <Text style={styles.sectionTitle}>Select Appliance</Text>
-              <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.modalCloseIcon}>
+              {drillCategory ? (
+                <TouchableOpacity style={styles.modalBackIcon} onPress={() => setDrillCategory(null)} activeOpacity={0.7}>
+                  <Ionicons name="arrow-back" size={20} color={colors.ink} />
+                </TouchableOpacity>
+              ) : <View style={styles.modalBackIcon} />}
+
+              <View style={{ flex: 1, alignItems: 'center' }}>
+                <Text style={styles.sectionTitle}>{drillCategory ? 'Select Device' : 'Select Appliance'}</Text>
+                {drillCategory ? (
+                  <Text style={styles.modalSubtitle}>{drillCategory.name}</Text>
+                ) : (
+                  <Text style={styles.modalSubtitle}>Choose a category then pick your device</Text>
+                )}
+              </View>
+              <TouchableOpacity onPress={() => { setModalVisible(false); setDrillCategory(null); }} style={styles.modalCloseIcon}>
                 <Ionicons name="close" size={20} color={colors.ink} />
               </TouchableOpacity>
             </View>
 
-            {applianceType === 'Others' && (
-              <View style={{ marginBottom: 12 }}>
-                <TextInput 
-                  style={styles.selectInput} 
-                  placeholder="Please specify device type" 
-                  placeholderTextColor={colors.muted}
-                  value={customAppliance} 
-                  onChangeText={setCustomAppliance}
-                />
-              </View>
+            {drillCategory ? (
+              <FlatList
+                data={drillCategory.devices}
+                keyExtractor={(item) => item}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => {
+                  const isSelected = selectedCategoryName === drillCategory.name && selectedDevice === item;
+                  return (
+                    <TouchableOpacity
+                      style={[styles.modalItem, isSelected && styles.modalItemSelected]}
+                      onPress={() => { setSelectedCategoryName(drillCategory.name); setSelectedDevice(item); setDrillCategory(null); setModalVisible(false); }}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={[styles.modalItemText, isSelected && styles.modalItemTextSelected]}>{item}</Text>
+                      {isSelected ? <Ionicons name="checkmark-circle" size={18} color={colors.teal} /> : <Ionicons name="chevron-forward" size={16} color={colors.muted} />}
+                    </TouchableOpacity>
+                  );
+                }}
+              />
+            ) : (
+              <FlatList
+                data={applianceOptions}
+                keyExtractor={(item) => item}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => {
+                  const category = categoryOptions.find((c) => String(c.name || '').trim() === item);
+                  const deviceCount = category && Array.isArray(category.devices) ? category.devices.filter(Boolean).length : 0;
+                  const isSelected = selectedCategoryName === item;
+                  return (
+                    <TouchableOpacity
+                      style={[styles.modalItem, isSelected && styles.modalItemSelected]}
+                      onPress={() => pickCategory(category || { name: item, devices: [] })}
+                      activeOpacity={0.7}
+                    >
+                      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Text style={[styles.modalItemText, isSelected && styles.modalItemTextSelected]}>{item}</Text>
+                        {deviceCount > 0 && <Text style={styles.modalItemCount}>{deviceCount} devices</Text>}
+                      </View>
+                      {isSelected ? <Ionicons name="checkmark-circle" size={18} color={colors.teal} /> : <Ionicons name="chevron-forward" size={16} color={colors.muted} />}
+                    </TouchableOpacity>
+                  );
+                }}
+              />
             )}
-
-            <FlatList
-              data={APPLIANCE_OPTIONS}
-              keyExtractor={(item) => item}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <TouchableOpacity style={styles.modalItem} onPress={() => { setApplianceType(item); setModalVisible(false); }} activeOpacity={0.7}>
-                  <Text style={styles.modalItemText}>{item}</Text>
-                  <Ionicons name="chevron-forward" size={16} color={colors.muted} />
-                </TouchableOpacity>
-              )}
-            />
           </View>
         </View>
       </Modal>
@@ -382,7 +437,12 @@ const styles = StyleSheet.create({
   modalOverlay: { flex: 1, backgroundColor: 'rgba(16, 42, 67, 0.4)', justifyContent: 'flex-end' },
   modalView: { backgroundColor: colors.white, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24, maxHeight: '75%', shadowColor: '#000', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 10 },
   modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: colors.line },
+  modalBackIcon: { width: 32, height: 32, borderRadius: 16, backgroundColor: colors.canvas, justifyContent: 'center', alignItems: 'center' },
   modalCloseIcon: { width: 32, height: 32, borderRadius: 16, backgroundColor: colors.canvas, justifyContent: 'center', alignItems: 'center' },
+  modalSubtitle: { color: colors.muted, fontSize: 11, fontFamily: fonts.medium, marginTop: 3 },
   modalItem: { paddingVertical: 14, paddingHorizontal: 4, borderBottomWidth: 1, borderBottomColor: colors.line, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  modalItemText: { fontSize: 15, fontFamily: fonts.medium, color: colors.ink }
+  modalItemSelected: { backgroundColor: '#E6F6F3', paddingHorizontal: 12, borderRadius: 12 },
+  modalItemText: { fontSize: 15, fontFamily: fonts.medium, color: colors.ink },
+  modalItemTextSelected: { color: colors.teal, fontFamily: fonts.bold },
+  modalItemCount: { fontSize: 11, fontFamily: fonts.semiBold, color: colors.muted, marginRight: 8 }
 });

@@ -143,7 +143,8 @@ Represents unassigned, pending service requests awaiting technician acceptance.
 | `id` | `string` | **Required** | Firestore auto-generated document ID. |
 | `customerUid` | `string` | Optional | Reference to `users.id` of the requesting customer. |
 | `customerName` | `string` | **Required** | Customer display name for the job ticket. |
-| `applianceType` | `string` | **Required** | Category of appliance: `'Refrigerator'`, `'Washing Machine'`, `'Desktop Computer'`, `'Laptop'`, `'Television'`, `'Others'`. |
+| `applianceType` | `string` | **Required** | Selected **device** name (e.g., `'Washing Machine'`, `'Smartphone'`) or, if no device was chosen, the parent category name. |
+| `category` | `string` | Optional | Parent admin-managed skill category (e.g., `'Home Appliances'`). Used as the primary technician matching key. |
 | `description` | `string` | **Required** | Customer's description of the appliance failure symptoms. |
 | `location` | `string` | **Required** | Formatted street address or community landmark. |
 | `latitude` | `number` | Optional | Geocoded latitude coordinate of the customer's service location. |
@@ -152,7 +153,7 @@ Represents unassigned, pending service requests awaiting technician acceptance.
 | `preferredTime` | `string` | Optional | Preferred appointment time slot (e.g., `'Morning (8AM-12PM)'`). |
 | `photoUrl` | `string` | Optional | Public URL of the uploaded image of the broken device. |
 | `status` | `string` | **Required** | Set strictly to `'Pending'`. |
-| `isOther` | `boolean` | **Required** | Flag indicating whether the appliance is a non-standard custom category. |
+| `isOther` | `boolean` | Optional | Deprecated: no longer sent by the mobile app. The `'Other'`/free-text entry was replaced by the admin-managed `'Other Electronic Devices'` category. |
 | `declinedBy` | `string` | Optional | Technician UID who dismissed this job from their local feed. |
 | `createdAt` | `string` | **Required** | ISO-8601 timestamp of request submission. |
 
@@ -225,6 +226,19 @@ Broadcasts administrative notices, service advisories, and safety tips across th
 | `message` | `string` | **Required** | Full announcement body text. |
 | `active` | `boolean` | **Required** | Toggle switch controlling display in mobile notification panels. |
 | `createdAt` | `string` | **Required** | ISO-8601 creation timestamp. |
+
+---
+
+### 2.7 `categories` Collection
+Admin-managed marketplace skill categories. Each category also carries the list of specific devices a customer can select when a repair request is submitted.
+
+| Field | Data Type | Requirement | Description |
+|---|---|---|---|
+| `id` | `string` | **Required** | Firestore document ID. |
+| `name` | `string` | **Required** | Category name (trimmed), e.g., `'Home Appliances'`, `'Computer & Laptop'`, `'Electrical Devices'`. |
+| `devices` | `string[]` | **Required** | Specific devices under the category (e.g., `'Rice Cooker'`, `'Washing Machine'`). Customers drill into these when requesting a repair. |
+| `createdAt` | `string` | Optional | ISO-8601 creation timestamp. |
+| `updatedAt` | `string` | Optional | ISO-8601 last-update timestamp. |
 
 ---
 

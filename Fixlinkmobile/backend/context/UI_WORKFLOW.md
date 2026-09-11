@@ -160,7 +160,7 @@ graph TD
 ### Screen 4: Repair Request Submission (`SubmitRequestScreen.js`)
 - **Purpose:** Multi-input service intake form allowing customers to describe damage, geotag their home, and set service preferences.
 - **Visual Layout & Interaction Flow:**
-  - **Step 1: Appliance Category Selector:** Horizontal scrolling pill carousel or grid matching the standard categories. If `Others` is selected, an extra text input appears.
+  - **Step 1: Appliance Category & Device Selector:** Two-step drill-down modal. Step 1 lists the platform **skill categories** managed by the admin (`GET /api/users/platform/categories` → Firestore `categories` collection). Tapping a category opens Step 2 (**Select Device**) listing that category's specific `devices` (header shows the category name + back arrow). Tapping a device selects it; a category with no devices is selected directly. The input shows `Category — Device` (e.g., `Home Appliances — Washing Machine`).
   - **Step 2: Issue Description:** Multi-line text area with placeholder: *"Describe the issue (e.g., Refrigerator motor making loud noise, not cooling since yesterday)..."*.
   - **Step 3: Photo Attachment:**
     - Camera / Gallery picker button.

@@ -51,9 +51,17 @@ router.post('/login', async (req, res) => {
     );
 
     if (!passwordResponse.ok) {
-      const errorData = await passwordResponse.json();
+      const errorData = await passwordResponse.json().catch(() => null);
+      const firebaseError = errorData?.error?.message || '';
       console.error('Firebase Login Error:', JSON.stringify(errorData));
-      return res.status(401).json({ error: 'Invalid email or password' });
+
+      if (firebaseError === 'EMAIL_NOT_FOUND') {
+        return res.status(401).json({ error: 'This email is not registered.' });
+      }
+      if (firebaseError === 'INVALID_PASSWORD' || firebaseError === 'INVALID_LOGIN_CREDENTIALS') {
+        return res.status(401).json({ error: 'Incorrect password.' });
+      }
+      return res.status(401).json({ error: 'Unable to sign in. Please try again.' });
     }
 
     const passwordData = await passwordResponse.json();
@@ -95,7 +103,7 @@ router.post('/login', async (req, res) => {
 
   } catch (error) {
     console.error('Login error details:', error.message);
-    res.status(401).json({ error: 'Invalid email or password' });
+    res.status(500).json({ error: 'Server error during login. Please try again later.' });
   }
 });
 

@@ -320,6 +320,12 @@ router.post('/:section', async (req, res) => {
       return res.status(404).json({ error: 'This section does not support creation' });
     }
     const record = { ...req.body, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    if (req.params.section === 'categories') {
+      record.name = String(req.body.name || '').trim();
+      record.devices = Array.isArray(req.body.devices)
+        ? req.body.devices.map(device => String(device).trim()).filter(Boolean)
+        : [];
+    }
     const reference = await db.collection(collection).add(record);
     res.status(201).json({ id: reference.id, ...record });
   } catch (error) {
@@ -360,7 +366,11 @@ router.patch('/categories/:id', async (req, res) => {
   try {
     const name = String(req.body.name || '').trim();
     if (!name) return res.status(400).json({ error: 'Category name is required' });
-    await db.collection('categories').doc(req.params.id).update({ name, updatedAt: new Date().toISOString() });
+    const updates = { name, updatedAt: new Date().toISOString() };
+    if (Array.isArray(req.body.devices)) {
+      updates.devices = req.body.devices.map(device => String(device).trim()).filter(Boolean);
+    }
+    await db.collection('categories').doc(req.params.id).update(updates);
     res.json({ message: 'Category updated' });
   } catch (error) {
     res.status(500).json({ error: error.message });

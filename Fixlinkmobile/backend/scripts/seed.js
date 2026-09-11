@@ -179,6 +179,81 @@ async function seedAnnouncements() {
   }
 }
 
+const CATEGORY_DEVICES = {
+  'Home Appliances': [
+    'Rice Cooker', 'Washing Machine', 'Clothes Dryer', 'Dishwasher', 'Refrigerator', 'Freezer',
+    'Electric Fan', 'Air Cooler', 'Vacuum Cleaner', 'Steam Iron', 'Electric Iron', 'Microwave Oven',
+    'Electric Oven', 'Toaster', 'Electric Kettle', 'Coffee Maker', 'Food Processor', 'Blender',
+    'Juicer', 'Stand Mixer', 'Air Fryer', 'Water Dispenser', 'Water Heater', 'Electric Stove',
+    'Induction Cooker', 'Exhaust Fan', 'Range Hood'
+  ],
+  'Computer & Laptop': [
+    'Desktop Computer', 'System Unit', 'Laptop', 'Computer Monitor', 'Keyboard', 'Mouse', 'Printer',
+    'Scanner', 'Projector', 'External Hard Drive', 'Computer Power Supply', 'UPS', 'Webcam', 'Computer Speakers'
+  ],
+  'Mobile Devices': [
+    'Smartphone', 'Tablet', 'iPad', 'Smartwatch', 'Power Bank', 'Mobile Charger', 'Wireless Charger'
+  ],
+  'Television & Entertainment': [
+    'LED TV', 'LCD TV', 'Smart TV', 'Android TV', 'TV Box', 'DVD Player', 'Blu-ray Player',
+    'Game Console', 'Speaker', 'Bluetooth Speaker', 'Soundbar', 'Home Theater System', 'Amplifier',
+    'Subwoofer', 'Karaoke Machine', 'Microphone', 'Headphones', 'Earphones'
+  ],
+  'Air Conditioning & Cooling': [
+    'Split-Type Air Conditioner', 'Window-Type Air Conditioner', 'Portable Air Conditioner',
+    'Central Air Conditioner', 'Electric Fan', 'Stand Fan', 'Ceiling Fan', 'Wall Fan', 'Tower Fan',
+    'Air Cooler', 'Dehumidifier', 'Air Purifier', 'Exhaust Fan'
+  ],
+  'Networking & Internet Devices': [
+    'Wi-Fi Router', 'Modem', 'Fiber Modem', 'Network Switch', 'Wi-Fi Extender', 'Wi-Fi Access Point',
+    'Mesh Wi-Fi System', 'Network Adapter', 'Ethernet Device', 'Network Cable'
+  ],
+  'CCTV & Security Devices': [
+    'CCTV Camera', 'IP Camera', 'DVR', 'NVR', 'CCTV Monitor', 'Security Alarm', 'Doorbell Camera',
+    'Video Doorbell', 'Access Control System', 'Biometric Device', 'Electronic Door Lock'
+  ],
+  'Electrical Devices': [
+    'AVR', 'UPS', 'Extension Cord', 'Power Strip', 'Surge Protector', 'Voltage Regulator',
+    'Power Supply', 'Battery Charger', 'Circuit Breaker', 'Electrical Switch', 'Electrical Outlet',
+    'Timer Switch', 'Emergency Light', 'Rechargeable Lamp'
+  ],
+  'Personal & Beauty Electronics': [
+    'Hair Dryer', 'Hair Straightener', 'Hair Curler', 'Electric Shaver', 'Electric Razor',
+    'Electric Toothbrush', 'Facial Cleanser', 'Massage Device', 'Electric Massager', 'Hair Clipper',
+    'Hair Trimmer'
+  ],
+  'Office & Business Equipment': [
+    'Printer', 'Scanner', 'Photocopier', 'Projector', 'Laminating Machine', 'Paper Shredder',
+    'Binding Machine', 'Cash Register', 'POS Machine', 'Barcode Scanner', 'Label Printer', 'Telephone',
+    'Intercom'
+  ],
+  'Other Electronic Devices': [
+    'Digital Clock', 'Alarm Clock', 'Smart Home Hub', 'Smart Plug', 'Smart Light', 'LED Light',
+    'Rechargeable Flashlight', 'Electronic Weighing Scale', 'Digital Thermometer', 'Electronic Doorbell',
+    'Other Electronic Devices'
+  ]
+};
+
+async function seedCategories() {
+  console.log('\n--- 2.5 SEEDING SKILL CATEGORIES WITH DEVICES ---');
+  const snapshot = await db.collection('categories').get();
+  const byName = new Map();
+  snapshot.docs.forEach(doc => byName.set(String(doc.data().name || '').trim().toLowerCase(), doc));
+
+  for (const [name, devices] of Object.entries(CATEGORY_DEVICES)) {
+    const existing = byName.get(name.toLowerCase());
+    const record = { name, devices, updatedAt: new Date().toISOString() };
+    if (existing) {
+      await existing.ref.update(record);
+      console.log(`[CATEGORY UPDATED] ${name} (${devices.length} devices)`);
+    } else {
+      await db.collection('categories').add({ ...record, createdAt: new Date().toISOString() });
+      byName.set(name.toLowerCase(), { id: name });
+      console.log(`[CATEGORY ADDED] ${name} (${devices.length} devices)`);
+    }
+  }
+}
+
 async function seedPendingRequests(customerUid, customerName) {
   console.log('\n--- 3. SEEDING PENDING REPAIR REQUESTS ---');
   const sampleRequests = [
@@ -265,6 +340,7 @@ async function main() {
   await cleanDemoData();
   const users = await seedUsers();
   await seedAnnouncements();
+  await seedCategories();
 
   const customer = users['customer@fixlink.com'];
   if (customer) {
