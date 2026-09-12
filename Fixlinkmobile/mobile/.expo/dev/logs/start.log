@@ -4994,3 +4994,281 @@
 {"_e":"metro:bundling:progress","_t":1789143439324,"id":"1","progress":0.999,"total":875,"current":875}
 {"_e":"metro:bundling:done","_t":1789143439378,"id":"1","total":875,"ms":757.3714}
 {"_e":"metro:client_log","_t":1789143460344,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1789144365947,"level":"warn","data":["Error loading unread chat notifications:","[AxiosError: Request failed with status code 429]"]}
+{"_e":"metro:bundling:started","_t":1789144404590,"id":"c","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:done","_t":1789144405192,"id":"c","total":1,"ms":602.1923}
+{"_e":"metro:bundling:started","_t":1789144431684,"id":"d","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:done","_t":1789144431824,"id":"d","total":1,"ms":139.7482}
+{"_e":"metro:bundling:started","_t":1789144974681,"id":"e","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:done","_t":1789144974886,"id":"e","total":1,"ms":204.5719}
+{"_e":"metro:bundling:started","_t":1789145715476,"id":"f","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:done","_t":1789145715701,"id":"f","total":1,"ms":224.5241}
+{"_e":"metro:client_log","_t":1789145876579,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 429]"]}
+{"_e":"metro:client_log","_t":1789145876932,"level":"warn","data":["Error loading unread chat notifications:","[AxiosError: Request failed with status code 429]"]}
+{"_e":"metro:client_log","_t":1789146051240,"level":"warn","data":["[expo-image-picker] `ImagePicker.MediaTypeOptions` have been deprecated. Use `ImagePicker.MediaType` or an array of `ImagePicker.MediaType` instead."]}
+{"_e":"metro:client_log","_t":1789146624749,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146629770,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146634781,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146639787,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146644792,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146649781,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146654800,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146659803,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146664812,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146669800,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146674820,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146678447,"level":"warn","data":["Error loading chat conversations:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146679878,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146684255,"level":"warn","data":["Error loading chat conversations:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146684830,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146689817,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146694834,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146699841,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146704862,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146709855,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146714856,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146719876,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146724865,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146729873,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146734885,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146739891,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:client_log","_t":1789146744898,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 401]"]}
+{"_e":"metro:bundling:started","_t":1789146780025,"id":"g","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:done","_t":1789146780324,"id":"g","total":1,"ms":298.3726}
+{"_e":"metro:bundling:started","_t":1789147161386,"id":"h","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:done","_t":1789147161453,"id":"h","total":1,"ms":66.8496}
+{"_e":"metro:bundling:started","_t":1789147197937,"id":"g","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1789147197937,"id":"g","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789147197940,"id":"g","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789147198041,"id":"g","progress":0.0801942203774767,"total":113,"current":32}
+{"_e":"metro:bundling:progress","_t":1789147198147,"id":"g","progress":0.1799816345270891,"total":198,"current":84}
+{"_e":"metro:bundling:progress","_t":1789147198255,"id":"g","progress":0.29457857132986,"total":269,"current":146}
+{"_e":"metro:bundling:progress","_t":1789147198361,"id":"g","progress":0.6400000000000001,"total":330,"current":264}
+{"_e":"metro:bundling:progress","_t":1789147198461,"id":"g","progress":0.7169579051034064,"total":398,"current":337}
+{"_e":"metro:bundling:progress","_t":1789147198591,"id":"g","progress":0.8890935015129912,"total":473,"current":446}
+{"_e":"metro:bundling:progress","_t":1789147198690,"id":"g","progress":0.9444040081406523,"total":532,"current":517}
+{"_e":"metro:bundling:done","_t":1789147198786,"id":"g","total":532,"ms":848.6142}
+{"_e":"metro:client_log","_t":1789147199073,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1789147199073,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1789147199073,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:bundling:started","_t":1789147200841,"id":"q","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1789147200841,"id":"q","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1789147200880,"id":"q","total":1,"ms":38.8453}
+{"_e":"metro:client_log","_t":1789147201127,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1789147201127,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1789147201127,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"root:init","_t":1789147225616,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1789147225637,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1789147225657,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1789147237266,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1789147244739,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1789147247627,"plugins":[]}
+{"_e":"metro:instantiate","_t":1789147255019,"atlas":false,"workers":10,"host":"::","port":8082}
+{"_e":"metro:bundling:started","_t":1789147260660,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1789147260660,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789147260665,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789147260765,"id":"1","progress":0.017418640006184136,"total":197,"current":26}
+{"_e":"metro:bundling:progress","_t":1789147260865,"id":"1","progress":0.1178098007820584,"total":303,"current":104}
+{"_e":"metro:bundling:progress","_t":1789147260965,"id":"1","progress":0.21337834007575562,"total":394,"current":182}
+{"_e":"metro:bundling:progress","_t":1789147261065,"id":"1","progress":0.4234875612292432,"total":461,"current":300}
+{"_e":"metro:bundling:progress","_t":1789147261167,"id":"1","progress":0.5035633731297458,"total":582,"current":413}
+{"_e":"metro:bundling:progress","_t":1789147261266,"id":"1","progress":0.7434390246240259,"total":646,"current":557}
+{"_e":"metro:bundling:progress","_t":1789147261366,"id":"1","progress":0.7909044040681779,"total":759,"current":675}
+{"_e":"metro:bundling:progress","_t":1789147261466,"id":"1","progress":0.8393498580453517,"total":823,"current":754}
+{"_e":"metro:bundling:progress","_t":1789147261566,"id":"1","progress":0.9908046465204188,"total":868,"current":864}
+{"_e":"metro:bundling:progress","_t":1789147261677,"id":"1","progress":0.9977181981193052,"total":876,"current":875}
+{"_e":"metro:bundling:progress","_t":1789147266816,"id":"1","progress":0.999,"total":876,"current":876}
+{"_e":"metro:bundling:done","_t":1789147267003,"id":"1","total":876,"ms":6343.1555}
+{"_e":"metro:client_log","_t":1789147289882,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1789147339095,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147339986,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147340463,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147342708,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147343046,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147346401,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147347913,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147350480,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147351138,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147352933,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147355122,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147356745,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147357933,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147360211,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147360483,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147362733,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147362961,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147366649,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147368136,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147369154,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147370497,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147372494,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147372964,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147374935,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147378013,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147380525,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147382956,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147389202,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147390533,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147393271,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147399367,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147400476,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147403004,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147409397,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147410534,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147413021,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147419206,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147420614,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147423098,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147429580,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147430679,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147433007,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147438014,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147440718,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147443050,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147448178,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147450834,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147453069,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147459688,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147460506,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147463260,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147464711,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147467670,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147469717,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147470745,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147472939,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147473166,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147479754,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147479806,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147480852,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147483755,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147488773,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147490561,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147493120,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147499785,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147500781,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147503653,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147508635,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147510578,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147513117,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147518133,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147521380,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147523090,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147528094,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147530819,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147533299,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147539965,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147541514,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147544119,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147548101,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147552050,"level":"warn","data":["Error loading job messages:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147552092,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147553105,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147558113,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147560591,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147563134,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147568151,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147572125,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147573308,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147578126,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147582164,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147584214,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147588202,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147592200,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147593301,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147598241,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147602337,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147604296,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147608153,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147610770,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147613334,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147618417,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147620616,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147624147,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147628448,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147632444,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147633169,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147638203,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147642480,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147644524,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147648467,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147648751,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147648986,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789147653361,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:bundling:started","_t":1789147658473,"id":"i","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:done","_t":1789147659202,"id":"i","total":1,"ms":729.339}
+{"_e":"metro:client_log","_t":1789147666653,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"root:init","_t":1789150346160,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1789150346162,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1789150346164,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1789150623119,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1789150623745,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1789150624097,"plugins":[]}
+{"_e":"metro:instantiate","_t":1789150628499,"atlas":false,"workers":10,"host":"::","port":8082}
+{"_e":"metro:bundling:started","_t":1789150653062,"id":"1","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1789150653063,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789150653068,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789150653169,"id":"1","progress":0.042077580539118996,"total":78,"current":16}
+{"_e":"metro:bundling:progress","_t":1789150653269,"id":"1","progress":0.0791015625,"total":128,"current":36}
+{"_e":"metro:bundling:progress","_t":1789150653370,"id":"1","progress":0.0791015625,"total":163,"current":41}
+{"_e":"metro:bundling:progress","_t":1789150653470,"id":"1","progress":0.2775490779298037,"total":205,"current":108}
+{"_e":"metro:bundling:progress","_t":1789150653571,"id":"1","progress":0.3854147952626415,"total":269,"current":167}
+{"_e":"metro:bundling:progress","_t":1789150653670,"id":"1","progress":0.4754688367721816,"total":306,"current":211}
+{"_e":"metro:bundling:progress","_t":1789150653770,"id":"1","progress":0.738289144400203,"total":341,"current":293}
+{"_e":"metro:bundling:progress","_t":1789150653870,"id":"1","progress":0.738289144400203,"total":394,"current":336}
+{"_e":"metro:bundling:progress","_t":1789150653970,"id":"1","progress":0.738289144400203,"total":462,"current":390}
+{"_e":"metro:bundling:progress","_t":1789150654071,"id":"1","progress":0.8901352362930284,"total":513,"current":484}
+{"_e":"metro:bundling:progress","_t":1789150654180,"id":"1","progress":0.9008905486929044,"total":531,"current":504}
+{"_e":"metro:bundling:progress","_t":1789150654283,"id":"1","progress":0.9894087242540528,"total":565,"current":562}
+{"_e":"metro:bundling:progress","_t":1789150654652,"id":"1","progress":0.9929328843292348,"total":565,"current":563}
+{"_e":"metro:bundling:progress","_t":1789150654849,"id":"1","progress":0.996463309577884,"total":565,"current":564}
+{"_e":"metro:bundling:done","_t":1789150654913,"id":"1","total":565,"ms":1850.7318}
+{"_e":"metro:client_log","_t":1789150655209,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1789150655209,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1789150655209,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:bundling:started","_t":1789150666316,"id":"j","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:done","_t":1789150666982,"id":"j","total":1,"ms":665.9493}
+{"_e":"metro:client_log","_t":1789150667222,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1789150667222,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1789150683001,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1789150685920,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789150694668,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789150696871,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"root:init","_t":1789155587561,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1789155587562,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1789155587564,"mode":"development","files":[],"env":{}}
+{"_e":"root:init","_t":1789156076020,"format":"v0-jsonl","version":"57.0.21"}
+{"_e":"env:mode","_t":1789156076021,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1789156076023,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1789156076661,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1789156077131,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1789156077546,"plugins":[]}
+{"_e":"metro:instantiate","_t":1789156081959,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1789156095930,"id":"1","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1789156095930,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789156095937,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1789156096039,"id":"1","progress":0.07751162190082643,"total":176,"current":49}
+{"_e":"metro:bundling:progress","_t":1789156096139,"id":"1","progress":0.13687289511465336,"total":273,"current":101}
+{"_e":"metro:bundling:progress","_t":1789156096240,"id":"1","progress":0.23941919986273558,"total":374,"current":183}
+{"_e":"metro:bundling:progress","_t":1789156096341,"id":"1","progress":0.32842738788012554,"total":431,"current":247}
+{"_e":"metro:bundling:progress","_t":1789156096441,"id":"1","progress":0.3711471038268923,"total":499,"current":304}
+{"_e":"metro:bundling:progress","_t":1789156096540,"id":"1","progress":0.4215652657729931,"total":556,"current":361}
+{"_e":"metro:bundling:progress","_t":1789156096644,"id":"1","progress":0.4242122576177285,"total":608,"current":396}
+{"_e":"metro:bundling:progress","_t":1789156096743,"id":"1","progress":0.5391623155729599,"total":636,"current":467}
+{"_e":"metro:bundling:progress","_t":1789156096844,"id":"1","progress":0.6940229943285567,"total":659,"current":549}
+{"_e":"metro:bundling:progress","_t":1789156096944,"id":"1","progress":0.6940229943285567,"total":730,"current":607}
+{"_e":"metro:bundling:progress","_t":1789156097044,"id":"1","progress":0.754828327141677,"total":747,"current":649}
+{"_e":"metro:bundling:progress","_t":1789156097189,"id":"1","progress":0.8051548923029263,"total":779,"current":699}
+{"_e":"metro:bundling:progress","_t":1789156097298,"id":"1","progress":0.8224000384467512,"total":816,"current":740}
+{"_e":"metro:bundling:progress","_t":1789156097398,"id":"1","progress":0.8641455106772006,"total":838,"current":779}
+{"_e":"metro:bundling:progress","_t":1789156097498,"id":"1","progress":0.8889167253274224,"total":857,"current":808}
+{"_e":"metro:bundling:progress","_t":1789156097598,"id":"1","progress":0.958955382361061,"total":868,"current":850}
+{"_e":"metro:bundling:progress","_t":1789156097707,"id":"1","progress":0.9886040816326531,"total":875,"current":870}
+{"_e":"metro:bundling:progress","_t":1789156097778,"id":"1","progress":0.9908780408163266,"total":875,"current":871}
+{"_e":"metro:bundling:progress","_t":1789156097883,"id":"1","progress":0.9931546122448979,"total":875,"current":872}
+{"_e":"metro:bundling:progress","_t":1789156097993,"id":"1","progress":0.999,"total":876,"current":876}
+{"_e":"metro:bundling:done","_t":1789156098062,"id":"1","total":876,"ms":2132.1911}
+{"_e":"metro:client_log","_t":1789156114346,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789156130572,"level":"warn","data":["SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/AppAndFlow/react-native-safe-area-context"]}
+{"_e":"metro:client_log","_t":1789156131639,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789156140310,"level":"warn","data":["Error loading inbox:","[AxiosError: Request failed with status code 500]"]}
+{"_e":"metro:client_log","_t":1789156143193,"level":"warn","data":["Unable to refresh chat notifications:","[AxiosError: Request failed with status code 500]"]}

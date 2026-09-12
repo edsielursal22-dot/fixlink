@@ -10,6 +10,12 @@ const { requireAuth } = require('../middleware/requireAuth');
 const { createRateLimiter } = require('../middleware/rateLimit');
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
 
+// In-memory dedupe ledger: kills duplicate-submit write amplification without any extra Firestore reads.
+// Each key is customerUid + applianceType + description. Rapid repeat submits (double-taps / spam)
+// get a 429 and never touch Firestore, so writes are only billed once per real submission.
+const recentSubmits = new Map();
+const SUBMIT_DEDUPE_MS = 60000;
+
 router.use(requireAuth);
 
 const perUserLimiter = createRateLimiter({
@@ -117,6 +123,18 @@ router.post('/', upload.single('photo'), async (req, res) => {
     if (!customerName || !applianceType || !description || !location) {
       return res.status(400).json({ error: 'Please fill out all required fields.' });
     }
+
+    // Idempotency: reject rapid duplicate submits from the same customer for the same appliance+description.
+    // These would each have become a new repairedRequests doc + technician fanout — the #1 write-amplifier
+    // behind Firestore daily write-quota spikes. Zero extra reads: purely in-memory.
+    const dedupeFingerprint = `${customerUid}|${String(applianceType).toLowerCase().trim()}|${String(description || '').toLowerCase().trim()}`;
+    const now = Date.now();
+    recentSubmits.forEach((ts, key) => { if (now - ts > SUBMIT_DEDUPE_MS) recentSubmits.delete(key); });
+    const lastSubmit = recentSubmits.get(dedupeFingerprint);
+    if (lastSubmit) {
+      return res.status(429).json({ error: 'It looks like you already submitted this. Please wait a moment before trying again.' });
+    }
+    recentSubmits.set(dedupeFingerprint, now);
 
     let finalLat = Number(latitude);
     let finalLon = Number(longitude);
@@ -394,6 +412,52 @@ router.get('/messages/unread', unreadLimiter, async (req, res) => {
   } catch (error) {
     console.error('Error loading unread messages:', error);
     res.status(500).json({ error: 'Unable to load unread messages.' });
+  }
+});
+
+router.get('/messages/inbox', async (req, res) => {
+  try {
+    const { uid, role } = req.query || {};
+    if (!uid || !['customer', 'technician'].includes(role)) {
+      return res.status(400).json({ error: 'User identity and role are required.' });
+    }
+    if (String(uid) !== req.authUser.uid) {
+      return res.status(403).json({ error: 'User identity does not match the authenticated account.' });
+    }
+
+    const profileUid = String(req.authUser.uid);
+    const field = role === 'technician' ? 'technicianUid' : 'customerUid';
+    const snapshot = await db.collection('acceptedJobs').where(field, '==', profileUid).get();
+
+    const inbox = await Promise.all(snapshot.docs.map(async (jobDoc) => {
+      const job = jobDoc.data();
+      if (String(job.status || '').toLowerCase() === 'cancelled') return null;
+
+      const messagesSnapshot = await jobDoc.ref.collection('messages').orderBy('timestamp', 'asc').get();
+      const messages = messagesSnapshot.docs.map(messageDoc => ({ id: messageDoc.id, ...messageDoc.data() }));
+      const lastMessage = messages.length > 0 ? messages[messages.length - 1] : null;
+      const unreadCount = messages.filter((message) =>
+        message.senderUid !== profileUid && !(Array.isArray(message.readBy) ? message.readBy : []).includes(profileUid)
+      ).length;
+
+      const peerName = role === 'technician' ? job.customerName : job.technicianName;
+      return {
+        jobId: jobDoc.id,
+        peerName: peerName || (role === 'technician' ? 'Customer' : 'Technician'),
+        peerInitial: String(peerName || (role === 'technician' ? 'C' : 'T')).charAt(0).toUpperCase(),
+        applianceType: job.applianceType || 'Repair Job',
+        status: job.status || 'Active',
+        lastMessage: lastMessage
+          ? { text: lastMessage.text || '', senderName: lastMessage.senderName || 'Contact', timestamp: lastMessage.timestamp || null }
+          : null,
+        unreadCount,
+      };
+    }));
+
+    res.json(inbox.filter(item => item !== null));
+  } catch (error) {
+    console.error('Error loading inbox:', error);
+    res.status(500).json({ error: 'Unable to load inbox.' });
   }
 });
 

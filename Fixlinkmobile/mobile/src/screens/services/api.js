@@ -4,11 +4,11 @@ import { Platform } from 'react-native';
 // IMPORTANT NOTE FOR MOBILE TESTING:
 // - If using Android Emulator, use 'http://10.0.2.2:5000'
 // - If using iOS Simulator, use 'http://localhost:5000'
-// - If using a physical device, use your computer's local network IP address (e.g., 'http://192.168.x.x:5000')
+// - If using a physical device, use your computer's local network IP address (e.g., 'http://192.168.1.36:5000')
 // - Web (browser) uses localhost so the dev server can reach the backend on this machine
 const API_BASE_URL = Platform.OS === 'web'
-  ? 'http://localhost:5000/api'
-  : 'http://192.168.1.36:5000/api';
+  ? 'http://localhost:5050/api'
+  : 'http://192.168.1.36:5050/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -103,6 +103,7 @@ export const fetchTechnicianJobs = async (technicianUid) => (await api.get(`/req
 export const fetchJobMessages = async (jobId) => (await api.get(`/requests/accepted/${encodeURIComponent(jobId)}/messages`)).data;
 export const sendJobMessage = async (jobId, messageData) => (await api.post(`/requests/accepted/${encodeURIComponent(jobId)}/messages`, messageData)).data;
 export const fetchUnreadMessageNotifications = async (uid, role) => (await api.get('/requests/messages/unread', { params: { uid, role } })).data;
+export const fetchMessageInbox = async (uid, role) => (await api.get('/requests/messages/inbox', { params: { uid, role } })).data;
 export const markJobMessagesRead = async (jobId, viewerUid) => (await api.put(`/requests/accepted/${encodeURIComponent(jobId)}/messages/read`, { viewerUid })).data;
 export const declineRepairRequest = async (jobId, technicianUid) => (await api.put(`/requests/${jobId}/decline`, { technicianUid })).data;
 export const cancelRepairRequest = async (requestId) => (await api.put(`/requests/${encodeURIComponent(requestId)}/cancel`)).data;

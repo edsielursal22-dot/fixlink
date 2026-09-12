@@ -48,7 +48,7 @@ export default function AppNavigator() {
     };
 
     loadNotifications();
-    const intervalId = setInterval(loadNotifications, 5000);
+    const intervalId = setInterval(loadNotifications, 30000);
     return () => {
       isMounted = false;
       clearInterval(intervalId);
@@ -95,7 +95,7 @@ export default function AppNavigator() {
   const setTab = isCustomer ? setCustomerTab : setTechnicianTab;
   const navItems = isCustomer ? customerTabs : techTabs;
   const screen = isCustomer ? (
-    customerTab === 'dashboard' ? <DashboardScreen user={user} notificationCount={chatNotifications.length} onOpenNotifications={() => setNotificationsOpen(true)} onNavigateToSubmit={() => setCustomerTab('submit')} onNavigateToProgress={() => { setAcceptedOnlyProgress(false); setCustomerTab('progress'); }} onTrackAcceptedJob={() => { setAcceptedOnlyProgress(true); setCustomerTab('progress'); }} /> :
+    customerTab === 'dashboard' ? <DashboardScreen user={user} notificationCount={chatNotifications.length} onOpenNotifications={() => setNotificationsOpen(true)} onNavigateToSubmit={() => setCustomerTab('submit')} onNavigateToProgress={() => { setAcceptedOnlyProgress(false); setCustomerTab('progress'); }} onTrackAcceptedJob={() => { setAcceptedOnlyProgress(true); setCustomerTab('progress'); }} onOpenRequest={(req) => { setSelectedRequest(req); setCustomerTab('details'); }} /> :
     customerTab === 'submit' ? <SubmitRequestScreen currentUser={user} customerName={user.name} onNavigateToProgress={() => setCustomerTab('progress')} /> :
     customerTab === 'details' ? <RequestDetailsScreen request={selectedRequest} onBack={() => setCustomerTab('progress')} onMessageTechnician={() => { setSelectedChatTarget(selectedRequest); setCustomerTab('chat'); }} onTrackMap={(req) => { setSelectedRequest(req); setCustomerTab('map'); }} /> :
     customerTab === 'progress' ? <RequestProgressScreen customerName={user.name} customerUid={user.uid} acceptedOnly={acceptedOnlyProgress} onViewDetails={(req) => { setSelectedRequest(req); setCustomerTab('details'); }} onTrackMap={(req) => { setSelectedRequest(req); setCustomerTab('map'); }} /> :
